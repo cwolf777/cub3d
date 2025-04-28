@@ -1,10 +1,14 @@
 NAME = cub3d
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall -I./include
-DEBUG_FLAGS = -Werror -Wextra -Wall -I./include -fsanitize=address -g
+CFLAGS = -Werror -Wextra -Wall -I$(LIBMLX_DIR)/include/MLX42 -I$(LIBFT_DIR) -I./include
+DEBUG_FLAGS = -Werror -Wextra -Wall -I$(LIBMLX_DIR)/include/MLX42 -I$(LIBFT_DIR) -I./include -fsanitize=address -g
+LIBFT_DIR = ./libs/libft
+LIBFT = $(LIBFT_DIR)/libft.a
+LIBMLX_DIR = ./libs/mlx
+LIBMLX = $(LIBMLX_DIR)/build/libmlx42.a
 SRC_DIR = ./src
-VPATH = $(SRC_DIR)
-SRCS =	main.c
+VPATH = $(SRC_DIR) $(SRC_DIR)/utils $(SRC_DIR)/validation
+SRCS =	main.c map.c init.c validation.c print.c utils.c
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 
@@ -15,7 +19,7 @@ RESET = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(LIBMLX) $(LIBFT) $(OBJS)
 	@echo "$(CYAN)"
 	@echo "	░█████╗░██╗░░░██╗██████╗░  ██████╗░██████╗░"
 	@echo "	██╔══██╗██║░░░██║██╔══██╗  ╚════██╗██╔══██╗"
@@ -24,7 +28,7 @@ $(NAME): $(OBJS)
 	@echo "	╚█████╔╝╚██████╔╝██████╦╝  ██████╔╝██████╔╝"
 	@echo "	░╚════╝░░╚═════╝░╚═════╝░  ╚═════╝░╚═════╝░"
 	@echo "$(RESET)"
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft -L$(LIBMLX_DIR)/build -lmlx42 -lglfw -lm -pthread
 	@echo "$(GREEN)Compilation complete!$(RESET)"
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
@@ -34,6 +38,13 @@ $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 $(OBJS_DIR):
 	@echo "Creating $(OBJS_DIR) directory"
 	@mkdir -p $(OBJS_DIR)
+
+$(LIBFT):
+	make -C $(LIBFT_DIR)
+
+$(LIBMLX):
+	git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX_DIR)
+	cmake $(LIBMLX_DIR) -B$(LIBMLX_DIR)/build && cmake --build $(LIBMLX_DIR)/build 
 
 debug: CFLAGS = $(DEBUG_FLAGS)
 debug: re
