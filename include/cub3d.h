@@ -7,6 +7,8 @@
 # include "libft.h"
 # include <stdbool.h>
 # include <stdlib.h>
+# include <stdio.h>
+
 
 typedef struct s_rgb
 {
@@ -14,6 +16,16 @@ typedef struct s_rgb
 	int	green;
 	int	blue;
 }				t_rgb;
+
+typedef struct s_graphics
+{
+	mlx_image_t	*north_img;
+	mlx_image_t	*west_img;
+	mlx_image_t	*east_img;
+	mlx_image_t	*south_img;
+	t_rgb		floor;
+	t_rgb		ceiling;
+}				t_graphics;
 
 typedef struct s_point
 {
@@ -26,14 +38,13 @@ typedef struct s_map
 	int			width;
 	int			height;
 	char		**grid;
-	t_rgb		floor;
-	t_rgb		ceiling;
 }				t_map;
 
 typedef struct s_cub3d
 {
 	mlx_t		*mlx;
 	t_map		map;
+	t_graphics	graphics;
 }				t_cub3d;
 
 //init
@@ -58,6 +69,7 @@ bool	is_valid_digit_string(char *str);
 
 //print
 void	print_grid(char **grid);
+void	print_cub3d_info(t_cub3d *cub);
 
 
 #endif

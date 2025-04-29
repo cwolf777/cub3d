@@ -11,6 +11,7 @@ bool	is_valid_digit_string(char *str)
 {
 	int	i;
 
+	i = 0;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
