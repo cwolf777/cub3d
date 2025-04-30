@@ -28,10 +28,10 @@ void	print_cub3d_info(t_cub3d *cub)
 	printf("  Grid:\n");
 	printf("Graphics:\n");
 	printf("  Textures:\n");
-	printf("    North: %p\n", (void *)cub->graphics.north_img);
-	printf("    South: %p\n", (void *)cub->graphics.south_img);
-	printf("    East:  %p\n", (void *)cub->graphics.east_img);
-	printf("    West:  %p\n", (void *)cub->graphics.west_img);
+	printf("    North: %s\n", cub->graphics.north.path);
+	printf("    South: %s\n", cub->graphics.south.path);
+	printf("    East:  %s\n", cub->graphics.east.path);
+	printf("    West:  %s\n", cub->graphics.west.path);
 
 	print_rgb("Floor Color", cub->graphics.floor);
 	print_rgb("Ceiling Color", cub->graphics.ceiling);

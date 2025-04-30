@@ -17,12 +17,18 @@ typedef struct s_rgb
 	int	blue;
 }				t_rgb;
 
+typedef struct s_img
+{
+	mlx_image_t	*img;
+	char		*path;
+}				t_img;
+
 typedef struct s_graphics
 {
-	mlx_image_t	*north_img;
-	mlx_image_t	*west_img;
-	mlx_image_t	*east_img;
-	mlx_image_t	*south_img;
+	t_img	north;
+	t_img	west;
+	t_img	east;
+	t_img	south;
 	t_rgb		floor;
 	t_rgb		ceiling;
 }				t_graphics;

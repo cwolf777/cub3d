@@ -39,33 +39,30 @@ void	init_rgb(t_rgb *rgb, char *line)
 	free(rgb_arr);
 }
 
-void	init_colors(t_cub3d *cub3d, char *path)
-{
-	int	fd;
-	char	*curr_line;
+// void	init_colors(t_cub3d *cub3d, char *path)
+// {
+// 	int	fd;
+// 	char	*curr_line;
 
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		handle_error("Failed to open file");
-	while ((curr_line = get_next_line(fd)) != NULL)
-	{
-		skip_whitespace(&curr_line);
-		if (curr_line[0] == 'F')
-			init_rgb(&cub3d->graphics.floor, ++curr_line);
-		else if (curr_line[0] == 'C')
-			init_rgb(&cub3d->graphics.ceiling, ++curr_line);
-	}
-}
+// 	fd = open(path, O_RDONLY);
+// 	if (fd < 0)
+// 		handle_error("Failed to open file");
+// 	while ((curr_line = get_next_line(fd)) != NULL)
+// 	{
+// 		skip_whitespace(&curr_line);
+// 		if (curr_line[0] == 'F')
+// 			init_rgb(&cub3d->graphics.floor, ++curr_line);
+// 		else if (curr_line[0] == 'C')
+// 			init_rgb(&cub3d->graphics.ceiling, ++curr_line);
+// 	}
+// }
 
-mlx_image_t	*create_image(mlx_t *mlx, char *path)
+mlx_image_t	*create_img(mlx_t *mlx, char *path)
 {
 	mlx_texture_t	*texture;
 	mlx_image_t		*image;
 
-	skip_whitespace(&path);
-	if (!validate_file_extension(path, ".png"))
-		handle_error("Wrong file extension must be .png");
-	printf("path:%s\n", path);
+	// printf("path:%s\n", path);
 	texture = mlx_load_png(path);
 	if (!texture)
 		handle_error("Failed to load texture");
@@ -76,38 +73,56 @@ mlx_image_t	*create_image(mlx_t *mlx, char *path)
 	return (image);
 }
 
-void	init_graphics(t_cub3d *cub3d, char *path)
+void	init_img(t_img *img, mlx_t *mlx, char *path)
 {
-	int	fd;
+	skip_whitespace(&path);
+	if (!validate_file_extension(path, ".png"))
+		handle_error("Wrong file extension must be .png");
+	img->img = create_img(mlx, path);
+	img->path = path;
+}
+
+void	init_graphics(t_cub3d *cub3d, int fd, char *path)
+{
+	int		config_count;
 	char	*curr_line;
 	char	*img_path;
 
-	init_colors(cub3d, path);
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		handle_error("Failed to open file");
-	
-	while ((curr_line = get_next_line(fd)) != NULL)
+	config_count = 0;
+	while ((curr_line = get_next_line(fd)) != NULL && config_count < 6)
 	{
 		skip_whitespace(&curr_line);
 		img_path = ft_strtrim(curr_line, "\t\n\v\f\r ");
-		img_path = img_path + 2;
 		if (ft_strncmp(curr_line, "NO", 2) == 0)
-			cub3d->graphics.north_img = create_image(cub3d->mlx, img_path);
+		{
+			init_img(&cub3d->graphics.north, cub3d->mlx, img_path + 2);
+			config_count++;
+		}
 		else if (ft_strncmp(curr_line, "WE", 2) == 0)
-			cub3d->graphics.north_img = create_image(cub3d->mlx, img_path);
+			init_img(&cub3d->graphics.west, cub3d->mlx, img_path + 2);
 		else if (ft_strncmp(curr_line, "EA", 2) == 0)
-			cub3d->graphics.north_img = create_image(cub3d->mlx, img_path);
+			init_img(&cub3d->graphics.east, cub3d->mlx, img_path + 2);
 		else if (ft_strncmp(curr_line, "SO", 2) == 0)
-			cub3d->graphics.north_img = create_image(cub3d->mlx, img_path);
+			init_img(&cub3d->graphics.south, cub3d->mlx, img_path + 2);
+		if (curr_line[0] == 'F')
+			init_rgb(&cub3d->graphics.floor, ++curr_line);
+		else if (curr_line[0] == 'C')
+			init_rgb(&cub3d->graphics.ceiling, ++curr_line);
 		free(img_path);
 	}
 }
 
 void	init_cub3d(t_cub3d *cub3d, char *path)
 {
-	cub3d->mlx = mlx_init(cub3d->map.width * 50, cub3d->map.height * 50, "Cub3d", false);
-	init_graphics(cub3d, path);
-	init_map(&cub3d->map, path);
+	int	fd;
 
+	cub3d->mlx = mlx_init(500, 500, "Cub3d", false);
+	if (!cub3d->mlx)
+		handle_error("MLX not initialized");
+	fd = open(path, O_RDONLY);
+		if (fd < 0)
+			handle_error("Failed to open file");
+	init_graphics(cub3d,fd, path);
+	init_map(&cub3d->map, path);
+	close (fd);
 }

@@ -50,12 +50,15 @@ char	**create_grid(char *path)
 	int		fd;
 	char	*combined_lines;
 	char	**map;
+	char	*line;
 
-	if (validate_file_extension(path, ".cub") == false)
-		handle_error("File extension must be .cub");
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		handle_error("Failed to open file");
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		
+	}
 	combined_lines = read_all_lines(fd);
 	close(fd);
 	if (!combined_lines || combined_lines[0] == '\0')
