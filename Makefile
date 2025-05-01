@@ -7,8 +7,10 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBMLX_DIR = ./libs/mlx
 LIBMLX = $(LIBMLX_DIR)/build/libmlx42.a
 SRC_DIR = ./src
-VPATH = $(SRC_DIR) $(SRC_DIR)/utils $(SRC_DIR)/validation
-SRCS =	main.c map.c init.c validation.c print.c utils.c
+VPATH = $(SRC_DIR) $(SRC_DIR)/utils $(SRC_DIR)/validation $(SRC_DIR)/init $(SRC_DIR)/parse
+SRCS =	main.c init.c init_img.c \
+		parse_graphics.c parse_img.c parse_map.c parse_rgb.c \
+		validation.c print.c utils.c
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 

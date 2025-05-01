@@ -21,20 +21,18 @@ void	print_rgb(const char *label, t_rgb color)
 void	print_cub3d_info(t_cub3d *cub)
 {
 	printf("=========== CUB3D INFO ===========\n");
-
-	printf("Map:\n");
-	printf("  Width:  %d\n", cub->map.width);
-	printf("  Height: %d\n", cub->map.height);
-	printf("  Grid:\n");
 	printf("Graphics:\n");
-	printf("  Textures:\n");
 	printf("    North: %s\n", cub->graphics.north.path);
 	printf("    South: %s\n", cub->graphics.south.path);
 	printf("    East:  %s\n", cub->graphics.east.path);
 	printf("    West:  %s\n", cub->graphics.west.path);
-
 	print_rgb("Floor Color", cub->graphics.floor);
 	print_rgb("Ceiling Color", cub->graphics.ceiling);
+	printf("Map:\n");
+	printf("  Width:  %d\n", cub->map.width);
+	printf("  Height: %d\n", cub->map.height);
+	printf("  Grid:\n");
+	print_grid(cub->map.grid);
 
 	printf("=========== END INFO ============\n");
 }

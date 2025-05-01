@@ -9,6 +9,18 @@
 # include <stdlib.h>
 # include <stdio.h>
 
+# define SEEN_FLAGS_LENGTH 6
+
+typedef enum e_graphic_config
+{
+	NO = 0,
+	WE,
+	EA,
+	SO,
+	F,
+	C
+} t_graphic_config;
+
 
 typedef struct s_rgb
 {
@@ -25,10 +37,10 @@ typedef struct s_img
 
 typedef struct s_graphics
 {
-	t_img	north;
-	t_img	west;
-	t_img	east;
-	t_img	south;
+	t_img		north;
+	t_img		west;
+	t_img		east;
+	t_img		south;
 	t_rgb		floor;
 	t_rgb		ceiling;
 }				t_graphics;
@@ -55,10 +67,13 @@ typedef struct s_cub3d
 
 //init
 void	init_cub3d(t_cub3d *cub3d, char *path);
+void	init_img(t_img *img, mlx_t *mlx, char *path);
 
-//map
-char	**create_grid(char *path);
-void	init_map_size(t_map *map);
+//parse
+void	parse_graphics(t_cub3d *cub3d, int fd);
+void	parse_map(t_map *map, int fd);
+void	load_rgb(t_cub3d *cub3d, int *seen_flags, char *str);
+void	load_texture(t_cub3d *cub3d, int *seen_flags, char *str);
 
 //validation
 bool	validate_file_extension(char *path, char *extension);
@@ -72,6 +87,7 @@ void	handle_error(char *error_msg);
 void	free_map(char **map);
 void	skip_whitespace(char **str);
 bool	is_valid_digit_string(char *str);
+char	*clean_str(char *str);
 
 //print
 void	print_grid(char **grid);

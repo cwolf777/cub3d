@@ -30,7 +30,20 @@ static char	*read_all_lines(int fd)
 	return (combined_lines);
 }
 
-void	init_map_size(t_map *map)
+static void	parse_grid(t_map *map, int fd)
+{
+	char	*combined_lines;
+	
+	combined_lines = read_all_lines(fd);
+	if (!combined_lines || combined_lines[0] == '\0')
+		handle_error("Failed read_all_lines in func create_grid");
+	map->grid = ft_split(combined_lines, '\n');
+	free(combined_lines);
+	if (!map->grid)
+		handle_error("Failed ft_split in func create_grid");
+}
+
+static void	parse_map_size(t_map *map)
 {
 	int	height;
 	int	width;
@@ -45,27 +58,8 @@ void	init_map_size(t_map *map)
 	map->width = width;
 }
 
-char	**create_grid(char *path)
+void	parse_map(t_map *map, int fd)
 {
-	int		fd;
-	char	*combined_lines;
-	char	**map;
-	char	*line;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		handle_error("Failed to open file");
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		
-	}
-	combined_lines = read_all_lines(fd);
-	close(fd);
-	if (!combined_lines || combined_lines[0] == '\0')
-		handle_error("Failed read_all_lines in func create_map");
-	map = ft_split(combined_lines, '\n');
-	free(combined_lines);
-	if (!map)
-		handle_error("Failed ft_split in func create_map");
-	return (map);
+	parse_grid(map, fd);
+	parse_map_size(map);
 }

@@ -40,3 +40,12 @@ void	free_map(char **map)
 	}
 	free(map);
 }
+
+char	*clean_str(char *str)
+{
+	char	*new_str;
+
+	skip_whitespace(&str);
+	new_str = ft_strtrim(str, "\t\n\v\f\r ");
+	return (new_str);
+}
