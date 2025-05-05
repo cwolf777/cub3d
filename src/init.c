@@ -88,6 +88,7 @@ void	init_graphics(t_cub3d *cub3d, int fd, char *path)
 	char	*curr_line;
 	char	*img_path;
 
+	path = (void*)path; //weg
 	config_count = 0;
 	while ((curr_line = get_next_line(fd)) != NULL && config_count < 6)
 	{
