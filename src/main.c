@@ -70,7 +70,8 @@ int main(int argc, char *argv[])
 
 	if (mlx_image_to_window(cub3d.mlx, cub3d.ray_img, 0, 0) < 0)
 		handle_error("Failed to show ray image");
-	cast_ray(&cub3d);
+	// cast_ray(&cub3d);
+	cast_rays(&cub3d);
 	mlx_loop_hook(cub3d.mlx, player_controls, &cub3d);
 	mlx_loop(cub3d.mlx);
 	// init_cub3d(&cub3d, argv[1]);

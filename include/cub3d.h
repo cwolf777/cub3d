@@ -93,5 +93,6 @@ void	draw_background(t_cub3d *cub3d, uint32_t color);
 void	player_controls(void *param);
 void	draw_map(t_cub3d *cub3d);
 void	cast_ray(t_cub3d *cub3d);
+void cast_rays(t_cub3d *cub3d);
 
 #endif
