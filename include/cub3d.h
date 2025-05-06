@@ -2,12 +2,17 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#define TILE_SIZE 64
+#define PLAYER_SIZE 16
+#define PI 3.1415926535
+
 
 # include "MLX42.h"
 # include "libft.h"
 # include <stdbool.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <math.h>
 
 
 typedef struct s_rgb
@@ -51,6 +56,11 @@ typedef struct s_cub3d
 	mlx_t		*mlx;
 	t_map		map;
 	t_graphics	graphics;
+	mlx_image_t	*image_buffer; //neu
+	mlx_image_t	*player_img; //neu
+	t_point		player_pos;
+	double		player_angle;
+	mlx_image_t *ray_img;
 }				t_cub3d;
 
 //init
@@ -77,5 +87,11 @@ bool	is_valid_digit_string(char *str);
 void	print_grid(char **grid);
 void	print_cub3d_info(t_cub3d *cub);
 
+//minimap
+void	render_player(t_cub3d *cub3d);
+void	draw_background(t_cub3d *cub3d, uint32_t color);
+void	player_controls(void *param);
+void	draw_map(t_cub3d *cub3d);
+void	cast_ray(t_cub3d *cub3d);
 
 #endif
