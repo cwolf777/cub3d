@@ -26,87 +26,33 @@ bool	validate_file_extension(char *path, char *extension)
 	return (true);
 }
 
-bool	validate_chars(char **grid)
-{
-	int	i;
-	int	j;
 
-	i = 0;
-	while (grid[i] != NULL)
+bool	validate_player(t_map map)
+{
+	int	x;
+	int	y;
+	int	player_count;
+
+	player_count = 0;
+	y = 0;
+	print_grid(map.grid);
+	while (y < map.height)
 	{
-		j = 0;
-		while (grid[i][j] != '\0')
+		x = 0;
+		while (x < map.width)
 		{
-			if (!ft_strchr("01NSEW", grid[i][j]))
-				return (false);
-			j++;
+			printf("%c", map.grid[y][x]);
+			if (ft_strchr("NWES", map.grid[y][x]))
+			{
+				// printf("c: %c\n", map.grid[y][x]);
+				player_count++;
+			}
+			x++;
 		}
-		i++;
+		printf("\n");
+		y++;
 	}
-	return (true);
+	if (player_count == 1)
+		return (true);
+	return (false);
 }
-
-bool	validate_walls(char **grid)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (grid[i] != NULL)
-	{
-		j = 0;
-		while (grid[i][j] != '\0')
-		{
-			if ((i == 0 || grid[i + 1] == NULL) && grid[i][j] != '1')
-				return (false);
-			if ((j == 0 || grid[i][j + 1] == '\0') && grid[i][j] != '1')
-				return (false);
-			j++;
-		} 
-		i++;
-	}
-	return (true);
-}
-
-void	validate_grid(char **grid)
-{
-	if (!validate_walls(grid))
-	{
-		free_map(grid);
-		handle_error("Grid walls wrong");
-	}
-	if (!validate_chars(grid))
-	{
-		free_map(grid);
-		handle_error("Grid chars wrong");
-	}
-}
-
-bool	validate_rgb(t_rgb rgb)
-{
-	if (rgb.red < 0 || rgb.red > 255)
-		return (false);
-	if (rgb.green < 0 || rgb.green > 255)
-		return (false);
-	if (rgb.blue < 0 || rgb.blue > 255)
-		return (false);
-	return (true);
-}
-
-// int	check_valid_pathway(t_game game)
-// {
-// 	int		exit;
-// 	int		collectible;
-// 	char	**copy;
-
-// 	exit = 0;
-// 	collectible = 0;
-// 	copy = copy_map(game);
-// 	flood_fill(copy, (t_point){game.player.x, game.player.y}, &exit, \
-// 		&collectible);
-// 	free_map(copy);
-// 	if (exit != count_component(game.map, 'E')
-// 		|| collectible != count_component(game.map, 'C'))
-// 		return (EXIT_FAILURE);
-// 	return (EXIT_SUCCESS);
-// }

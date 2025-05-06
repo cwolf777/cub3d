@@ -58,10 +58,17 @@ typedef struct s_map
 	char		**grid;
 }				t_map;
 
+typedef struct s_player
+{
+	t_point	pos;
+	char	orientation;
+}				t_player;
+
 typedef struct s_cub3d
 {
 	mlx_t		*mlx;
 	t_map		map;
+	t_player	player;
 	t_graphics	graphics;
 }				t_cub3d;
 
@@ -70,6 +77,7 @@ void	init_cub3d(t_cub3d *cub3d, char *path);
 void	init_img(t_img *img, mlx_t *mlx, char *path);
 
 //parse
+void	parse_player(t_cub3d *cub3d);
 void	parse_graphics(t_cub3d *cub3d, int fd);
 void	parse_map(t_map *map, int fd);
 void	load_rgb(t_cub3d *cub3d, int *seen_flags, char *str);
@@ -79,15 +87,18 @@ void	load_texture(t_cub3d *cub3d, int *seen_flags, char *str);
 bool	validate_file_extension(char *path, char *extension);
 void	validate_grid(char **grid);
 bool	validate_rgb(t_rgb rgb);
+bool	validate_player(t_map map);
 
 //error
 void	handle_error(char *error_msg);
 
 //utils
-void	free_map(char **map);
+char	**copy_grid(t_map map);
+void	free_grid(char **map);
 void	skip_whitespace(char **str);
 bool	is_valid_digit_string(char *str);
 char	*clean_str(char *str);
+void	flood_fill(char **grid, int x, int y);
 
 //print
 void	print_grid(char **grid);

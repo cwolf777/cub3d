@@ -14,6 +14,11 @@ static char	*read_all_lines(int fd)
 		handle_error("Malloc failed in func: read_all_lines");
 	}
 	curr_line = get_next_line(fd);
+	if (!curr_line)
+	{
+		close(fd);
+		handle_error("Config must be over map");
+	}
 	while (curr_line != NULL)
 	{
 		temp = combined_lines;
@@ -30,6 +35,47 @@ static char	*read_all_lines(int fd)
 	return (combined_lines);
 }
 
+size_t	get_max_line_length(char **grid)
+{
+	size_t	max = 0;
+	size_t	len;
+	int		i = 0;
+
+	while (grid[i])
+	{
+		len = ft_strlen(grid[i]);
+		if (len > max)
+			max = len;
+		i++;
+	}
+	return max;
+}
+
+void	fill_with_spaces(char **grid)
+{
+	size_t	max_len;
+	int	i;
+	char *filler;
+	int	diff;
+
+	max_len = get_max_line_length(grid);
+	i = 0;
+	while (grid[i])
+	{
+		
+		if (ft_strlen(grid[i]) < max_len)
+		{
+			diff = max_len - ft_strlen(grid[i]);
+			filler = malloc(sizeof(char) * diff + 1);
+			ft_memset(filler, ' ', sizeof(char) * diff);
+			filler[diff] = '\0';
+			grid[i] = ft_strjoin(grid[i], filler);
+			free(filler);
+		}
+		i++;
+	}
+}
+
 static void	parse_grid(t_map *map, int fd)
 {
 	char	*combined_lines;
@@ -38,6 +84,7 @@ static void	parse_grid(t_map *map, int fd)
 	if (!combined_lines || combined_lines[0] == '\0')
 		handle_error("Failed read_all_lines in func create_grid");
 	map->grid = ft_split(combined_lines, '\n');
+	fill_with_spaces(map->grid);
 	free(combined_lines);
 	if (!map->grid)
 		handle_error("Failed ft_split in func create_grid");

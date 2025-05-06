@@ -28,6 +28,10 @@ void	print_cub3d_info(t_cub3d *cub)
 	printf("    West:  %s\n", cub->graphics.west.path);
 	print_rgb("Floor Color", cub->graphics.floor);
 	print_rgb("Ceiling Color", cub->graphics.ceiling);
+	printf("Player:\n");
+	printf("  x:  %d\n", cub->player.pos.x);
+	printf("  y:  %d\n", cub->player.pos.y);
+	printf("  orient:  %c\n", cub->player.orientation);
 	printf("Map:\n");
 	printf("  Width:  %d\n", cub->map.width);
 	printf("  Height: %d\n", cub->map.height);

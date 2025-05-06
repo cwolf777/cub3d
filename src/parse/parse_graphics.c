@@ -23,13 +23,15 @@ void	parse_graphics(t_cub3d *cub3d, int fd)
 	int		seen_flags[SEEN_FLAGS_LENGTH];
 
 	ft_memset(seen_flags, 0, sizeof(int) * SEEN_FLAGS_LENGTH);
-	while ((curr_line = get_next_line(fd)) != NULL && !is_seen_flags_full(seen_flags))
+	curr_line = get_next_line(fd);
+	while (curr_line != NULL && !is_seen_flags_full(seen_flags))
 	{
 		input_str = clean_str(curr_line);
 		free(curr_line);
 		load_texture(cub3d, seen_flags, input_str);
 		load_rgb(cub3d, seen_flags, input_str);
-		free(input_str);
+		curr_line = get_next_line(fd);
+		// free(input_str);
 	}
 	i = 0;
 	while (i < SEEN_FLAGS_LENGTH)

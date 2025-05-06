@@ -28,17 +28,17 @@ void	handle_error(char *error_msg)
 	exit(EXIT_FAILURE);
 }
 
-void	free_map(char **map)
+void	free_grid(char **grid)
 {
 	int	i;
 
 	i = 0;
-	while (map[i] != NULL)
+	while (grid[i] != NULL)
 	{
-		free(map[i]);
+		free(grid[i]);
 		i++;
 	}
-	free(map);
+	free(grid);
 }
 
 char	*clean_str(char *str)
@@ -49,3 +49,24 @@ char	*clean_str(char *str)
 	new_str = ft_strtrim(str, "\t\n\v\f\r ");
 	return (new_str);
 }
+
+char	**copy_grid(t_map map)
+{
+	char	**new_grid;
+	int		i;
+
+	i = 0;
+	new_grid = malloc(sizeof(char *) * (map.height + 1));
+	if (!new_grid)
+		handle_error("Malloc failed in func: copy_map");
+	while (map.grid[i] != NULL)
+	{
+		new_grid[i] = ft_strdup(map.grid[i]);
+		if (!new_grid[i])
+			handle_error("Malloc failed in func: copy_map");
+		i++;
+	}
+	new_grid[i] = NULL;
+	return (new_grid);
+}
+
