@@ -9,9 +9,9 @@ LIBMLX = $(LIBMLX_DIR)/build/libmlx42.a
 SRC_DIR = ./src
 VPATH = $(SRC_DIR) $(SRC_DIR)/utils $(SRC_DIR)/validation $(SRC_DIR)/init $(SRC_DIR)/parse
 SRCS =	main.c init.c init_img.c \
-		parse_graphics.c parse_img.c parse_map.c parse_rgb.c parse_player.c \
-		validation.c validate_graphics.c validate_map.c \
-		print.c utils.c
+		parse_cub3d.c parse_graphics.c parse_img.c parse_map.c parse_rgb.c parse_player.c \
+		validate_cub3d.c validate_file_extension.c validate_rgb.c validate_grid.c \
+		print.c utils.c ft_split2.c
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 

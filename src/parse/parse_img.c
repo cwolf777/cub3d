@@ -9,22 +9,22 @@ static void	parse_img(t_img *img, mlx_t *mlx, char *path)
 
 void	load_texture(t_cub3d *cub3d, int *seen_flags, char *str)
 {
-	if (ft_strncmp(str, "NO", 2) == 0)
+	if (ft_strncmp("NO", str, ft_strlen("NO")) == 0 && str[2] != '\0' && is_white_space(str[2]))
 	{
 		parse_img(&cub3d->graphics.north, cub3d->mlx, str + 2);
 		seen_flags[NO]++;
 	}
-	else if (ft_strncmp(str, "WE", 2) == 0)
+	else if (ft_strncmp("WE", str, ft_strlen("WE")) == 0 && str[2] != '\0' && is_white_space(str[2]))
 	{
 		parse_img(&cub3d->graphics.west, cub3d->mlx, str + 2);
 		seen_flags[WE]++;
 	}
-	else if (ft_strncmp(str, "EA", 2) == 0)
+	else if (ft_strncmp("EA", str, ft_strlen("EA")) == 0 && str[2] != '\0' && is_white_space(str[2]))
 	{
 		parse_img(&cub3d->graphics.east, cub3d->mlx, str + 2);
 		seen_flags[EA]++;
 	}
-	else if (ft_strncmp(str, "SO", 2) == 0)
+	else if (ft_strncmp("SO", str, ft_strlen("SO")) == 0 && str[2] != '\0' && is_white_space(str[2]))
 	{
 		parse_img(&cub3d->graphics.south, cub3d->mlx, str + 2);
 		seen_flags[SO]++;

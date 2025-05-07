@@ -27,29 +27,4 @@ bool	validate_file_extension(char *path, char *extension)
 }
 
 
-bool	validate_player(t_map map)
-{
-	int	x;
-	int	y;
-	int	player_count;
 
-	player_count = 0;
-	y = 0;
-	while (y < map.height)
-	{
-		x = 0;
-		while (x < map.width)
-		{
-			if (ft_strchr("NWES", map.grid[y][x]))
-			{
-				// printf("c: %c\n", map.grid[y][x]);
-				player_count++;
-			}
-			x++;
-		}
-		y++;
-	}
-	if (player_count == 1)
-		return (true);
-	return (false);
-}

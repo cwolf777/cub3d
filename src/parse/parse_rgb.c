@@ -23,6 +23,7 @@ static void	parse_rgb(t_rgb *rgb, char *line)
 	rgb->red = extract_color_code(rgb_arr[0]);
 	rgb->green = extract_color_code(rgb_arr[1]);
 	rgb->blue = extract_color_code(rgb_arr[2]);
+	validate_rgb(*rgb);
 	free(rgb_arr);
 }
 

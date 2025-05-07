@@ -14,7 +14,7 @@ void	flood_fill(char **grid, int x, int y)
 	flood_fill(grid, x, y - 1);
 }
 
-bool	validate_chars(char **grid)
+void	validate_chars(char **grid)
 {
 	int	i;
 	int	j;
@@ -26,19 +26,20 @@ bool	validate_chars(char **grid)
 		while (grid[i][j] != '\0')
 		{
 			if (!ft_strchr("01NSEW\t\n\v\f\r ", grid[i][j]))
-				return (false);
+				handle_error("Wrong chars in grid");
 			j++;
 		}
 		i++;
 	}
-	return (true);
 }
 
-void	validate_grid(char **grid)
+void	validate_grid(t_cub3d cub3d)
 {
-	if (!validate_chars(grid))
-	{
-		// free_map(grid);
-		handle_error("Grid chars wrong");
-	}
+	char	**copy;
+
+	validate_chars(cub3d.map.grid);
+	copy = copy_grid(cub3d.map);
+	flood_fill(copy, cub3d.player.pos.x, cub3d.player.pos.y);
+	free_grid(copy);
+
 }

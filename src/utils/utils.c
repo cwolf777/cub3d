@@ -1,9 +1,16 @@
 
 #include "cub3d.h"
 
+bool	is_white_space(char c)
+{
+	if (ft_strchr("\t\n\v\f\r ", c))
+		return (true);
+	return (false);
+}
+
 void	skip_whitespace(char **str)
 {
-	while (ft_strchr("\t\n\v\f\r ", **str) != NULL && **str != '\0')
+	while (is_white_space(**str) && **str != '\0')
 		(*str)++;
 }
 

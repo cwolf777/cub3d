@@ -31,7 +31,6 @@ void	parse_graphics(t_cub3d *cub3d, int fd)
 		load_texture(cub3d, seen_flags, input_str);
 		load_rgb(cub3d, seen_flags, input_str);
 		curr_line = get_next_line(fd);
-		// free(input_str);
 	}
 	i = 0;
 	while (i < SEEN_FLAGS_LENGTH)
