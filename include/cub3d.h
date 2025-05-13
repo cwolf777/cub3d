@@ -117,7 +117,7 @@ void	print_cub3d_info(t_cub3d *cub);
 //minimap
 void	render_player(t_cub3d *cub3d);
 void	draw_background(t_cub3d *cub3d, uint32_t color);
-void	player_controls(void *param);
+void player_controls(mlx_key_data_t keycode, void *param);
 void	draw_map(t_cub3d *cub3d);
 void	cast_ray(t_cub3d *cub3d);
 void cast_rays(t_cub3d *cub3d);

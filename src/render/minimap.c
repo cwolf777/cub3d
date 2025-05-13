@@ -62,25 +62,25 @@ void	render_player(t_cub3d *cub3d)
 		handle_error("Failed to draw player");
 }
 
-void player_controls(void *param)
+void player_controls(mlx_key_data_t keycode, void *param)
 {
 	t_cub3d *cub3d = (t_cub3d *)param;
 	int speed = 5;
 	double rot_speed = 0.100530964912;
 	
-	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_W))
+	if (keycode.key == MLX_KEY_W)
 	{
 		cub3d->player_pos.x += cos(cub3d->player_angle) * speed;
 		cub3d->player_pos.y += sin(cub3d->player_angle) * speed;
 	}
-	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_S))
+	if (keycode.key == MLX_KEY_S)
 	{
 		cub3d->player_pos.x -= cos(cub3d->player_angle) * speed;
 		cub3d->player_pos.y -= sin(cub3d->player_angle) * speed;		
 	}
-	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_A))
+	if (keycode.key == MLX_KEY_A)
 		cub3d->player_angle -= rot_speed;
-	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_D))
+	if (keycode.key == MLX_KEY_D)
 		cub3d->player_angle += rot_speed;
 
 	render_player(cub3d);
