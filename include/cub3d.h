@@ -24,13 +24,6 @@
 // # define EA "EA"
 // # define SO "SO"
 
-typedef struct s_ray_hit
-{
-	double distance; //distanz zu Kollision
-	int hit_x; //Koord der Kollision
-	int hit_y;
-	int is_vertical; //1 vertikale, 0 horizontale Wand
-}	t_ray_hit;
 
 typedef enum e_graphic_config
 {
@@ -85,6 +78,13 @@ typedef struct s_player
 	t_point	pos;
 	char	orientation;
 }				t_player;
+
+typedef struct s_ray_hit
+{
+	double distance; //distanz zu Kollision
+	t_point	hit;
+	int is_vertical; //1 vertikale, 0 horizontale Wand
+}	t_ray_hit;
 
 typedef struct s_cub3d
 {
@@ -142,7 +142,9 @@ void draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32
 // void player_controls(mlx_key_data_t keycode, void *param);
 void player_controls(void *param);
 void	draw_map(t_cub3d *cub3d);
-void	cast_ray(t_cub3d *cub3d);
 void cast_rays(t_cub3d *cub3d);
+t_ray_hit cast_single_ray(t_cub3d *cub3d, double ray_angle);
+t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle);
+t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle);
 
 #endif

@@ -1,7 +1,16 @@
 #include "cub3d.h"
 
 
-
+static void clear_image(mlx_image_t *img)
+{
+	for (uint32_t y = 0; y < img->height; y++)
+	{
+		for (uint32_t x = 0; x < img->width; x++)
+		{
+			mlx_put_pixel(img, x, y, 0x00000000); // Transparent
+		}
+	}
+}
 
 void player_controls( void *param)
 {
@@ -26,7 +35,6 @@ void player_controls( void *param)
 		cub3d->player_angle += rot_speed;
 
 	render_player(cub3d);
-	// cast_ray(cub3d);
 	cast_rays(cub3d);
 }
 
@@ -72,21 +80,32 @@ void	draw_map(t_cub3d *cub3d)
 
 void cast_rays(t_cub3d *cub3d)
 {
-	int num_rays = 60;
+	int num_rays = 100;
 	double fov = 60.0 * (M_PI / 180.0); // z. B. 60 Grad
 	double angle_step = fov / num_rays;
 	double start_angle = cub3d->player_angle - (fov / 2.0);
 
+	clear_image(cub3d->ray_img);
+	
 	for (int i = 0; i < num_rays; i++)
 	{
 		double ray_angle = start_angle + i * angle_step;
 		t_ray_hit hit = cast_single_ray(cub3d, ray_angle);
-
+		
 		// 3D Wandhöhe berechnen & zeichnen
 		// render_wall_slice(cub3d, i, hit);
-
-		// Optional: Ray auf Minimap zeichnen
-		// render_ray_on_minimap(cub3d, hit.hit_x, hit.hit_y);
+		
+		t_point start = {
+			.x = (int)(PLAYER_SIZE / 2 + cub3d->player_pos.x),
+			.y = (int)(PLAYER_SIZE / 2 + cub3d->player_pos.y)
+		};
+		t_point end = {
+			.x = (int)(hit.hit.x),
+			.y = (int)(hit.hit.y)
+		};
+		
+		draw_line(cub3d->ray_img, start, end, 1, 0xFF0000FF);
+		
 	}
 }
 
@@ -108,9 +127,6 @@ t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle)
 	hit.is_vertical = 0;
 
 	double ray_dir_y = sin(ray_angle);
-	double ray_dir_x = cos(ray_angle);
-
-	// Richtung prüfen: schauen wir nach oben oder unten?
 	int facing_up = ray_dir_y < 0;
 
 	// Erste horizontale Gitterlinie berechnen
@@ -136,8 +152,8 @@ t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle)
 		if (map_x >= 0 && map_y >= 0 &&
 			cub3d->map.grid[map_y][map_x] == '1')
 		{
-			hit.hit_x = next_x;
-			hit.hit_y = next_y;
+			hit.hit.x = next_x;
+			hit.hit.y = next_y;
 			hit.distance = hypot(next_x - cub3d->player_pos.x, next_y - cub3d->player_pos.y);
 			return hit;
 		}
@@ -156,11 +172,7 @@ t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle)
 	t_ray_hit hit;
 	hit.is_vertical = 1;
 
-	double ray_dir_y = sin(ray_angle);
-	double ray_dir_x = cos(ray_angle);
-
-	// Nach links oder rechts?
-	int facing_left = ray_dir_x < 0;
+	int facing_left = cos(ray_angle) < 0;
 
 	double x_intercept = floor(cub3d->player_pos.x / TILE_SIZE) * TILE_SIZE;
 	x_intercept += facing_left ? -0.0001 : TILE_SIZE;
@@ -182,9 +194,9 @@ t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle)
 		if (map_x >= 0 && map_y >= 0 &&
 			cub3d->map.grid[map_y][map_x] == '1')
 		{
-			hit.hit_x = next_x;
-			hit.hit_y = next_y;
-			hit.distance = hypot(next_x - cub3d->player_pos.x, next_y - cub3d->player_pos.y);
+			hit.hit.x = next_x;
+			hit.hit.y = next_y;
+			hit.distance = hypot(next_x - cub3d->player_pos.x, next_y - cub3d->player_pos.y); //?????
 			return hit;
 		}
 
