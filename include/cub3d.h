@@ -2,8 +2,12 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#define MAP_WIDTH 1280
+#define MAP_HEIGHT 720
 #define TILE_SIZE 64
 #define PLAYER_SIZE 16
+#define PLAYER_COLOR 0xFFAAAAAA
+#define DIR_LINE_COLOR 0x0000FF
 #define PI 3.1415926535
 
 
@@ -133,7 +137,8 @@ void	print_cub3d_info(t_cub3d *cub);
 
 //minimap
 void	render_player(t_cub3d *cub3d);
-void	draw_background(t_cub3d *cub3d, uint32_t color);
+void	render_bg(t_cub3d *cub3d, uint32_t color);
+void draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32_t color);
 // void player_controls(mlx_key_data_t keycode, void *param);
 void player_controls(void *param);
 void	draw_map(t_cub3d *cub3d);

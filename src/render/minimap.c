@@ -1,66 +1,7 @@
 #include "cub3d.h"
 
-void	draw_background(t_cub3d *cub3d, uint32_t color)
-{
-	mlx_image_t *background = mlx_new_image(cub3d->mlx, 1280, 720);
-	if (!background)
-		handle_error("Failed to create background");
 
-	for (int y = 0; y < 720; y++)
-	{
-		for (int x = 0; x < 1280; x++)
-		{
-			mlx_put_pixel(background, x, y, color);
-		}
-	}
 
-	if (mlx_image_to_window(cub3d->mlx, background, 0, 0) < 0)
-		handle_error("Failed to draw background");
-}
-
-void	render_player(t_cub3d *cub3d)
-{
-	int32_t	size = PLAYER_SIZE;
-	uint32_t color = 0xFFAAAAAA;
-	uint32_t line_color = 0x0000FF;  // Rot für Blickrichtung
-
-	if (cub3d->player_img)
-	{
-		mlx_delete_image(cub3d->mlx, cub3d->player_img);
-		cub3d->player_img = NULL;
-	}
-	cub3d->player_img = mlx_new_image(cub3d->mlx, size, size);
-	if (!cub3d->player_img)
-		handle_error("Player image creation failed");
-
-	for (int y = 0; y < size; y++)
-		for (int x = 0; x < size; x++)
-			mlx_put_pixel(cub3d->player_img, x, y, color);
-	
-	// Mittelpunkt des Spielers
-	int center_x = size / 2;
-	int center_y = size / 2;
-
-	// Richtung berechnen
-	double angle = cub3d->player_angle;
-	int line_len = 100;
-
-	// int end_x = center_x + cos(angle) * line_len;
-	// int end_y = center_y + sin(angle) * line_len;
-
-	// Linie von Mitte zur Blickrichtung
-	// Simple Bresenham oder hier einfach direkte Linie:
-	for (int i = 0; i < line_len; i++)
-	{
-		int px = center_x + cos(angle) * i;
-		int py = center_y + sin(angle) * i;
-		if (px >= 0 && px < size && py >= 0 && py < size)
-			mlx_put_pixel(cub3d->player_img, px, py, line_color);
-	}
-
-	if (mlx_image_to_window(cub3d->mlx, cub3d->player_img, cub3d->player_pos.x, cub3d->player_pos.y) < 0)
-		handle_error("Failed to draw player");
-}
 
 void player_controls( void *param)
 {
@@ -77,7 +18,7 @@ void player_controls( void *param)
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_S))
 	{
 		cub3d->player_pos.x -= cos(cub3d->player_angle) * speed;
-		cub3d->player_pos.y -= sin(cub3d->player_angle) * speed;		
+		cub3d->player_pos.y -= sin(cub3d->player_angle) * speed;
 	}
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_A))
 		cub3d->player_angle -= rot_speed;

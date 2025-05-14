@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 	cub3d.player_angle = 0.0; //schaut nach rechts
 	print_cub3d_info(&cub3d);
-	draw_background(&cub3d, 0xFF000000);
+	render_bg(&cub3d, 0xFF000000);
 	draw_map(&cub3d);
 	render_player(&cub3d);
 	cub3d.ray_img = mlx_new_image(cub3d.mlx, 1280, 720);
