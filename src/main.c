@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 		handle_error("Failed to create ray image");
 	if (mlx_image_to_window(cub3d.mlx, cub3d.ray_img, 0, 0) < 0)
 		handle_error("Failed to show ray image");
-	// cast_rays(&cub3d);
+	cast_rays(&cub3d);
 	mlx_loop_hook(cub3d.mlx, player_controls, &cub3d);
 	mlx_loop(cub3d.mlx);
 	return (0);

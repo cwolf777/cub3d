@@ -20,6 +20,13 @@
 // # define EA "EA"
 // # define SO "SO"
 
+typedef struct s_ray_hit
+{
+	double distance; //distanz zu Kollision
+	int hit_x; //Koord der Kollision
+	int hit_y;
+	int is_vertical; //1 vertikale, 0 horizontale Wand
+}	t_ray_hit;
 
 typedef enum e_graphic_config
 {
