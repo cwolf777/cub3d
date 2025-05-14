@@ -3,7 +3,6 @@
 #include "cub3d.h"
 
 
-
 void	init_cub3d(t_cub3d *cub3d, char *path)
 {
 
