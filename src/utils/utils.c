@@ -1,6 +1,11 @@
 
 #include "cub3d.h"
 
+double	degree_to_rad(int degree)
+{
+	return (degree * M_PI / 180);
+}
+
 bool	is_white_space(char c)
 {
 	if (ft_strchr("\t\n\v\f\r ", c))
