@@ -1,6 +1,20 @@
 
 #include "cub3d.h"
 
+void	convert(t_cub3d *cub3d)
+{
+	if (cub3d->player.orientation == 'W')
+		cub3d->player.angle = degree_to_rad(180);
+	if (cub3d->player.orientation == 'E')
+		cub3d->player.angle = degree_to_rad(0);
+	if (cub3d->player.orientation == 'N')
+		cub3d->player.angle = degree_to_rad(90);
+	if (cub3d->player.orientation == 'S')
+		cub3d->player.angle = degree_to_rad(270);
+	cub3d->player.pos.x = cub3d->player.pos.x * TILE_SIZE;
+	cub3d->player.pos.y = cub3d->player.pos.y * TILE_SIZE;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -10,13 +24,10 @@ int main(int argc, char *argv[])
 	if (!validate_file_extension(argv[1], ".cub"))
 		handle_error("File extension must be .cub");
 	init_cub3d (&cub3d, argv[1]);
-	cub3d.player_pos.x = 300;
-	cub3d.player_pos.y = 500;
-
-	cub3d.player_angle = 0.0; //schaut nach rechts
 	print_cub3d_info(&cub3d);
+	convert(&cub3d);
 	render_bg(&cub3d, 0xFF000000);
-	draw_map(&cub3d);
+	render_map(&cub3d);
 	render_player(&cub3d);
 	cub3d.ray_img = mlx_new_image(cub3d.mlx, 1280, 720);
 	if (!cub3d.ray_img)

@@ -19,10 +19,7 @@
 # include <math.h>
 
 # define SEEN_FLAGS_LENGTH 6
-// # define NO "NO"
-// # define WE "WE"
-// # define EA "EA"
-// # define SO "SO"
+
 
 
 typedef enum e_graphic_config
@@ -76,6 +73,7 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_point	pos;
+	double	angle;
 	char	orientation;
 }				t_player;
 
@@ -94,8 +92,7 @@ typedef struct s_cub3d
 	t_graphics	graphics;
 	mlx_image_t	*image_buffer; //neu
 	mlx_image_t	*player_img; //neu
-	t_point		player_pos;
-	double		player_angle;
+	mlx_image_t	*map_img; //neu
 	mlx_image_t *ray_img;
 }				t_cub3d;
 
@@ -130,6 +127,7 @@ void	skip_whitespace(char **str);
 bool	is_valid_digit_string(char *str);
 char	*clean_str(char *str);
 char	**ft_split2(char const *s, char *delimiters);
+double	degree_to_rad(int degree);
 
 //print
 void	print_grid(char **grid);
@@ -146,5 +144,8 @@ void cast_rays(t_cub3d *cub3d);
 t_ray_hit cast_single_ray(t_cub3d *cub3d, double ray_angle);
 t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle);
 t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle);
+
+//render
+void	render_map(t_cub3d *cub3d);
 
 #endif

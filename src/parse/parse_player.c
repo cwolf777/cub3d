@@ -17,6 +17,7 @@ void	parse_player(t_cub3d *cub3d)
 				cub3d->player.pos.x = x;
 				cub3d->player.pos.y = y;
 				cub3d->player.orientation = cub3d->map.grid[y][x];
+			
 			}
 			x++;
 		}
