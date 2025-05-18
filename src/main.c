@@ -15,7 +15,6 @@ void	convert(t_cub3d *cub3d)
 	cub3d->player.pos.y = cub3d->player.pos.y * TILE_SIZE;
 }
 
-
 int main(int argc, char *argv[])
 {
 	t_cub3d cub3d;
@@ -29,7 +28,7 @@ int main(int argc, char *argv[])
 	render_bg(&cub3d, 0xFF000000);
 	render_map(&cub3d);
 	render_player(&cub3d);
-	cub3d.ray_img = mlx_new_image(cub3d.mlx, 1280, 720);
+	cub3d.ray_img = mlx_new_image(cub3d.mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!cub3d.ray_img)
 		handle_error("Failed to create ray image");
 	if (mlx_image_to_window(cub3d.mlx, cub3d.ray_img, 0, 0) < 0)

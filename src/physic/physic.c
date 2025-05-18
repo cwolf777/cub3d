@@ -34,5 +34,5 @@ void player_controls(void *param)
 
 	render_player(cub3d);
 	// cast_ray(cub3d);
-	// cast_rays(cub3d);
+	cast_rays(cub3d);
 }

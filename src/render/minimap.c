@@ -12,36 +12,37 @@ static void clear_image(mlx_image_t *img)
 	}
 }
 
-void player_controls( void *param)
-{
-	t_cub3d *cub3d = (t_cub3d *)param;
-	// (void)keycode;
-	int speed = 5;
-	double rot_speed = 0.100530964912;
+// void player_controls( void *param)
+// {
+// 	t_cub3d *cub3d = (t_cub3d *)param;
+// 	// (void)keycode;
+// 	int speed = 5;
+// 	double rot_speed = 0.100530964912;
 	
-	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_W))
-	{
-		cub3d->player.pos.x += cos(cub3d->player.angle) * speed;
-		cub3d->player.pos.y += sin(cub3d->player.angle) * speed;
-	}
-	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_S))
-	{
-		cub3d->player.pos.x -= cos(cub3d->player.angle) * speed;
-		cub3d->player.pos.y -= sin(cub3d->player.angle) * speed;
-	}
-	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_A))
-		cub3d->player.angle -= rot_speed;
-	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_D))
-		cub3d->player.angle += rot_speed;
+// 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_W))
+// 	{
+// 		cub3d->player.pos.x += cos(cub3d->player.angle) * speed;
+// 		cub3d->player.pos.y += sin(cub3d->player.angle) * speed;
+// 	}
+// 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_S))
+// 	{
+// 		cub3d->player.pos.x -= cos(cub3d->player.angle) * speed;
+// 		cub3d->player.pos.y -= sin(cub3d->player.angle) * speed;
+// 	}
+// 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_A))
+// 		cub3d->player.angle -= rot_speed;
+// 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_D))
+// 		cub3d->player.angle += rot_speed;
 
-	render_player(cub3d);
-	cast_rays(cub3d);
-}
+// 	render_player(cub3d);
+// 	cast_rays(cub3d);
+// }
 
 void	draw_map(t_cub3d *cub3d)
 {
 	uint32_t fill_color;
 	uint32_t outline_color = 0xFF000000;
+	int scaled_size = (int)(TILE_SIZE * 25);
 
 	for (int y = 0; y < cub3d->map.height; y++)
 	{
@@ -56,23 +57,23 @@ void	draw_map(t_cub3d *cub3d)
 			else if (tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E')
 				fill_color = 0xFFFFFFFF; // Spielerposi auch weiss
 
-			mlx_image_t *tile_img = mlx_new_image(cub3d->mlx, TILE_SIZE, TILE_SIZE);
+			mlx_image_t *tile_img = mlx_new_image(cub3d->mlx, scaled_size, scaled_size);
 			if (!tile_img)
 				handle_error("Tile image creation failed");
 
-			for (int ty = 0; ty < TILE_SIZE; ty++)
+			for (int ty = 0; ty < scaled_size; ty++)
 			{
-				for (int tx = 0; tx < TILE_SIZE; tx++)
+				for (int tx = 0; tx < scaled_size; tx++)
 				{
 					// Zeichne Rahmen (1 Pixel dick)
-					if (tx == 0 || ty == 0 || tx == TILE_SIZE - 1 || ty == TILE_SIZE - 1)
+					if (tx == 0 || ty == 0 || tx == scaled_size - 1 || ty == scaled_size - 1)
 						mlx_put_pixel(tile_img, tx, ty, outline_color);
 					else
 						mlx_put_pixel(tile_img, tx, ty, fill_color);
 				}
 			}
 
-			if (mlx_image_to_window(cub3d->mlx, tile_img, x * TILE_SIZE, y * TILE_SIZE) < 0)
+			if (mlx_image_to_window(cub3d->mlx, tile_img, x * scaled_size, y * scaled_size) < 0)
 				handle_error("Failed to draw map tile");
 		}
 	}

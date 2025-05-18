@@ -2,10 +2,13 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#define MINIMAP_WIDTH 320
+#define MINIMAP_HEIGHT 320
 #define MAP_WIDTH 1280
 #define MAP_HEIGHT 720
-#define TILE_SIZE 64
-#define PLAYER_SIZE 16
+#define TILE_SIZE 16
+#define MINIMAP_SCALE 0.25
+#define PLAYER_SIZE 6
 #define PLAYER_COLOR 0xFFAAAAAA
 #define DIR_LINE_COLOR 0x0000FF
 #define PI 3.1415926535
@@ -90,10 +93,10 @@ typedef struct s_cub3d
 	t_map		map;
 	t_player	player;
 	t_graphics	graphics;
-	mlx_image_t	*image_buffer; //neu
-	mlx_image_t	*player_img; //neu
-	mlx_image_t	*map_img; //neu
-	mlx_image_t *ray_img;
+	mlx_image_t	*image_buffer;
+	mlx_image_t	*player_img;
+	mlx_image_t	*map_img; 
+	mlx_image_t *ray_img; 
 }				t_cub3d;
 
 //init

@@ -28,7 +28,7 @@ void	render_map(t_cub3d *cub3d)
 	char		tile;
 
 	// outline_color = 0xFF000000;
-	cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_WIDTH, MAP_HEIGHT);
+	cub3d->map_img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	y = 0;
 	while(y < cub3d->map.height)
 	{
@@ -56,14 +56,14 @@ void	render_bg(t_cub3d *cub3d, uint32_t color)
 	int			x;
 	int			y;
 	
-	bg = mlx_new_image(cub3d->mlx, MAP_WIDTH, MAP_HEIGHT);
+	bg = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!bg)
 		handle_error("Failed to create background");
 	y = 0;
-	while(y < MAP_HEIGHT)
+	while(y < MINIMAP_HEIGHT)
 	{
 		x = 0;
-		while(x < MAP_WIDTH)
+		while(x < MINIMAP_WIDTH)
 		{
 			mlx_put_pixel(bg, x, y, color);
 			x++;
