@@ -11,8 +11,8 @@ void	convert(t_cub3d *cub3d)
 		cub3d->player.angle = degree_to_rad(90);
 	if (cub3d->player.orientation == 'S')
 		cub3d->player.angle = degree_to_rad(270);
-	cub3d->player.pos.x = cub3d->player.pos.x * TILE_SIZE;
-	cub3d->player.pos.y = cub3d->player.pos.y * TILE_SIZE;
+	cub3d->player.pos.x = cub3d->player.pos.x * TILE_SIZE + PLAYER_SIZE / 2;
+	cub3d->player.pos.y = cub3d->player.pos.y * TILE_SIZE + PLAYER_SIZE / 2;
 }
 
 

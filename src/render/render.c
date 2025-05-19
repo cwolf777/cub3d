@@ -78,8 +78,6 @@ void	render_player(t_cub3d *cub3d)
 {
 	t_point	start;
 	t_point	end;
-	int		x;
-	int		y;
 
 	if (cub3d->player_img)
 	{
@@ -90,22 +88,12 @@ void	render_player(t_cub3d *cub3d)
 	if (!cub3d->player_img)
 		handle_error("Player image creation failed");
 
-	y = 0;
-	while (y < PLAYER_SIZE)
-	{
-		x = 0;
-		while (x < PLAYER_SIZE)
-		{
-			mlx_put_pixel(cub3d->player_img, x, y, PLAYER_COLOR);
-			x++;
-		}
-		y++;
-	}
-	start.x = PLAYER_SIZE / 2;
-	start.y = PLAYER_SIZE / 2;
+	start.x = PLAYER_RADIUS;
+	start.y = PLAYER_RADIUS;
+	draw_circle(cub3d->player_img, start, PLAYER_RADIUS - 1, PLAYER_COLOR);
 	end.x = start.x + cos(cub3d->player.angle) * PLAYER_SIZE / 2;
 	end.y = start.y + sin(cub3d->player.angle) * PLAYER_SIZE / 2;
 	draw_line(cub3d->player_img, start, end, 2, DIR_LINE_COLOR);
-	if (mlx_image_to_window(cub3d->mlx, cub3d->player_img, cub3d->player.pos.x, cub3d->player.pos.y) < 0)
+	if (mlx_image_to_window(cub3d->mlx, cub3d->player_img, cub3d->player.pos.x - PLAYER_RADIUS, cub3d->player.pos.y - PLAYER_RADIUS) < 0)
 		handle_error("Failed to draw player");
 }
