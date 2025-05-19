@@ -81,41 +81,26 @@ void	draw_circle(mlx_image_t *img,t_point center, int radius, uint32_t color)
 	}
 }
 
-void	draw_circle_with_width(mlx_image_t *img, int cx, int cy, int radius, int width, uint32_t color)
+void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color)
 {
-	int r = radius;
-	int inner = radius - width + 1;
+	int x;
+	int y;
+	int dx;
+	int dy;
+	int r_squared = radius * radius;
 
-	if (inner < 0)
-		inner = 0;
-
-	while (r >= inner)
+	y = -radius;
+	while (y <= radius)
 	{
-		int x = 0;
-		int y = r;
-		int d = 3 - 2 * r;
-
-		while (y >= x)
+		x = -radius;
+		while (x <= radius)
 		{
-			// 8 Symmetriepunkte
-			mlx_put_pixel(img, cx + x, cy + y, color);
-			mlx_put_pixel(img, cx - x, cy + y, color);
-			mlx_put_pixel(img, cx + x, cy - y, color);
-			mlx_put_pixel(img, cx - x, cy - y, color);
-			mlx_put_pixel(img, cx + y, cy + x, color);
-			mlx_put_pixel(img, cx - y, cy + x, color);
-			mlx_put_pixel(img, cx + y, cy - x, color);
-			mlx_put_pixel(img, cx - y, cy - x, color);
-
-			if (d < 0)
-				d += 4 * x + 6;
-			else
-			{
-				d += 4 * (x - y) + 10;
-				y--;
-			}
+			dx = center.x + x;
+			dy = center.y + y;
+			if (x * x + y * y <= r_squared)
+				mlx_put_pixel(img, dx, dy, color);
 			x++;
 		}
-		r--;
+		y++;
 	}
 }

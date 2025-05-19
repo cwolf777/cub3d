@@ -105,8 +105,32 @@ static void	parse_map_size(t_map *map)
 	map->width = width;
 }
 
+static void	parse_player(t_map *map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (ft_strchr("NWES", map->grid[y][x]))
+			{
+				map->player_idx.x = x;
+				map->player_idx.y = y;
+				map->player_orientation = map->grid[y][x];
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void	parse_map(t_map *map, int fd)
 {
 	parse_grid(map, fd);
 	parse_map_size(map);
+	parse_player(map);
 }

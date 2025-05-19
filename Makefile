@@ -7,11 +7,13 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBMLX_DIR = ./libs/mlx
 LIBMLX = $(LIBMLX_DIR)/build/libmlx42.a
 SRC_DIR = ./src
-VPATH = $(SRC_DIR) $(SRC_DIR)/utils $(SRC_DIR)/validation $(SRC_DIR)/init $(SRC_DIR)/parse $(SRC_DIR)/render $(SRC_DIR)/physic
+VPATH = $(SRC_DIR) $(SRC_DIR)/utils $(SRC_DIR)/validation $(SRC_DIR)/init $(SRC_DIR)/parse \
+		$(SRC_DIR)/game $(SRC_DIR)/game/render $(SRC_DIR)/game/movement
 SRCS =	main.c init.c init_img.c \
-		parse_cub3d.c parse_graphics.c parse_img.c parse_map.c parse_rgb.c parse_player.c \
+		parse_cub3d.c parse_graphics.c parse_img.c parse_map.c parse_rgb.c \
 		validate_cub3d.c validate_file_extension.c validate_rgb.c validate_grid.c \
-		print.c utils.c ft_split2.c minimap.c render.c draw.c physic.c
+		print.c utils.c ft_split2.c render.c draw.c \
+		player_movement.c handle_key_press.c 
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 

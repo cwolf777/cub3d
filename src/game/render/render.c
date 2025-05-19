@@ -90,7 +90,7 @@ void	render_player(t_cub3d *cub3d)
 
 	start.x = PLAYER_RADIUS;
 	start.y = PLAYER_RADIUS;
-	draw_circle(cub3d->player_img, start, PLAYER_RADIUS - 1, PLAYER_COLOR);
+	draw_filled_circle(cub3d->player_img, start, PLAYER_RADIUS, PLAYER_COLOR);
 	end.x = start.x + cos(cub3d->player.angle) * PLAYER_SIZE / 2;
 	end.y = start.y + sin(cub3d->player.angle) * PLAYER_SIZE / 2;
 	draw_line(cub3d->player_img, start, end, 2, DIR_LINE_COLOR);

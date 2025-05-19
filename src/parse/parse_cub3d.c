@@ -10,6 +10,5 @@ void	parse_cub3d(t_cub3d *cub3d, char *path)
 			handle_error("Failed to open file");
 	parse_graphics(cub3d, fd);
 	parse_map(&cub3d->map, fd);
-	parse_player(cub3d);
 	close (fd);
 }

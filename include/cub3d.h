@@ -7,6 +7,8 @@
 #define TILE_SIZE 64
 #define PLAYER_SIZE 16
 #define PLAYER_RADIUS 8
+#define PLAYER_SPEED 5
+#define PLAYER_ROT_SPEED 0.0872665
 #define PLAYER_COLOR 0xFFAAAAAA
 #define DIR_LINE_COLOR 0x0000FF
 #define PI 3.1415926535
@@ -69,13 +71,14 @@ typedef struct s_map
 	int			width;
 	int			height;
 	char		**grid;
+	t_point		player_idx;
+	char		player_orientation;
 }				t_map;
 
 typedef struct s_player
 {
 	t_point	pos;
 	double	angle;
-	char	orientation;
 }				t_player;
 
 typedef struct s_cub3d
@@ -96,7 +99,6 @@ void	init_img(t_img *img, mlx_t *mlx, char *path);
 
 //parse
 void	parse_cub3d(t_cub3d *cub3d, char *path);
-void	parse_player(t_cub3d *cub3d);
 void	parse_graphics(t_cub3d *cub3d, int fd);
 void	parse_map(t_map *map, int fd);
 void	load_rgb(t_cub3d *cub3d, int *seen_flags, char *str);
@@ -132,16 +134,21 @@ void	render_player(t_cub3d *cub3d);
 void	render_bg(t_cub3d *cub3d, uint32_t color);
 void draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32_t color);
 // void player_controls(mlx_key_data_t keycode, void *param);
-void player_controls(void *param);
+void handle_key_press(void *param);
 // void	draw_map(t_cub3d *cub3d);
 // void	cast_ray(t_cub3d *cub3d);
-// void cast_rays(t_cub3d *cub3d);
+void cast_rays(t_cub3d *cub3d);
 
 //render
 void	render_map(t_cub3d *cub3d);
 
 //draw
 void	draw_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
-void	draw_circle_with_width(mlx_image_t *img, int cx, int cy, int radius, int width, uint32_t color);
+void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
 
+//player_controls
+void	move_forward(t_cub3d *cub3d);
+void	move_backward(t_cub3d *cub3d);
+void	rotate_left(t_cub3d *cub3d);
+void	rotate_right(t_cub3d *cub3d);
 #endif

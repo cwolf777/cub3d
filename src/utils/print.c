@@ -31,7 +31,7 @@ void	print_cub3d_info(t_cub3d *cub)
 	printf("Player:\n");
 	printf("  x:  %d\n", cub->player.pos.x);
 	printf("  y:  %d\n", cub->player.pos.y);
-	printf("  orient:  %c\n", cub->player.orientation);
+	printf("  angle:  %f\n", cub->player.angle);
 	printf("Map:\n");
 	printf("  Width:  %d\n", cub->map.width);
 	printf("  Height: %d\n", cub->map.height);
