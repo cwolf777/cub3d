@@ -22,13 +22,13 @@ void	fill_tile(mlx_image_t *map_img, int x, int y, uint32_t color)
 void	render_map(t_cub3d *cub3d)
 {
 	uint32_t	fill_color;
-	// uint32_t	outline_color;
 	int			x;
 	int			y;
 	char		tile;
 
-	// outline_color = 0xFF000000;
 	cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_WIDTH, MAP_HEIGHT);
+	if (!cub3d->map_img)
+		handle_error("Failed to load map_img");
 	y = 0;
 	while(y < cub3d->map.height)
 	{
@@ -76,24 +76,18 @@ void	render_bg(t_cub3d *cub3d, uint32_t color)
 
 void	render_player(t_cub3d *cub3d)
 {
-	t_point	start;
-	t_point	end;
-
-	if (cub3d->player_img)
-	{
-		mlx_delete_image(cub3d->mlx, cub3d->player_img);
-		cub3d->player_img = NULL;
-	}
 	cub3d->player_img = mlx_new_image(cub3d->mlx, PLAYER_SIZE, PLAYER_SIZE);
 	if (!cub3d->player_img)
 		handle_error("Player image creation failed");
-
-	start.x = PLAYER_RADIUS;
-	start.y = PLAYER_RADIUS;
-	draw_filled_circle(cub3d->player_img, start, PLAYER_RADIUS, PLAYER_COLOR);
-	end.x = start.x + cos(cub3d->player.angle) * PLAYER_SIZE / 2;
-	end.y = start.y + sin(cub3d->player.angle) * PLAYER_SIZE / 2;
-	draw_line(cub3d->player_img, start, end, 2, DIR_LINE_COLOR);
+	draw_player(cub3d);
 	if (mlx_image_to_window(cub3d->mlx, cub3d->player_img, cub3d->player.pos.x - PLAYER_RADIUS, cub3d->player.pos.y - PLAYER_RADIUS) < 0)
 		handle_error("Failed to draw player");
 }
+
+void	update_player_img_pos(t_cub3d *cub3d)
+{
+	cub3d->player_img->instances[0].x = cub3d->player.pos.x - PLAYER_RADIUS;
+	cub3d->player_img->instances[0].y = cub3d->player.pos.y - PLAYER_RADIUS;
+}
+
+

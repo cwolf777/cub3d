@@ -52,43 +52,15 @@ void	draw_line(mlx_image_t *img, t_point start,
 	}
 }
 
-void	draw_circle(mlx_image_t *img,t_point center, int radius, uint32_t color)
-{
-	int x = 0;
-	int y = radius;
-	int d = 3 - 2 * radius;
-
-	while (y >= x)
-	{
-		// Acht Symmetriepunkte
-		mlx_put_pixel(img, center.x + x, center.y + y, color);
-		mlx_put_pixel(img, center.x - x, center.y + y, color);
-		mlx_put_pixel(img, center.x + x, center.y - y, color);
-		mlx_put_pixel(img, center.x - x, center.y - y, color);
-		mlx_put_pixel(img, center.x + y, center.y + x, color);
-		mlx_put_pixel(img, center.x - y, center.y + x, color);
-		mlx_put_pixel(img, center.x + y, center.y - x, color);
-		mlx_put_pixel(img, center.x - y, center.y - x, color);
-
-		if (d < 0)
-			d = d + 4 * x + 6;
-		else
-		{
-			d = d + 4 * (x - y) + 10;
-			y--;
-		}
-		x++;
-	}
-}
-
 void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color)
 {
 	int x;
 	int y;
 	int dx;
 	int dy;
-	int r_squared = radius * radius;
-
+	int r_squared;
+	
+	r_squared = radius * radius;
 	y = -radius;
 	while (y <= radius)
 	{
@@ -103,4 +75,18 @@ void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t c
 		}
 		y++;
 	}
+}
+
+void	draw_player(t_cub3d *cub3d)
+{
+	t_point	start;
+	t_point	end;
+
+
+	start.x = PLAYER_RADIUS;
+	start.y = PLAYER_RADIUS;
+	draw_filled_circle(cub3d->player_img, start, PLAYER_RADIUS, PLAYER_COLOR);
+	end.x = start.x + cos(cub3d->player.angle) * PLAYER_RADIUS;
+	end.y = start.y + sin(cub3d->player.angle) * PLAYER_RADIUS;
+	draw_line(cub3d->player_img, start, end, 2, DIR_LINE_COLOR);
 }

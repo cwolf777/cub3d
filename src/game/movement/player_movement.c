@@ -16,7 +16,7 @@ static bool	check_collision(t_map map, int px, int py)
 	return (false);
 }
 
-void	move_forward(t_cub3d *cub3d)
+static void	move_forward(t_cub3d *cub3d)
 {
 	int	tempx;
 	int	tempy;
@@ -29,7 +29,7 @@ void	move_forward(t_cub3d *cub3d)
 	cub3d->player.pos.y = tempy;
 }
 
-void	move_backward(t_cub3d *cub3d)
+static void	move_backward(t_cub3d *cub3d)
 {
 	int	tempx;
 	int	tempy;
@@ -42,11 +42,24 @@ void	move_backward(t_cub3d *cub3d)
 	cub3d->player.pos.y = tempy;
 }
 
-void	rotate_left(t_cub3d *cub3d)
+static void	rotate_left(t_cub3d *cub3d)
 {
 	cub3d->player.angle -= PLAYER_ROT_SPEED;
 }
-void	rotate_right(t_cub3d *cub3d)
+static void	rotate_right(t_cub3d *cub3d)
 {
 	cub3d->player.angle += PLAYER_ROT_SPEED;
 }
+
+void	player_movement(t_cub3d *cub3d)
+{
+	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_W))
+		move_forward(cub3d);
+	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_S))
+		move_backward(cub3d);
+	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_A))
+		rotate_left(cub3d);
+	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_D))
+		rotate_right(cub3d);
+}
+

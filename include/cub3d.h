@@ -21,7 +21,7 @@
 # include <stdio.h>
 # include <math.h>
 
-# define SEEN_FLAGS_LENGTH 6
+# define GRAPHICS_LENGTH 6
 
 
 
@@ -81,13 +81,14 @@ typedef struct s_player
 	double	angle;
 }				t_player;
 
+
+
 typedef struct s_cub3d
 {
 	mlx_t		*mlx;
 	t_map		map;
 	t_player	player;
 	t_graphics	graphics;
-	mlx_image_t	*image_buffer; //neu
 	mlx_image_t	*player_img; //neu
 	mlx_image_t	*map_img; //neu
 	mlx_image_t *ray_img;
@@ -133,8 +134,6 @@ void	print_cub3d_info(t_cub3d *cub);
 void	render_player(t_cub3d *cub3d);
 void	render_bg(t_cub3d *cub3d, uint32_t color);
 void draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32_t color);
-// void player_controls(mlx_key_data_t keycode, void *param);
-void handle_key_press(void *param);
 // void	draw_map(t_cub3d *cub3d);
 // void	cast_ray(t_cub3d *cub3d);
 void cast_rays(t_cub3d *cub3d);
@@ -143,12 +142,16 @@ void cast_rays(t_cub3d *cub3d);
 void	render_map(t_cub3d *cub3d);
 
 //draw
-void	draw_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
 void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
+void	update_player_img_pos(t_cub3d *cub3d);
+void	draw_player(t_cub3d *cub3d);
 
 //player_controls
-void	move_forward(t_cub3d *cub3d);
-void	move_backward(t_cub3d *cub3d);
-void	rotate_left(t_cub3d *cub3d);
-void	rotate_right(t_cub3d *cub3d);
+void	player_movement(t_cub3d *cub3d);
+
+//game
+void	game_loop(void *param);
+void	handle_keypress(mlx_key_data_t keydata, void *param);
+void	handle_close(void *param);
+
 #endif
