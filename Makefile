@@ -11,7 +11,7 @@ VPATH = $(SRC_DIR) $(SRC_DIR)/utils $(SRC_DIR)/validation $(SRC_DIR)/init $(SRC_
 SRCS =	main.c init.c init_img.c \
 		parse_cub3d.c parse_graphics.c parse_img.c parse_map.c parse_rgb.c parse_player.c \
 		validate_cub3d.c validate_file_extension.c validate_rgb.c validate_grid.c \
-		print.c utils.c ft_split2.c minimap.c render.c draw.c physic.c
+		print.c utils.c ft_split2.c minimap.c render.c draw.c physic.c 3d_transform.c
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 

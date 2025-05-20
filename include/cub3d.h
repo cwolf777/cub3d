@@ -4,11 +4,10 @@
 
 #define MINIMAP_WIDTH 320
 #define MINIMAP_HEIGHT 320
-#define MAP_WIDTH 1280
-#define MAP_HEIGHT 720
-#define TILE_SIZE 16
-#define MINIMAP_SCALE 0.25
-#define PLAYER_SIZE 6
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+#define MINI_TILE_SIZE 16
+#define MINI_PLAYER_SIZE 6
 #define PLAYER_COLOR 0xFFAAAAAA
 #define DIR_LINE_COLOR 0x0000FF
 #define PI 3.1415926535
@@ -22,8 +21,6 @@
 # include <math.h>
 
 # define SEEN_FLAGS_LENGTH 6
-
-
 
 typedef enum e_graphic_config
 {
@@ -96,7 +93,8 @@ typedef struct s_cub3d
 	mlx_image_t	*image_buffer;
 	mlx_image_t	*player_img;
 	mlx_image_t	*map_img; 
-	mlx_image_t *ray_img; 
+	mlx_image_t *ray_img;
+	mlx_image_t *view_img;
 }				t_cub3d;
 
 //init
@@ -150,5 +148,8 @@ t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle);
 
 //render
 void	render_map(t_cub3d *cub3d);
+
+//3d
+void render_wall_slice(t_cub3d *cub3d, int col, t_ray_hit hit, double ray_angle);
 
 #endif

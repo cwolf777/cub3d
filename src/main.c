@@ -11,8 +11,8 @@ void	convert(t_cub3d *cub3d)
 		cub3d->player.angle = degree_to_rad(90);
 	if (cub3d->player.orientation == 'S')
 		cub3d->player.angle = degree_to_rad(270);
-	cub3d->player.pos.x = cub3d->player.pos.x * TILE_SIZE;
-	cub3d->player.pos.y = cub3d->player.pos.y * TILE_SIZE;
+	cub3d->player.pos.x = cub3d->player.pos.x * MINI_TILE_SIZE;
+	cub3d->player.pos.y = cub3d->player.pos.y * MINI_TILE_SIZE;
 }
 
 int main(int argc, char *argv[])
@@ -33,7 +33,15 @@ int main(int argc, char *argv[])
 		handle_error("Failed to create ray image");
 	if (mlx_image_to_window(cub3d.mlx, cub3d.ray_img, 0, 0) < 0)
 		handle_error("Failed to show ray image");
-	cast_rays(&cub3d);
+
+	//3D
+	cub3d.view_img = mlx_new_image(cub3d.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!cub3d.view_img)
+		handle_error("Failed to create 3D view image");
+
+	mlx_image_to_window(cub3d.mlx, cub3d.view_img, 0, 0);
+	// cast_rays(&cub3d);
+	printf("Width: %d\n", cub3d.map.width);
 	mlx_loop_hook(cub3d.mlx, player_controls, &cub3d);
 	mlx_loop(cub3d.mlx);
 	return (0);

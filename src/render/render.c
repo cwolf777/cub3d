@@ -7,10 +7,10 @@ void	fill_tile(mlx_image_t *map_img, int x, int y, uint32_t color)
 	int	py;
 
 	py = 0;
-	while (py < TILE_SIZE - 1)
+	while (py < MINI_TILE_SIZE - 1)
 	{
 		px = 0;
-		while (px < TILE_SIZE - 1)
+		while (px < MINI_TILE_SIZE - 1)
 		{
 			mlx_put_pixel(map_img, x + px, y + py, color);
 			px++;
@@ -42,7 +42,7 @@ void	render_map(t_cub3d *cub3d)
 				fill_color = 0xFFFFFFFF;
 			else if (tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E')
 				fill_color = 0xFFFFFFFF;
-			fill_tile(cub3d->map_img, x * TILE_SIZE, y * TILE_SIZE , fill_color);
+			fill_tile(cub3d->map_img, x * MINI_TILE_SIZE, y * MINI_TILE_SIZE , fill_color);
 			x++;
 		}
 		y++;
@@ -86,25 +86,25 @@ void	render_player(t_cub3d *cub3d)
 		mlx_delete_image(cub3d->mlx, cub3d->player_img);
 		cub3d->player_img = NULL;
 	}
-	cub3d->player_img = mlx_new_image(cub3d->mlx, PLAYER_SIZE, PLAYER_SIZE);
+	cub3d->player_img = mlx_new_image(cub3d->mlx, MINI_PLAYER_SIZE, MINI_PLAYER_SIZE);
 	if (!cub3d->player_img)
 		handle_error("Player image creation failed");
 
 	y = 0;
-	while (y < PLAYER_SIZE)
+	while (y < MINI_PLAYER_SIZE)
 	{
 		x = 0;
-		while (x < PLAYER_SIZE)
+		while (x < MINI_PLAYER_SIZE)
 		{
 			mlx_put_pixel(cub3d->player_img, x, y, PLAYER_COLOR);
 			x++;
 		}
 		y++;
 	}
-	start.x = PLAYER_SIZE / 2;
-	start.y = PLAYER_SIZE / 2;
-	end.x = start.x + cos(cub3d->player.angle) * PLAYER_SIZE / 2;
-	end.y = start.y + sin(cub3d->player.angle) * PLAYER_SIZE / 2;
+	start.x = MINI_PLAYER_SIZE / 2;
+	start.y = MINI_PLAYER_SIZE / 2;
+	end.x = start.x + cos(cub3d->player.angle) * MINI_PLAYER_SIZE / 2;
+	end.y = start.y + sin(cub3d->player.angle) * MINI_PLAYER_SIZE / 2;
 	draw_line(cub3d->player_img, start, end, 2, DIR_LINE_COLOR);
 	if (mlx_image_to_window(cub3d->mlx, cub3d->player_img, cub3d->player.pos.x, cub3d->player.pos.y) < 0)
 		handle_error("Failed to draw player");
