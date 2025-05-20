@@ -32,8 +32,8 @@ void cast_rays(t_cub3d *cub3d)
 		// render_wall_slice(cub3d, i, hit);
 		
 		t_point start = {
-			.x = (int)(PLAYER_RADIUS + cub3d->player.pos.x),
-			.y = (int)(PLAYER_RADIUS + cub3d->player.pos.y)
+			.x = (int)(cub3d->player_size / 2 + cub3d->player.pos.x),
+			.y = (int)(cub3d->player_size / 2 + cub3d->player.pos.y)
 		};
 		t_point end = {
 			.x = (int)(hit.hit.x),
@@ -64,24 +64,24 @@ t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle)
 	int facing_up = ray_dir_y < 0;
 
 	// Erste horizontale Gitterlinie berechnen
-	double y_intercept = floor(cub3d->player.pos.y / TILE_SIZE) * TILE_SIZE;
-	y_intercept += facing_up ? -0.0001 : TILE_SIZE;
+	double y_intercept = floor(cub3d->player.pos.y / cub3d->tile_size) * cub3d->tile_size;
+	y_intercept += facing_up ? -0.0001 : cub3d->tile_size;
 
 	double x_intercept = cub3d->player.pos.x + (y_intercept - cub3d->player.pos.y) / tan(ray_angle);
 
 	// Schrittgrößen
-	double y_step = facing_up ? -TILE_SIZE : TILE_SIZE;
+	double y_step = facing_up ? -cub3d->tile_size : cub3d->tile_size;
 	double x_step = y_step / tan(ray_angle);
 
 	double next_x = x_intercept;
 	double next_y = y_intercept;
 
 	// Gitter durchlaufen
-	while (next_x >= 0 && next_x < cub3d->map.width * TILE_SIZE &&
-		   next_y >= 0 && next_y < cub3d->map.height * TILE_SIZE)
+	while (next_x >= 0 && next_x < cub3d->map.width * cub3d->tile_size &&
+		   next_y >= 0 && next_y < cub3d->map.height * cub3d->tile_size)
 	{
-		int map_x = (int)(next_x / TILE_SIZE);
-		int map_y = (int)(next_y / TILE_SIZE);
+		int map_x = (int)(next_x / cub3d->tile_size);
+		int map_y = (int)(next_y / cub3d->tile_size);
 
 		if (map_x >= 0 && map_y >= 0 &&
 			cub3d->map.grid[map_y][map_x] == '1')
@@ -108,22 +108,22 @@ t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle)
 
 	int facing_left = cos(ray_angle) < 0;
 
-	double x_intercept = floor(cub3d->player.pos.x / TILE_SIZE) * TILE_SIZE;
-	x_intercept += facing_left ? -0.0001 : TILE_SIZE;
+	double x_intercept = floor(cub3d->player.pos.x / cub3d->tile_size) * cub3d->tile_size;
+	x_intercept += facing_left ? -0.0001 : cub3d->tile_size;
 
 	double y_intercept = cub3d->player.pos.y + (x_intercept - cub3d->player.pos.x) * tan(ray_angle);
 
-	double x_step = facing_left ? -TILE_SIZE : TILE_SIZE;
+	double x_step = facing_left ? -cub3d->tile_size : cub3d->tile_size;
 	double y_step = x_step * tan(ray_angle);
 
 	double next_x = x_intercept;
 	double next_y = y_intercept;
 
-	while (next_x >= 0 && next_x < cub3d->map.width * TILE_SIZE &&
-		   next_y >= 0 && next_y < cub3d->map.height * TILE_SIZE)
+	while (next_x >= 0 && next_x < cub3d->map.width * cub3d->tile_size &&
+		   next_y >= 0 && next_y < cub3d->map.height * cub3d->tile_size)
 	{
-		int map_x = (int)(next_x / TILE_SIZE);
-		int map_y = (int)(next_y / TILE_SIZE);
+		int map_x = (int)(next_x / cub3d->tile_size);
+		int map_y = (int)(next_y / cub3d->tile_size);
 
 		if (map_x >= 0 && map_y >= 0 &&
 			cub3d->map.grid[map_y][map_x] == '1')

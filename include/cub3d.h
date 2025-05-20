@@ -5,13 +5,10 @@
 
 #define PLAYER_SPEED 5
 #define PLAYER_ROT_SPEED 0.0872665
-#define MINIMAP_WIDTH 320
-#define MINIMAP_HEIGHT 320
+#define MINIMAP_WIDTH 1280
+#define MINIMAP_HEIGHT 720
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
-#define TILE_SIZE 16
-#define PLAYER_SIZE 6
-#define PLAYER_RADIUS 1
 #define PLAYER_COLOR 0xFFAAAAAA
 #define DIR_LINE_COLOR 0x0000FF
 #define PI 3.1415926535
@@ -99,6 +96,8 @@ typedef struct s_cub3d
 	mlx_image_t	*map_img; //neu
 	mlx_image_t *ray_img;
 	mlx_image_t *view_img;
+	int			tile_size;
+	int			player_size;
 }				t_cub3d;
 
 //init
@@ -139,11 +138,8 @@ void	print_cub3d_info(t_cub3d *cub);
 
 //minimap
 void	render_player(t_cub3d *cub3d);
-void	render_bg(t_cub3d *cub3d, uint32_t color);
+// void	render_bg(t_cub3d *cub3d, uint32_t color);
 void draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32_t color);
-// void player_controls(mlx_key_data_t keycode, void *param);
-void player_controls(void *param);
-void	draw_map(t_cub3d *cub3d);
 void cast_rays(t_cub3d *cub3d);
 t_ray_hit cast_single_ray(t_cub3d *cub3d, double ray_angle);
 t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle);
@@ -151,6 +147,7 @@ t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle);
 
 //render
 void	render_map(t_cub3d *cub3d);
+void	fill_tile(t_cub3d *cub3d, mlx_image_t *map_img, int x, int y, uint32_t color);
 
 //draw
 void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
