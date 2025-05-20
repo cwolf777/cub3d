@@ -17,8 +17,14 @@ void	draw_line(mlx_image_t *img, t_point start,
 
 	dx = abs(end.x - start.x);
 	dy = -abs(end.y - start.y);
-	sx = (start.x < end.x) ? 1 : -1;
-	sy = (start.y < end.y) ? 1 : -1;
+	if (start.x < end.x)
+		sx = 1;
+	else
+		sx = -1;
+	if (start.y < end.y)
+		sy = 1;
+	else
+		sy = -1;
 	err = dx + dy;
 	x = start.x;
 	y = start.y;
