@@ -14,6 +14,7 @@ static void clear_image(mlx_image_t *img)
 
 void cast_rays(t_cub3d *cub3d)
 {
+	(void)cub3d;
 	int num_rays = WINDOW_WIDTH - MINIMAP_WIDTH; //anpassen
 	double fov = 60.0 * (M_PI / 180.0); // z. B. 60 Grad
 	double angle_step = fov / num_rays;
