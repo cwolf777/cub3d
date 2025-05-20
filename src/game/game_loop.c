@@ -9,5 +9,5 @@ void	game_loop(void *param)
 	player_movement(cub3d);
 	update_player_img_pos(cub3d);
 	draw_player(cub3d);
-	// cast_rays(cub3d);
+	cast_rays(cub3d);
 }
