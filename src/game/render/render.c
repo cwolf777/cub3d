@@ -7,10 +7,10 @@ void	fill_tile(mlx_image_t *map_img, int x, int y, uint32_t color)
 	int	py;
 
 	py = 0;
-	while (py < TILE_SIZE - 1)
+	while (py < MINI_TILE_SIZE - 1)
 	{
 		px = 0;
-		while (px < TILE_SIZE - 1)
+		while (px < MINI_TILE_SIZE - 1)
 		{
 			mlx_put_pixel(map_img, x + px, y + py, color);
 			px++;
@@ -42,7 +42,7 @@ void	render_map(t_cub3d *cub3d)
 				fill_color = 0xFFFFFFFF;
 			else if (tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E')
 				fill_color = 0xFFFFFFFF;
-			fill_tile(cub3d->map_img, x * TILE_SIZE, y * TILE_SIZE , fill_color);
+			fill_tile(cub3d->map_img, x * MINI_TILE_SIZE, y * MINI_TILE_SIZE , fill_color);
 			x++;
 		}
 		y++;
@@ -56,14 +56,14 @@ void	render_bg(t_cub3d *cub3d, uint32_t color)
 	int			x;
 	int			y;
 	
-	bg = mlx_new_image(cub3d->mlx, MAP_WIDTH, MAP_HEIGHT);
+	bg = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!bg)
 		handle_error("Failed to create background");
 	y = 0;
-	while(y < MAP_HEIGHT)
+	while(y < MINIMAP_HEIGHT)
 	{
 		x = 0;
-		while(x < MAP_WIDTH)
+		while(x < MINIMAP_WIDTH)
 		{
 			mlx_put_pixel(bg, x, y, color);
 			x++;

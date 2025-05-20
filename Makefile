@@ -14,6 +14,7 @@ SRCS =	main.c init.c init_img.c \
 		validate_cub3d.c validate_file_extension.c validate_rgb.c validate_grid.c \
 		print.c utils.c ft_split2.c render.c draw.c \
 		player_movement.c handle_keypress.c game_loop.c handle_close.c
+		print.c utils.c ft_split2.c minimap.c render.c draw.c physic.c 3d_transform.c
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 

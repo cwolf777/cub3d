@@ -2,13 +2,18 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#define MAP_WIDTH 1280
-#define MAP_HEIGHT 720
+
 #define TILE_SIZE 64
 #define PLAYER_SIZE 16
 #define PLAYER_RADIUS 8
 #define PLAYER_SPEED 5
 #define PLAYER_ROT_SPEED 0.0872665
+#define MINIMAP_WIDTH 320
+#define MINIMAP_HEIGHT 320
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+#define MINI_TILE_SIZE 16
+#define MINI_PLAYER_SIZE 6
 #define PLAYER_COLOR 0xFFAAAAAA
 #define DIR_LINE_COLOR 0x0000FF
 #define PI 3.1415926535
@@ -22,8 +27,6 @@
 # include <math.h>
 
 # define GRAPHICS_LENGTH 6
-
-
 
 typedef enum e_graphic_config
 {
@@ -81,7 +84,12 @@ typedef struct s_player
 	double	angle;
 }				t_player;
 
-
+typedef struct s_ray_hit
+{
+	double distance; //distanz zu Kollision
+	t_point	hit;
+	int is_vertical; //1 vertikale, 0 horizontale Wand
+}	t_ray_hit;
 
 typedef struct s_cub3d
 {
@@ -92,6 +100,7 @@ typedef struct s_cub3d
 	mlx_image_t	*player_img; //neu
 	mlx_image_t	*map_img; //neu
 	mlx_image_t *ray_img;
+	mlx_image_t *view_img;
 }				t_cub3d;
 
 //init
@@ -134,9 +143,13 @@ void	print_cub3d_info(t_cub3d *cub);
 void	render_player(t_cub3d *cub3d);
 void	render_bg(t_cub3d *cub3d, uint32_t color);
 void draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32_t color);
-// void	draw_map(t_cub3d *cub3d);
-// void	cast_ray(t_cub3d *cub3d);
+// void player_controls(mlx_key_data_t keycode, void *param);
+void player_controls(void *param);
+void	draw_map(t_cub3d *cub3d);
 void cast_rays(t_cub3d *cub3d);
+t_ray_hit cast_single_ray(t_cub3d *cub3d, double ray_angle);
+t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle);
+t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle);
 
 //render
 void	render_map(t_cub3d *cub3d);
@@ -153,5 +166,7 @@ void	player_movement(t_cub3d *cub3d);
 void	game_loop(void *param);
 void	handle_keypress(mlx_key_data_t keydata, void *param);
 void	handle_close(void *param);
+//3d
+void render_wall_slice(t_cub3d *cub3d, int col, t_ray_hit hit, double ray_angle);
 
 #endif

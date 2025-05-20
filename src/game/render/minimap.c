@@ -1,92 +1,209 @@
 #include "cub3d.h"
 
-// void	draw_map(t_cub3d *cub3d)
+
+static void clear_image(mlx_image_t *img)
+{
+	for (uint32_t y = 0; y < img->height; y++)
+	{
+		for (uint32_t x = 0; x < img->width; x++)
+		{
+			mlx_put_pixel(img, x, y, 0x00000000); // Transparent
+		}
+	}
+}
+
+// void player_controls( void *param)
 // {
-// 	uint32_t fill_color;
-// 	uint32_t outline_color = 0xFF000000;
-
-// 	for (int y = 0; y < cub3d->map.height; y++)
-// 	{
-// 		for (int x = 0; x < cub3d->map.width; x++)
-// 		{
-// 			char tile = cub3d->map.grid[y][x];
-
-// 			if (tile == '1')
-// 				fill_color = 0xFFFF3333;
-// 			else if (tile == '0')
-// 				fill_color = 0xFFFFFFFF;
-// 			else if (tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E')
-// 				fill_color = 0xFFFFFFFF;
-
-// 			mlx_image_t *tile_img = mlx_new_image(cub3d->mlx, TILE_SIZE, TILE_SIZE);
-// 			if (!tile_img)
-// 				handle_error("Tile image creation failed");
-
-// 			for (int ty = 0; ty < TILE_SIZE; ty++)
-// 			{
-// 				for (int tx = 0; tx < TILE_SIZE; tx++)
-// 				{
-// 					// Zeichne Rahmen (1 Pixel dick)
-// 					if (tx == 0 || ty == 0 || tx == TILE_SIZE - 1 || ty == TILE_SIZE - 1)
-// 						mlx_put_pixel(tile_img, tx, ty, outline_color);
-// 					else
-// 						mlx_put_pixel(tile_img, tx, ty, fill_color);
-// 				}
-// 			}
-
-// 			if (mlx_image_to_window(cub3d->mlx, tile_img, x * TILE_SIZE, y * TILE_SIZE) < 0)
-// 				handle_error("Failed to draw map tile");
-// 		}
-// 	}
-// }
-
-// void cast_ray(t_cub3d *cub3d)
-// {
-// 	if (!cub3d->ray_img)
-// 		return;
+// 	t_cub3d *cub3d = (t_cub3d *)param;
+// 	// (void)keycode;
+// 	int speed = 5;
+// 	double rot_speed = 0.100530964912;
 	
-// 	for (int y = 0; y < 720; y++)
+// 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_W))
 // 	{
-// 		for (int x = 0; x < 1280; x++)
-// 		{
-// 			mlx_put_pixel(cub3d->ray_img, x, y, 0x00000000);
-// 		}
-// 	}	
-
-// 	// Startposition (Mitte des Players)
-// 	double ray_x = cub3d->player_pos.x + PLAYER_SIZE / 2;
-// 	double ray_y = cub3d->player_pos.y + PLAYER_SIZE / 2;
-
-// 	// Richtung
-// 	double angle = cub3d->player_angle;
-// 	double dx = cos(angle);
-// 	double dy = sin(angle);
-
-// 	// Schrittgröße (je kleiner, desto präziser)
-// 	double step = 1.0;
-// 	int max_distance = 1000;  // Maximaler Strahlweg (in Pixel)
-
-// 	for (int i = 0; i < max_distance; i++)
-// 	{
-// 		int map_x = (int)(ray_x / TILE_SIZE);
-// 		int map_y = (int)(ray_y / TILE_SIZE);
-
-// 		// // Boundscheck
-// 		if (map_x < 0 || map_x >= cub3d->map.width || map_y < 0 || map_y >= cub3d->map.height)
-// 			break;
-
-// 		// // Wand getroffen?
-// 		if (cub3d->map.grid[map_y][map_x] == '1')
-// 			break;
-
-// 		// Ray einen Schritt weiter
-// 		ray_x += dx * step;
-// 		ray_y += dy * step;
-
-// 		// Optional: Pixel setzen, um Strahl zu zeigen
-// 		if (cub3d->ray_img)
-// 			mlx_put_pixel(cub3d->ray_img, (int)ray_x, (int)ray_y, 0xFFFFFF);
+// 		cub3d->player.pos.x += cos(cub3d->player.angle) * speed;
+// 		cub3d->player.pos.y += sin(cub3d->player.angle) * speed;
 // 	}
+// 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_S))
+// 	{
+// 		cub3d->player.pos.x -= cos(cub3d->player.angle) * speed;
+// 		cub3d->player.pos.y -= sin(cub3d->player.angle) * speed;
+// 	}
+// 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_A))
+// 		cub3d->player.angle -= rot_speed;
+// 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_D))
+// 		cub3d->player.angle += rot_speed;
+
+// 	render_player(cub3d);
+// 	cast_rays(cub3d);
 // }
 
+void	draw_map(t_cub3d *cub3d)
+{
+	uint32_t fill_color;
+	uint32_t outline_color = 0xFF000000;
+	int scaled_size = (int)(MINI_TILE_SIZE * 25);
 
+	for (int y = 0; y < cub3d->map.height; y++)
+	{
+		for (int x = 0; x < cub3d->map.width; x++)
+		{
+			char tile = cub3d->map.grid[y][x];
+
+			if (tile == '1')
+				fill_color = 0xFFFF3333;
+			else if (tile == '0')
+				fill_color = 0xFFFFFFFF;
+			else if (tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E')
+				fill_color = 0xFFFFFFFF; // Spielerposi auch weiss
+
+			mlx_image_t *tile_img = mlx_new_image(cub3d->mlx, scaled_size, scaled_size);
+			if (!tile_img)
+				handle_error("Tile image creation failed");
+
+			for (int ty = 0; ty < scaled_size; ty++)
+			{
+				for (int tx = 0; tx < scaled_size; tx++)
+				{
+					// Zeichne Rahmen (1 Pixel dick)
+					if (tx == 0 || ty == 0 || tx == scaled_size - 1 || ty == scaled_size - 1)
+						mlx_put_pixel(tile_img, tx, ty, outline_color);
+					else
+						mlx_put_pixel(tile_img, tx, ty, fill_color);
+				}
+			}
+
+			if (mlx_image_to_window(cub3d->mlx, tile_img, x * scaled_size, y * scaled_size) < 0)
+				handle_error("Failed to draw map tile");
+		}
+	}
+}
+
+void cast_rays(t_cub3d *cub3d)
+{
+	int num_rays = WINDOW_WIDTH - MINIMAP_WIDTH; //anpassen
+	double fov = 60.0 * (M_PI / 180.0); // z. B. 60 Grad
+	double angle_step = fov / num_rays;
+	double start_angle = cub3d->player.angle - (fov / 2.0);
+
+	clear_image(cub3d->ray_img);
+	clear_image(cub3d->view_img);
+	
+	for (int i = 0; i < num_rays; i++)
+	{
+		double ray_angle = start_angle + i * angle_step;
+		t_ray_hit hit = cast_single_ray(cub3d, ray_angle);
+		
+		// 3D Wandhöhe berechnen & zeichnen
+		// render_wall_slice(cub3d, i, hit);
+		
+		t_point start = {
+			.x = (int)(MINI_PLAYER_SIZE / 2 + cub3d->player.pos.x),
+			.y = (int)(MINI_PLAYER_SIZE / 2 + cub3d->player.pos.y)
+		};
+		t_point end = {
+			.x = (int)(hit.hit.x),
+			.y = (int)(hit.hit.y)
+		};
+		draw_line(cub3d->ray_img, start, end, 1, 0xFF0000FF);
+		render_wall_slice(cub3d, i, hit, ray_angle);
+	}
+}
+
+t_ray_hit cast_single_ray(t_cub3d *cub3d, double ray_angle)
+{
+	t_ray_hit hor_hit = cast_horizontal_ray(cub3d, ray_angle);
+	t_ray_hit ver_hit = cast_vertical_ray(cub3d, ray_angle);
+
+	if (ver_hit.distance < hor_hit.distance)
+		return ver_hit;
+	else
+		return hor_hit;
+}
+
+t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle)
+{
+	t_ray_hit hit;
+	hit.is_vertical = 0;
+
+	double ray_dir_y = sin(ray_angle);
+	int facing_up = ray_dir_y < 0;
+
+	// Erste horizontale Gitterlinie berechnen
+	double y_intercept = floor(cub3d->player.pos.y / MINI_TILE_SIZE) * MINI_TILE_SIZE;
+	y_intercept += facing_up ? -0.0001 : MINI_TILE_SIZE;
+
+	double x_intercept = cub3d->player.pos.x + (y_intercept - cub3d->player.pos.y) / tan(ray_angle);
+
+	// Schrittgrößen
+	double y_step = facing_up ? -MINI_TILE_SIZE : MINI_TILE_SIZE;
+	double x_step = y_step / tan(ray_angle);
+
+	double next_x = x_intercept;
+	double next_y = y_intercept;
+
+	// Gitter durchlaufen
+	while (next_x >= 0 && next_x < cub3d->map.width * MINI_TILE_SIZE &&
+		   next_y >= 0 && next_y < cub3d->map.height * MINI_TILE_SIZE)
+	{
+		int map_x = (int)(next_x / MINI_TILE_SIZE);
+		int map_y = (int)(next_y / MINI_TILE_SIZE);
+
+		if (map_x >= 0 && map_y >= 0 &&
+			cub3d->map.grid[map_y][map_x] == '1')
+		{
+			hit.hit.x = next_x;
+			hit.hit.y = next_y;
+			hit.distance = hypot(next_x - cub3d->player.pos.x, next_y - cub3d->player.pos.y);
+			return hit;
+		}
+
+		next_x += x_step;
+		next_y += y_step;
+	}
+
+	// Kein Treffer gefunden
+	hit.distance = 1e30;
+	return hit;
+}
+
+t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle)
+{
+	t_ray_hit hit;
+	hit.is_vertical = 1;
+
+	int facing_left = cos(ray_angle) < 0;
+
+	double x_intercept = floor(cub3d->player.pos.x / MINI_TILE_SIZE) * MINI_TILE_SIZE;
+	x_intercept += facing_left ? -0.0001 : MINI_TILE_SIZE;
+
+	double y_intercept = cub3d->player.pos.y + (x_intercept - cub3d->player.pos.x) * tan(ray_angle);
+
+	double x_step = facing_left ? -MINI_TILE_SIZE : MINI_TILE_SIZE;
+	double y_step = x_step * tan(ray_angle);
+
+	double next_x = x_intercept;
+	double next_y = y_intercept;
+
+	while (next_x >= 0 && next_x < cub3d->map.width * MINI_TILE_SIZE &&
+		   next_y >= 0 && next_y < cub3d->map.height * MINI_TILE_SIZE)
+	{
+		int map_x = (int)(next_x / MINI_TILE_SIZE);
+		int map_y = (int)(next_y / MINI_TILE_SIZE);
+
+		if (map_x >= 0 && map_y >= 0 &&
+			cub3d->map.grid[map_y][map_x] == '1')
+		{
+			hit.hit.x = next_x;
+			hit.hit.y = next_y;
+			hit.distance = hypot(next_x - cub3d->player.pos.x, next_y - cub3d->player.pos.y); //?????
+			return hit;
+		}
+
+		next_x += x_step;
+		next_y += y_step;
+	}
+
+	hit.distance = 1e30;
+	return hit;
+}
