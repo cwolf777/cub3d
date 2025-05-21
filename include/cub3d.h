@@ -2,11 +2,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-
-#define PLAYER_SPEED 5
-#define PLAYER_ROT_SPEED 0.0872665
-#define MINIMAP_WIDTH 1280
-#define MINIMAP_HEIGHT 720
+#define MINIMAP_WIDTH 320
+#define MINIMAP_HEIGHT 320
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 #define PLAYER_COLOR 0xFFAAAAAA
@@ -22,6 +19,11 @@
 # include <math.h>
 
 # define GRAPHICS_LENGTH 6
+
+typedef struct s_settings
+{
+	int		tile_size;
+}			t_settings;
 
 typedef enum e_graphic_config
 {
@@ -71,12 +73,18 @@ typedef struct s_map
 	char		**grid;
 	t_point		player_idx;
 	char		player_orientation;
+	int			tile_size;
+	mlx_image_t	*img;
 }				t_map;
 
 typedef struct s_player
 {
-	t_point	pos;
-	double	angle;
+	t_point		pos;
+	double		angle;
+	int			speed;
+	double		rot_speed;
+	int			size;
+	mlx_image_t	*img;
 }				t_player;
 
 typedef struct s_ray_hit
@@ -92,12 +100,8 @@ typedef struct s_cub3d
 	t_map		map;
 	t_player	player;
 	t_graphics	graphics;
-	mlx_image_t	*player_img; //neu
-	mlx_image_t	*map_img; //neu
 	mlx_image_t *ray_img;
 	mlx_image_t *view_img;
-	int			tile_size;
-	int			player_size;
 }				t_cub3d;
 
 //init

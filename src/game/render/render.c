@@ -7,10 +7,10 @@ void	fill_tile(t_cub3d *cub3d, mlx_image_t *map_img, int x, int y, uint32_t colo
 	int	py;
 
 	py = 0;
-	while (py < cub3d->tile_size - 1)
+	while (py < cub3d->map.tile_size - 1)
 	{
 		px = 0;
-		while (px < cub3d->tile_size - 1)
+		while (px < cub3d->map.tile_size - 1)
 		{
 			mlx_put_pixel(map_img, x + px, y + py, color);
 			px++;
@@ -26,8 +26,8 @@ void	render_map(t_cub3d *cub3d)
 	int			y;
 	char		tile;
 
-	cub3d->map_img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
-	if (!cub3d->map_img)
+	cub3d->map.img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	if (!cub3d->map.img)
 		handle_error("Failed to load map_img");
 	y = 0;
 	while(y < cub3d->map.height)
@@ -42,12 +42,12 @@ void	render_map(t_cub3d *cub3d)
 				fill_color = 0xFFFFFFFF;
 			else if (tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E')
 				fill_color = 0xFFFFFFFF;
-			fill_tile(cub3d, cub3d->map_img, x * cub3d->tile_size, y * cub3d->tile_size , fill_color);
+			fill_tile(cub3d, cub3d->map.img, x * cub3d->map.tile_size, y * cub3d->map.tile_size , fill_color);
 			x++;
 		}
 		y++;
 	}
-	mlx_image_to_window(cub3d->mlx, cub3d->map_img, 0, 0);
+	mlx_image_to_window(cub3d->mlx, cub3d->map.img, 0, 0);
 }
 
 // void	render_bg(t_cub3d *cub3d, uint32_t color)
@@ -76,18 +76,18 @@ void	render_map(t_cub3d *cub3d)
 
 void	render_player(t_cub3d *cub3d)
 {
-	cub3d->player_img = mlx_new_image(cub3d->mlx, cub3d->player_size, cub3d->player_size);
-	if (!cub3d->player_img)
+	cub3d->player.img = mlx_new_image(cub3d->mlx, cub3d->player.size, cub3d->player.size);
+	if (!cub3d->player.img)
 		handle_error("Player image creation failed");
 	draw_player(cub3d);
-	if (mlx_image_to_window(cub3d->mlx, cub3d->player_img, cub3d->player.pos.x - cub3d->player_size / 2, cub3d->player.pos.y - cub3d->player_size / 2) < 0)
+	if (mlx_image_to_window(cub3d->mlx, cub3d->player.img, cub3d->player.pos.x - cub3d->player.size / 2, cub3d->player.pos.y - cub3d->player.size / 2) < 0)
 		handle_error("Failed to draw player");
 }
 
 void	update_player_img_pos(t_cub3d *cub3d)
 {
-	cub3d->player_img->instances[0].x = cub3d->player.pos.x - cub3d->player_size / 2;
-	cub3d->player_img->instances[0].y = cub3d->player.pos.y - cub3d->player_size / 2;
+	cub3d->player.img->instances[0].x = cub3d->player.pos.x - cub3d->player.size / 2;
+	cub3d->player.img->instances[0].y = cub3d->player.pos.y - cub3d->player.size / 2;
 }
 
 

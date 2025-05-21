@@ -15,27 +15,34 @@ void	print_grid(char **grid)
 
 void	print_rgb(const char *label, t_rgb color)
 {
-	printf("  %s: [%d,%d,%d]\n", label, color.red, color.green, color.blue);
+	printf("	%s: [%d,%d,%d]\n", label, color.red, color.green, color.blue);
 }
 
 void	print_cub3d_info(t_cub3d *cub)
 {
 	printf("=========== CUB3D INFO ===========\n");
+
 	printf("Graphics:\n");
-	printf("    North: %s\n", cub->graphics.north.path);
-	printf("    South: %s\n", cub->graphics.south.path);
-	printf("    East:  %s\n", cub->graphics.east.path);
-	printf("    West:  %s\n", cub->graphics.west.path);
+	printf("	North: %s\n", cub->graphics.north.path);
+	printf("	South: %s\n", cub->graphics.south.path);
+	printf("	East:  %s\n", cub->graphics.east.path);
+	printf("	West:  %s\n", cub->graphics.west.path);
 	print_rgb("Floor Color", cub->graphics.floor);
 	print_rgb("Ceiling Color", cub->graphics.ceiling);
+
 	printf("Player:\n");
-	printf("  x:  %d\n", cub->player.pos.x);
-	printf("  y:  %d\n", cub->player.pos.y);
-	printf("  angle:  %f\n", cub->player.angle);
+	printf("	Position:	x = %d, y = %d\n", cub->player.pos.x, cub->player.pos.y);
+	printf("	Angle:	   %f rad (%.2f°)\n", cub->player.angle, cub->player.angle * (180.0 / M_PI));
+	printf("	Speed:	   %d\n", cub->player.speed);
+	printf("	Rot. Speed:  %f rad/frame (%.2f°)\n", cub->player.rot_speed, cub->player.rot_speed * (180.0 / M_PI));
+	printf("	Size:	%d px\n", cub->player.size);
+
 	printf("Map:\n");
-	printf("  Width:  %d\n", cub->map.width);
-	printf("  Height: %d\n", cub->map.height);
-	printf("  Grid:\n");
+	printf("	Dimensions:  width = %d, height = %d\n", cub->map.width, cub->map.height);
+	printf("	Tile Size:   %d px\n", cub->map.tile_size);
+	printf("	Player Start Index: x = %d, y = %d (orientation: '%c')\n",
+		cub->map.player_idx.x, cub->map.player_idx.y, cub->map.player_orientation);
+	printf("Grid:\n");
 	print_grid(cub->map.grid);
 
 	printf("=========== END INFO ============\n");

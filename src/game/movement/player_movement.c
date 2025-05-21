@@ -1,7 +1,7 @@
 
 #include "cub3d.h"
 
-static bool	check_collision( t_map map, int px, int py, int tile_size)
+static bool	check_collision(t_map map, int px, int py, int tile_size)
 {
 	int	y;
 	int	x;
@@ -21,12 +21,12 @@ static void	move_forward(t_cub3d *cub3d)
 	int	tempx;
 	int	tempy;
 
-	tempx = cub3d->player.pos.x + cos(cub3d->player.angle) * (PLAYER_SPEED + cub3d->player_size);
-	tempy = cub3d->player.pos.y + sin(cub3d->player.angle) * (PLAYER_SPEED + cub3d->player_size);
-	if (check_collision(cub3d->map, tempx, tempy, cub3d->tile_size))
+	tempx = cub3d->player.pos.x + cos(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
+	tempy = cub3d->player.pos.y + sin(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
+	if (check_collision(cub3d->map, tempx, tempy, cub3d->map.tile_size))
 		return ;
-	cub3d->player.pos.x = cub3d->player.pos.x + cos(cub3d->player.angle) * PLAYER_SPEED;
-	cub3d->player.pos.y = cub3d->player.pos.y + sin(cub3d->player.angle) * PLAYER_SPEED;
+	cub3d->player.pos.x = cub3d->player.pos.x + cos(cub3d->player.angle) * cub3d->player.speed;
+	cub3d->player.pos.y = cub3d->player.pos.y + sin(cub3d->player.angle) * cub3d->player.speed;
 }
 
 static void	move_backward(t_cub3d *cub3d)
@@ -34,21 +34,21 @@ static void	move_backward(t_cub3d *cub3d)
 	int	tempx;
 	int	tempy;
 
-	tempx = cub3d->player.pos.x - cos(cub3d->player.angle) * (PLAYER_SPEED + cub3d->player_size);
-	tempy = cub3d->player.pos.y - sin(cub3d->player.angle) * (PLAYER_SPEED + cub3d->player_size);
-	if (check_collision(cub3d->map, tempx, tempy, cub3d->tile_size))
+	tempx = cub3d->player.pos.x - cos(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
+	tempy = cub3d->player.pos.y - sin(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
+	if (check_collision(cub3d->map, tempx, tempy, cub3d->map.tile_size))
 		return ;
-	cub3d->player.pos.x = tempx;
-	cub3d->player.pos.y = tempy;
+	cub3d->player.pos.x = cub3d->player.pos.x - cos(cub3d->player.angle) * cub3d->player.speed;
+	cub3d->player.pos.y = cub3d->player.pos.y - sin(cub3d->player.angle) * cub3d->player.speed;
 }
 
 static void	rotate_left(t_cub3d *cub3d)
 {
-	cub3d->player.angle -= PLAYER_ROT_SPEED;
+	cub3d->player.angle -= cub3d->player.rot_speed;
 }
 static void	rotate_right(t_cub3d *cub3d)
 {
-	cub3d->player.angle += PLAYER_ROT_SPEED;
+	cub3d->player.angle += cub3d->player.rot_speed;
 }
 
 void	player_movement(t_cub3d *cub3d)

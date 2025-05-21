@@ -89,10 +89,10 @@ void	draw_player(t_cub3d *cub3d)
 	t_point	end;
 
 
-	start.x = cub3d->player_size / 2;
-	start.y = cub3d->player_size / 2;
-	draw_filled_circle(cub3d->player_img, start, cub3d->player_size / 2, PLAYER_COLOR);
-	end.x = start.x + cos(cub3d->player.angle) * cub3d->player_size / 2;
-	end.y = start.y + sin(cub3d->player.angle) * cub3d->player_size / 2;
-	draw_line(cub3d->player_img, start, end, 2, DIR_LINE_COLOR);
+	start.x = cub3d->player.size / 2;
+	start.y = cub3d->player.size / 2;
+	draw_filled_circle(cub3d->player.img, start, cub3d->player.size / 2, PLAYER_COLOR);
+	end.x = start.x + cos(cub3d->player.angle) * cub3d->player.size / 2;
+	end.y = start.y + sin(cub3d->player.angle) * cub3d->player.size / 2;
+	draw_line(cub3d->player.img, start, end, 2, DIR_LINE_COLOR);
 }
