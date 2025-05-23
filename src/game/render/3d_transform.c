@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-void render_wall_slice(t_cub3d *cub3d, int col, t_ray_hit hit, double ray_angle)
+void render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle)
 {
-	double corrected_distance = hit.distance * cos(ray_angle - cub3d->player.angle);
+	double corrected_distance = ray.distance * cos(ray_angle - cub3d->player.angle);
 
 	// Konstanten für Projektion 
 	double fov = 60.0 * (M_PI / 180.0);
@@ -21,17 +21,17 @@ void render_wall_slice(t_cub3d *cub3d, int col, t_ray_hit hit, double ray_angle)
 
 	while (wall_top < wall_bottom)
 	{
-		int draw_x = col + MINIMAP_WIDTH; //rechts neben minimap
+		// int draw_x = col + MINIMAP_WIDTH; //rechts neben minimap
+		int draw_x = col;
 	
 		if (draw_x >= 0 && draw_x < (int)cub3d->view_img->width &&
 			wall_top >= 0 && wall_top < (int)cub3d->view_img->height)
 		{
-			if (hit.is_vertical == 1)
+			if (ray.is_vertical == 1)
 				mlx_put_pixel(cub3d->view_img, draw_x, wall_top, 0xFFFFFFFF);
 			else
 				mlx_put_pixel(cub3d->view_img, draw_x, wall_top, 0x808080);
 		}
-	
 		wall_top++;
 	}
 }

@@ -7,6 +7,6 @@ void	handle_close(void *param)
 
 	cub3d = (t_cub3d *)param;
 	mlx_delete_image(cub3d->mlx, cub3d->player.img);
-	mlx_delete_image(cub3d->mlx, cub3d->ray_img);
+	mlx_delete_image(cub3d->mlx, cub3d->ray_caster.img);
 	mlx_delete_image(cub3d->mlx, cub3d->map.img);
 }

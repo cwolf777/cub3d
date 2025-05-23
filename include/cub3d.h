@@ -2,13 +2,14 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#define MINIMAP_WIDTH 320
-#define MINIMAP_HEIGHT 320
+#define MINIMAP_WIDTH 1200
+#define MINIMAP_HEIGHT 700
+#define MINIMAP_VIEW_SIZE 10
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 #define PLAYER_COLOR 0xFFAAAAAA
 #define DIR_LINE_COLOR 0x0000FF
-#define PI 3.1415926535
+// #define PI 3.1415926535
 
 
 # include "MLX42.h"
@@ -19,11 +20,6 @@
 # include <math.h>
 
 # define GRAPHICS_LENGTH 6
-
-typedef struct s_settings
-{
-	int		tile_size;
-}			t_settings;
 
 typedef enum e_graphic_config
 {
@@ -68,10 +64,12 @@ typedef struct s_point
 
 typedef struct s_map
 {
-	int			width;
-	int			height;
+	int			grid_width;
+	int			grid_height;
+	int			pixel_width;
+	int			pixel_height;
 	char		**grid;
-	t_point		player_idx;
+	t_point		player_pos;
 	char		player_orientation;
 	int			tile_size;
 	mlx_image_t	*img;
@@ -79,29 +77,40 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	t_point		pos;
+	t_point		pixel_pos;
+	t_point		grid_pos;
 	double		angle;
 	int			speed;
 	double		rot_speed;
 	int			size;
+	double		fov;
 	mlx_image_t	*img;
 }				t_player;
 
-typedef struct s_ray_hit
+typedef struct s_ray
 {
-	double distance; //distanz zu Kollision
-	t_point	hit;
-	int is_vertical; //1 vertikale, 0 horizontale Wand
-}	t_ray_hit;
+	bool		is_vertical;
+	double		distance; //distanz zu Kollision
+	t_point		hit_pos;
+}	t_ray;
+
+typedef struct s_ray_caster
+{
+
+	int			num_rays;
+	double		angle_step;
+	double		start_angle;
+	mlx_image_t	*img;
+}	t_ray_caster;
 
 typedef struct s_cub3d
 {
-	mlx_t		*mlx;
-	t_map		map;
-	t_player	player;
-	t_graphics	graphics;
-	mlx_image_t *ray_img;
-	mlx_image_t *view_img;
+	mlx_t			*mlx;
+	t_map			map;
+	t_player		player;
+	t_graphics		graphics;
+	t_ray_caster	ray_caster;
+	mlx_image_t		*view_img;
 }				t_cub3d;
 
 //init
@@ -145,18 +154,20 @@ void	render_player(t_cub3d *cub3d);
 // void	render_bg(t_cub3d *cub3d, uint32_t color);
 void draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32_t color);
 void cast_rays(t_cub3d *cub3d);
-t_ray_hit cast_single_ray(t_cub3d *cub3d, double ray_angle);
-t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle);
-t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle);
+t_ray cast_single_ray(t_cub3d *cub3d, double ray_angle);
+t_ray cast_horizontal_ray(t_cub3d *cub3d, double ray_angle);
+t_ray cast_vertical_ray(t_cub3d *cub3d, double ray_angle);
 
 //render
 void	render_map(t_cub3d *cub3d);
-void	fill_tile(t_cub3d *cub3d, mlx_image_t *map_img, int x, int y, uint32_t color);
+void	update_player_img_pos(t_cub3d *cub3d);
 
 //draw
 void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
-void	update_player_img_pos(t_cub3d *cub3d);
 void	draw_player(t_cub3d *cub3d);
+void	fill_tile(t_map map, int x, int y, uint32_t color);
+void	draw_map(t_map map);
+void	clear_image(mlx_image_t *img);
 
 //player_controls
 void	player_movement(t_cub3d *cub3d);
@@ -166,6 +177,6 @@ void	game_loop(void *param);
 void	handle_keypress(mlx_key_data_t keydata, void *param);
 void	handle_close(void *param);
 //3d
-void render_wall_slice(t_cub3d *cub3d, int col, t_ray_hit hit, double ray_angle);
+void render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle);
 
 #endif

@@ -2,6 +2,12 @@
 
 #include "cub3d.h"
 
+void	init_ray_caster(t_cub3d *cub3d)
+{
+	cub3d->ray_caster.num_rays = WINDOW_WIDTH - MINIMAP_WIDTH;
+	cub3d->ray_caster.angle_step = cub3d->player.fov / cub3d->ray_caster.num_rays;
+}
+
 static void	init_player(t_cub3d *cub3d)
 {
 	t_map		*map;
@@ -17,11 +23,14 @@ static void	init_player(t_cub3d *cub3d)
 		player->angle = degree_to_rad(90);
 	if (map->player_orientation == 'S')
 		player->angle = degree_to_rad(270);
-	player->pos.x = map->player_idx.x * map->tile_size + map->tile_size / 2;
-	player->pos.y = map->player_idx.y * map->tile_size + map->tile_size / 2;
+	player->pixel_pos.x = map->player_pos.x * map->tile_size + map->tile_size / 2;
+	player->pixel_pos.y = map->player_pos.y * map->tile_size + map->tile_size / 2;
+	player->grid_pos.x = map->player_pos.x;
+	player->grid_pos.y = map->player_pos.y;
 	player->size = cub3d->map.tile_size / 5;
 	player->speed = cub3d->map.tile_size * 0.1;
 	player->rot_speed = degree_to_rad(5);
+	player->fov = degree_to_rad(60);
 }
 
 static void	init_map(t_cub3d *cub3d)
@@ -29,11 +38,15 @@ static void	init_map(t_cub3d *cub3d)
 	int		tile_width;
 	int		tile_height;
 
-	tile_height = MINIMAP_HEIGHT / cub3d->map.height;
-	tile_width = MINIMAP_WIDTH / cub3d->map.width;
+	tile_height = MINIMAP_HEIGHT / cub3d->map.grid_height;
+	tile_width = MINIMAP_WIDTH / cub3d->map.grid_width;
 	cub3d->map.tile_size = tile_width;
 	if (tile_height < tile_width)
 		cub3d->map.tile_size = tile_height;
+	if (cub3d->map.tile_size < 2)
+		cub3d->map.tile_size = 2;
+	cub3d->map.pixel_width = cub3d->map.tile_size * cub3d->map.grid_width;
+	cub3d->map.pixel_height = cub3d->map.tile_size * cub3d->map.grid_height;
 }
 
 void	init_cub3d(t_cub3d *cub3d, char *path)
@@ -46,5 +59,11 @@ void	init_cub3d(t_cub3d *cub3d, char *path)
 	validate_cub3d(*cub3d);
 	init_map(cub3d);
 	init_player(cub3d);
+	init_ray_caster(cub3d);
+	// cub3d->view_img = mlx_new_image(cub3d->mlx, WINDOW_WIDTH - MINIMAP_WIDTH, WINDOW_HEIGHT);
+	// if (!cub3d->view_img)
+	// 	handle_error("Failed to create 3D view image");
+	// mlx_image_to_window(cub3d->mlx, cub3d->view_img, MINIMAP_WIDTH, 0);
+
 }
 

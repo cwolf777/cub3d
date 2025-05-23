@@ -1,6 +1,24 @@
 
 #include "cub3d.h"
 
+void clear_image(mlx_image_t *img)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < (int)img->height)
+	{
+		x = 0;
+		while (x <(int) img->width)
+		{
+			mlx_put_pixel(img, x, y, 0x00000000); // Transparent
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_line(mlx_image_t *img, t_point start,
 	t_point end, int width, uint32_t color)
 {
@@ -94,5 +112,52 @@ void	draw_player(t_cub3d *cub3d)
 	draw_filled_circle(cub3d->player.img, start, cub3d->player.size / 2, PLAYER_COLOR);
 	end.x = start.x + cos(cub3d->player.angle) * cub3d->player.size / 2;
 	end.y = start.y + sin(cub3d->player.angle) * cub3d->player.size / 2;
-	draw_line(cub3d->player.img, start, end, 2, DIR_LINE_COLOR);
+	draw_line(cub3d->player.img, start, end, 1, DIR_LINE_COLOR);
+}
+
+void	fill_tile(t_map map, int start_x, int start_y, uint32_t color)
+{
+	int	pixel_x;
+	int	pixel_y;
+
+	pixel_y = 0;
+	while (pixel_y < map.tile_size - 1)
+	{
+		pixel_x = 0;
+		while (pixel_x < map.tile_size - 1)
+		{
+			if (pixel_x >= 0 && pixel_x < (int)map.img->width && pixel_y >= 0 && pixel_y < (int)map.img->height)
+				mlx_put_pixel(map.img, start_x + pixel_x, start_y + pixel_y, color);
+			pixel_x++;
+		}
+		pixel_y++;
+	}
+}
+
+void	draw_map(t_map map)
+{
+	uint32_t	fill_color;
+	int			x;
+	int			y;
+	char		tile;
+
+	y = 0;
+	while(y < MINIMAP_VIEW_SIZE)
+	{
+		x = 0;
+		while (x < MINIMAP_VIEW_SIZE)
+		{
+			tile = map.grid[y][x];
+			if (tile == '1')
+				fill_color = 0xFFFF3333;
+			else if (tile == '0')
+				fill_color = 0xFFFFFFFF;
+			else if (tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E')
+				fill_color = 0xFFFFFFFF;
+			printf("x:%d, y:%d\n", x * map.tile_size, y * map.tile_size);
+			fill_tile(map, x + map.player_pos.x * map.tile_size, y + map.player_pos.y * map.tile_size, fill_color);
+			x++;
+		}
+		y++;
+	}
 }

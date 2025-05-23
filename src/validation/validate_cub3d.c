@@ -9,10 +9,10 @@ void	validate_player(t_map map)
 
 	player_count = 0;
 	y = 0;
-	while (y < map.height)
+	while (y < map.grid_height)
 	{
 		x = 0;
-		while (x < map.width)
+		while (x < map.grid_width)
 		{
 			if (ft_strchr("NWES", map.grid[y][x]))
 				player_count++;

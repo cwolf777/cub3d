@@ -31,17 +31,18 @@ void	print_cub3d_info(t_cub3d *cub)
 	print_rgb("Ceiling Color", cub->graphics.ceiling);
 
 	printf("Player:\n");
-	printf("	Position:	x = %d, y = %d\n", cub->player.pos.x, cub->player.pos.y);
+	printf("	Position:	x = %d, y = %d\n", cub->player.pixel_pos.x, cub->player.pixel_pos.y);
 	printf("	Angle:	   %f rad (%.2f°)\n", cub->player.angle, cub->player.angle * (180.0 / M_PI));
 	printf("	Speed:	   %d\n", cub->player.speed);
 	printf("	Rot. Speed:  %f rad/frame (%.2f°)\n", cub->player.rot_speed, cub->player.rot_speed * (180.0 / M_PI));
 	printf("	Size:	%d px\n", cub->player.size);
 
 	printf("Map:\n");
-	printf("	Dimensions:  width = %d, height = %d\n", cub->map.width, cub->map.height);
+	printf("	Dimensions:  width = %d, height = %d\n", cub->map.grid_width, cub->map.grid_height);
+	printf("	PIXELS:		 width = %d, height = %d\n", cub->map.pixel_width, cub->map.pixel_height);
 	printf("	Tile Size:   %d px\n", cub->map.tile_size);
 	printf("	Player Start Index: x = %d, y = %d (orientation: '%c')\n",
-		cub->map.player_idx.x, cub->map.player_idx.y, cub->map.player_orientation);
+		cub->map.player_pos.x, cub->map.player_pos.y, cub->map.player_orientation);
 	printf("Grid:\n");
 	print_grid(cub->map.grid);
 

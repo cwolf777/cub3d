@@ -1,53 +1,44 @@
 
 #include "cub3d.h"
 
-void	fill_tile(t_cub3d *cub3d, mlx_image_t *map_img, int x, int y, uint32_t color)
-{
-	int	px;
-	int	py;
-
-	py = 0;
-	while (py < cub3d->map.tile_size - 1)
-	{
-		px = 0;
-		while (px < cub3d->map.tile_size - 1)
-		{
-			mlx_put_pixel(map_img, x + px, y + py, color);
-			px++;
-		}
-		py++;
-	}
-}
 
 void	render_map(t_cub3d *cub3d)
 {
-	uint32_t	fill_color;
-	int			x;
-	int			y;
-	char		tile;
-
 	cub3d->map.img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!cub3d->map.img)
 		handle_error("Failed to load map_img");
-	y = 0;
-	while(y < cub3d->map.height)
-	{
-		x = 0;
-		while (x < cub3d->map.width)
-		{
-			tile = cub3d->map.grid[y][x];
-			if (tile == '1')
-				fill_color = 0xFFFF3333;
-			else if (tile == '0')
-				fill_color = 0xFFFFFFFF;
-			else if (tile == 'N' || tile == 'S' || tile == 'W' || tile == 'E')
-				fill_color = 0xFFFFFFFF;
-			fill_tile(cub3d, cub3d->map.img, x * cub3d->map.tile_size, y * cub3d->map.tile_size , fill_color);
-			x++;
-		}
-		y++;
-	}
+	draw_map(cub3d->map);
 	mlx_image_to_window(cub3d->mlx, cub3d->map.img, 0, 0);
+	cub3d->ray_caster.img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	if (!cub3d->ray_caster.img)
+		handle_error("Failed to create ray_caster image");
+	mlx_image_to_window(cub3d->mlx, cub3d->ray_caster.img, 0, 0);
+}
+
+void	render_player(t_cub3d *cub3d)
+{
+	int	img_x;
+	int	img_y;
+	
+	cub3d->player.img = mlx_new_image(cub3d->mlx, cub3d->player.size, cub3d->player.size);
+	if (!cub3d->player.img)
+	handle_error("Player image creation failed");
+	draw_player(cub3d);
+	img_x = cub3d->player.pixel_pos.x - cub3d->player.size / 2;
+	img_y = cub3d->player.pixel_pos.y - cub3d->player.size / 2;
+	if (mlx_image_to_window(cub3d->mlx, cub3d->player.img, img_x, img_y) < 0)
+	handle_error("Failed to draw player");
+}
+
+void	update_player_img_pos(t_cub3d *cub3d)
+{
+	int	img_x;
+	int	img_y;
+	
+	img_x = cub3d->player.pixel_pos.x - cub3d->player.size / 2;
+	img_y = cub3d->player.pixel_pos.y - cub3d->player.size / 2;
+	cub3d->player.img->instances[0].x = img_x;
+	cub3d->player.img->instances[0].y = img_y;
 }
 
 // void	render_bg(t_cub3d *cub3d, uint32_t color)
@@ -73,21 +64,3 @@ void	render_map(t_cub3d *cub3d)
 // 	if (mlx_image_to_window(cub3d->mlx, bg, 0, 0) < 0)
 // 		handle_error("Failed to draw background");
 // }
-
-void	render_player(t_cub3d *cub3d)
-{
-	cub3d->player.img = mlx_new_image(cub3d->mlx, cub3d->player.size, cub3d->player.size);
-	if (!cub3d->player.img)
-		handle_error("Player image creation failed");
-	draw_player(cub3d);
-	if (mlx_image_to_window(cub3d->mlx, cub3d->player.img, cub3d->player.pos.x - cub3d->player.size / 2, cub3d->player.pos.y - cub3d->player.size / 2) < 0)
-		handle_error("Failed to draw player");
-}
-
-void	update_player_img_pos(t_cub3d *cub3d)
-{
-	cub3d->player.img->instances[0].x = cub3d->player.pos.x - cub3d->player.size / 2;
-	cub3d->player.img->instances[0].y = cub3d->player.pos.y - cub3d->player.size / 2;
-}
-
-

@@ -68,7 +68,7 @@ char	**copy_grid(t_map map)
 	int		i;
 
 	i = 0;
-	new_grid = malloc(sizeof(char *) * (map.height + 1));
+	new_grid = malloc(sizeof(char *) * (map.grid_height + 1));
 	if (!new_grid)
 		handle_error("Malloc failed in func: copy_map");
 	while (map.grid[i] != NULL)

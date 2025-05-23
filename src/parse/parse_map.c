@@ -90,7 +90,7 @@ static void	parse_grid(t_map *map, int fd)
 		handle_error("Failed ft_split in func create_grid");
 }
 
-static void	parse_map_size(t_map *map)
+static void	parse_grid_size(t_map *map)
 {
 	int	height;
 	int	width;
@@ -101,25 +101,25 @@ static void	parse_map_size(t_map *map)
 		height++;
 	while (map->grid[0][width] != '\0')
 		width++;
-	map->height = height;
-	map->width = width;
+	map->grid_height = height;
+	map->grid_width = width;
 }
 
-static void	parse_player(t_map *map)
+static void	parse_player_pos(t_map *map)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < map->height)
+	while (y < map->grid_height)
 	{
 		x = 0;
-		while (x < map->width)
+		while (x < map->grid_width)
 		{
 			if (ft_strchr("NWES", map->grid[y][x]))
 			{
-				map->player_idx.x = x;
-				map->player_idx.y = y;
+				map->player_pos.x = x;
+				map->player_pos.y = y;
 				map->player_orientation = map->grid[y][x];
 			}
 			x++;
@@ -131,6 +131,6 @@ static void	parse_player(t_map *map)
 void	parse_map(t_map *map, int fd)
 {
 	parse_grid(map, fd);
-	parse_map_size(map);
-	parse_player(map);
+	parse_grid_size(map);
+	parse_player_pos(map);
 }

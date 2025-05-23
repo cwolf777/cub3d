@@ -13,7 +13,7 @@ SRCS =	main.c init.c init_img.c \
 		parse_cub3d.c parse_graphics.c parse_img.c parse_map.c parse_rgb.c \
 		validate_cub3d.c validate_file_extension.c validate_rgb.c validate_grid.c \
 		player_movement.c handle_keypress.c game_loop.c handle_close.c \
-		print.c utils.c ft_split2.c minimap.c render.c draw.c 3d_transform.c
+		print.c utils.c ft_split2.c ray_caster.c render.c draw.c 3d_transform.c
 
 
 
