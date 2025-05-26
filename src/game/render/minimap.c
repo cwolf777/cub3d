@@ -60,6 +60,11 @@ t_ray_hit cast_horizontal_ray(t_cub3d *cub3d, double ray_angle)
 	t_ray_hit hit;
 	hit.is_vertical = 0;
 
+	if (sin(ray_angle) < 0)
+		hit.dir = NO;
+	else
+		hit.dir = SO;
+
 	double ray_dir_y = sin(ray_angle);
 	int facing_up = ray_dir_y < 0;
 
@@ -105,6 +110,11 @@ t_ray_hit cast_vertical_ray(t_cub3d *cub3d, double ray_angle)
 {
 	t_ray_hit hit;
 	hit.is_vertical = 1;
+
+	if (cos(ray_angle) < 0)
+		hit.dir = WE;
+	else
+		hit.dir = EA;
 
 	int facing_left = cos(ray_angle) < 0;
 

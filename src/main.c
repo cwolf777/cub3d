@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
 	cub3d.view_img = mlx_new_image(cub3d.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!cub3d.view_img)
 		handle_error("Failed to create 3D view image");
+	fill_background(cub3d);
 	mlx_image_to_window(cub3d.mlx, cub3d.view_img, 0, 0);
 	mlx_key_hook(cub3d.mlx, handle_keypress, &cub3d);
 	mlx_close_hook(cub3d.mlx, handle_close, &cub3d);

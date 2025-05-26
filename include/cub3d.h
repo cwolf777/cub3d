@@ -92,6 +92,7 @@ typedef struct s_ray_hit
 	double distance; //distanz zu Kollision
 	t_point	hit;
 	int is_vertical; //1 vertikale, 0 horizontale Wand
+	t_graphic_config dir;
 }	t_ray_hit;
 
 typedef struct s_cub3d
