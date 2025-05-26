@@ -105,7 +105,7 @@ static void	parse_grid_size(t_map *map)
 	map->grid_width = width;
 }
 
-static void	parse_player_pos(t_map *map)
+static void	parse_player_index(t_map *map)
 {
 	int	x;
 	int	y;
@@ -118,8 +118,8 @@ static void	parse_player_pos(t_map *map)
 		{
 			if (ft_strchr("NWES", map->grid[y][x]))
 			{
-				map->player_pos.x = x;
-				map->player_pos.y = y;
+				map->player_index.x = x;
+				map->player_index.y = y;
 				map->player_orientation = map->grid[y][x];
 			}
 			x++;
@@ -132,5 +132,5 @@ void	parse_map(t_map *map, int fd)
 {
 	parse_grid(map, fd);
 	parse_grid_size(map);
-	parse_player_pos(map);
+	parse_player_index(map);
 }

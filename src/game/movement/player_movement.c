@@ -25,7 +25,7 @@ static void	move_forward(t_cub3d *cub3d)
 	// tempy = cub3d->player.pixel_pos.y + sin(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
 	tempx = cub3d->player.pixel_pos.x + cos(cub3d->player.angle) * cub3d->player.speed;
 	tempy = cub3d->player.pixel_pos.y + sin(cub3d->player.angle) * cub3d->player.speed;
-	if (check_collision(cub3d->map, tempx, tempy, cub3d->map.tile_size))
+	if (check_collision(cub3d->map, tempx, tempy, TILE_SIZE))
 		return ;
 	cub3d->player.pixel_pos.x = cub3d->player.pixel_pos.x + cos(cub3d->player.angle) * cub3d->player.speed;
 	cub3d->player.pixel_pos.y = cub3d->player.pixel_pos.y + sin(cub3d->player.angle) * cub3d->player.speed;
@@ -40,7 +40,7 @@ static void	move_backward(t_cub3d *cub3d)
 	// tempy = cub3d->player.pixel_pos.y - sin(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
 	tempx = cub3d->player.pixel_pos.x - cos(cub3d->player.angle) * cub3d->player.speed;
 	tempy = cub3d->player.pixel_pos.y - sin(cub3d->player.angle) * cub3d->player.speed;
-	if (check_collision(cub3d->map, tempx, tempy, cub3d->map.tile_size))
+	if (check_collision(cub3d->map, tempx, tempy, TILE_SIZE))
 		return ;
 	cub3d->player.pixel_pos.x = cub3d->player.pixel_pos.x - cos(cub3d->player.angle) * cub3d->player.speed;
 	cub3d->player.pixel_pos.y = cub3d->player.pixel_pos.y - sin(cub3d->player.angle) * cub3d->player.speed;
@@ -65,7 +65,7 @@ void	player_movement(t_cub3d *cub3d)
 		rotate_left(cub3d);
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_D))
 		rotate_right(cub3d);
-	cub3d->map.player_pos.x = cub3d->player.pixel_pos.x / cub3d->map.tile_size;
-	cub3d->map.player_pos.y = cub3d->player.pixel_pos.y / cub3d->map.tile_size;
+	cub3d->map.player_index.x = cub3d->player.pixel_pos.x / TILE_SIZE;
+	cub3d->map.player_index.y = cub3d->player.pixel_pos.y / TILE_SIZE;
 }
 

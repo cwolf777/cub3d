@@ -48,24 +48,24 @@ t_ray cast_horizontal_ray(t_cub3d *cub3d, double ray_angle)
 	int facing_up = ray_dir_y < 0;
 
 	// Erste horizontale Gitterlinie berechnen
-	double y_intercept = floor(cub3d->player.pixel_pos.y / cub3d->map.tile_size) * cub3d->map.tile_size;
-	y_intercept += facing_up ? -0.0001 : cub3d->map.tile_size;
+	double y_intercept = floor(cub3d->player.pixel_pos.y / TILE_SIZE) * TILE_SIZE;
+	y_intercept += facing_up ? -0.0001 : TILE_SIZE;
 
 	double x_intercept = cub3d->player.pixel_pos.x + (y_intercept - cub3d->player.pixel_pos.y) / tan(ray_angle);
 
 	// Schrittgrößen
-	double y_step = facing_up ? -cub3d->map.tile_size : cub3d->map.tile_size;
+	double y_step = facing_up ? -TILE_SIZE : TILE_SIZE;
 	double x_step = y_step / tan(ray_angle);
 
 	double next_x = x_intercept;
 	double next_y = y_intercept;
 
 	// Gitter durchlaufen
-	while (next_x >= 0 && next_x < cub3d->map.grid_width * cub3d->map.tile_size &&
-			next_y >= 0 && next_y < cub3d->map.grid_height * cub3d->map.tile_size)
+	while (next_x >= 0 && next_x < cub3d->map.grid_width * TILE_SIZE &&
+			next_y >= 0 && next_y < cub3d->map.grid_height * TILE_SIZE)
 	{
-		int map_x = (int)(next_x / cub3d->map.tile_size);
-		int map_y = (int)(next_y / cub3d->map.tile_size);
+		int map_x = (int)(next_x / TILE_SIZE);
+		int map_y = (int)(next_y / TILE_SIZE);
 
 		if (map_x >= 0 && map_y >= 0 &&
 			cub3d->map.grid[map_y][map_x] == '1')
@@ -92,21 +92,21 @@ t_ray cast_vertical_ray(t_cub3d *cub3d, double ray_angle)
 
 	int facing_left = cos(ray_angle) < 0;
 
-	double x_intercept = floor(cub3d->player.pixel_pos.x / cub3d->map.tile_size) * cub3d->map.tile_size;
-	x_intercept += facing_left ? -0.0001 : cub3d->map.tile_size;
+	double x_intercept = floor(cub3d->player.pixel_pos.x / TILE_SIZE) * TILE_SIZE;
+	x_intercept += facing_left ? -0.0001 : TILE_SIZE;
 
 	double y_intercept = cub3d->player.pixel_pos.y + (x_intercept - cub3d->player.pixel_pos.x) * tan(ray_angle);
 
-	double x_step = facing_left ? -cub3d->map.tile_size : cub3d->map.tile_size;
+	double x_step = facing_left ? -TILE_SIZE : TILE_SIZE;
 	double y_step = x_step * tan(ray_angle);
 
 	double next_x = x_intercept;
 	double next_y = y_intercept;
 
-	while (next_x >= 0 && next_x < cub3d->map.pixel_width && next_y >= 0 && next_y < cub3d->map.pixel_height)
+	while (next_x >= 0 && next_x < MINIMAP_WIDTH && next_y >= 0 && next_y < MINIMAP_HEIGHT)
 	{
-		int map_x = (int)(next_x / cub3d->map.tile_size);
-		int map_y = (int)(next_y / cub3d->map.tile_size);
+		int map_x = (int)(next_x / TILE_SIZE);
+		int map_y = (int)(next_y / TILE_SIZE);
 
 		if (map_x >= 0 && map_y >= 0 &&
 			cub3d->map.grid[map_y][map_x] == '1')

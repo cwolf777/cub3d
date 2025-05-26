@@ -39,10 +39,10 @@ void	print_cub3d_info(t_cub3d *cub)
 
 	printf("Map:\n");
 	printf("	Dimensions:  width = %d, height = %d\n", cub->map.grid_width, cub->map.grid_height);
-	printf("	PIXELS:		 width = %d, height = %d\n", cub->map.pixel_width, cub->map.pixel_height);
-	printf("	Tile Size:   %d px\n", cub->map.tile_size);
+	printf("	PIXELS:		 width = %d, height = %d\n", MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	printf("	Tile Size:   %d px\n", TILE_SIZE);
 	printf("	Player Start Index: x = %d, y = %d (orientation: '%c')\n",
-		cub->map.player_pos.x, cub->map.player_pos.y, cub->map.player_orientation);
+		cub->map.player_index.x, cub->map.player_index.y, cub->map.player_orientation);
 	printf("Grid:\n");
 	print_grid(cub->map.grid);
 

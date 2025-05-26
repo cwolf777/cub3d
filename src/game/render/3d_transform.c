@@ -8,7 +8,7 @@ void render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle)
 	double fov = 60.0 * (M_PI / 180.0);
 	double dist_proj_plane = (WINDOW_WIDTH / 2.0) / tan(fov / 2.0);
 
-	double wall_height = (cub3d->map.tile_size / corrected_distance) * dist_proj_plane;
+	double wall_height = (TILE_SIZE / corrected_distance) * dist_proj_plane;
 
 	int wall_top = (WINDOW_HEIGHT / 2) - (wall_height / 2);
 	int wall_bottom = (WINDOW_HEIGHT / 2) + (wall_height / 2);
