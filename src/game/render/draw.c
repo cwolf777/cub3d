@@ -190,38 +190,3 @@ void draw_img_outline(mlx_image_t *img, int line_width, uint32_t color)
 	draw_line(img, start, end, line_width, color);
 }
 
-void	draw_map_centered(t_map map)
-{
-	clear_image(map.img);
-
-	int center_x = MINIMAP_WIDTH / 2;
-	int center_y = MINIMAP_HEIGHT / 2;
-
-	int start_y = map.player_index.y - MINIMAP_VIEW_SIZE;
-	int end_y   = map.player_index.y + MINIMAP_VIEW_SIZE;
-	int start_x = map.player_index.x - MINIMAP_VIEW_SIZE;
-	int end_x   = map.player_index.x + MINIMAP_VIEW_SIZE;
-
-	for (int y = start_y; y < end_y; y++)
-	{
-		for (int x = start_x; x < end_x; x++)
-		{
-			if (y < 0 || x < 0 || y >= map.grid_height || x >= map.grid_width)
-				continue;
-
-			int tile_offset_x = x - map.player_index.x;
-			int tile_offset_y = y - map.player_index.y;
-
-			int draw_x = center_x + tile_offset_x * TILE_SIZE;
-			int draw_y = center_y + tile_offset_y * TILE_SIZE;
-
-			char tile = map.grid[y][x];
-			uint32_t color = (tile == '1') ? 0xFFFF0000 : 0xFFFFFFFF;
-
-			fill_tile(map, draw_x, draw_y, color);
-		}
-	}
-
-	// Spieler in die Mitte setzen
-	fill_tile(map, center_x, center_y, 0xFF00FF00);
-}

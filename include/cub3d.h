@@ -3,31 +3,30 @@
 # define CUB3D_H
 
 //COLORS
-#define WHITE 0xFFFFFFFF
-#define GREEN 0xFFFF3333
-#define PLAYER_COLOR 0xFFAAAAAA
+# define WHITE 0xFFFFFFFF
+# define GREEN 0xFFFF3333
+# define PLAYER_COLOR 0xFFAAAAAA
 
-#define MINIMAP_WIDTH 260
-#define MINIMAP_HEIGHT 152
-#define MINIMAP_VIEW_SIZE 3
-#define TILE_SIZE 32
-#define PLAYER_SIZE 10
-#define PLAYER_SPEED 2
-#define PLAYER_ROT_SPEED 
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
-#define DIR_LINE_COLOR 0x0000FF
-// #define PI 3.1415926535
-
-
-# include "MLX42.h"
-# include "libft.h"
-# include <stdbool.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <math.h>
-
+# define MINIMAP_WIDTH 260
+# define MINIMAP_HEIGHT 152
+# define MINIMAP_VIEW_SIZE 3
+# define TILE_SIZE 32
+# define PLAYER_SIZE 10
+# define PLAYER_SPEED 2
+# define PLAYER_ROT_SPEED 
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 720
+# define DIR_LINE_COLOR 0x0000FF
 # define GRAPHICS_LENGTH 6
+
+
+#include "MLX42.h"
+#include "libft.h"
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+
 
 typedef enum e_graphic_config
 {
@@ -74,12 +73,9 @@ typedef struct s_map
 {
 	int			grid_width;
 	int			grid_height;
-	// int			pixel_width;
-	// int			pixel_height;
 	char		**grid;
 	t_point		player_index;
 	char		player_orientation;
-	// int			tile_size;
 	mlx_image_t	*img;
 }				t_map;
 
@@ -98,7 +94,7 @@ typedef struct s_player
 typedef struct s_ray
 {
 	bool		is_vertical;
-	double		distance; //distanz zu Kollision
+	double		distance;
 	t_point		hit_pos;
 }	t_ray;
 

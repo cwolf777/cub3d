@@ -28,27 +28,3 @@ void render_player(t_cub3d *cub3d)
 	if (mlx_image_to_window(cub3d->mlx, cub3d->player.img, img_x, img_y) < 0)
 		handle_error("Failed to draw player");
 }
-
-// void	render_bg(t_cub3d *cub3d, uint32_t color)
-// {
-// 	mlx_image_t	*bg;
-// 	int			x;
-// 	int			y;
-	
-// 	bg = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
-// 	if (!bg)
-// 		handle_error("Failed to create background");
-// 	y = 0;
-// 	while(y < MINIMAP_HEIGHT)
-// 	{
-// 		x = 0;
-// 		while(x < MINIMAP_WIDTH)
-// 		{
-// 			mlx_put_pixel(bg, x, y, color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	if (mlx_image_to_window(cub3d->mlx, bg, 0, 0) < 0)
-// 		handle_error("Failed to draw background");
-// }

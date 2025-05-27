@@ -62,10 +62,9 @@ void	init_cub3d(t_cub3d *cub3d, char *path)
 	// init_map(cub3d);
 	init_player(cub3d);
 	init_ray_caster(cub3d);
-	// cub3d->view_img = mlx_new_image(cub3d->mlx, WINDOW_WIDTH - MINIMAP_WIDTH, WINDOW_HEIGHT);
-	// if (!cub3d->view_img)
-	// 	handle_error("Failed to create 3D view image");
-	// mlx_image_to_window(cub3d->mlx, cub3d->view_img, MINIMAP_WIDTH, 0);
-
+	cub3d->view_img = mlx_new_image(cub3d->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!cub3d->view_img)
+		handle_error("Failed to create 3D view image");
+	mlx_image_to_window(cub3d->mlx, cub3d->view_img, 0, 0);
 }
 

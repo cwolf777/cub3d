@@ -10,18 +10,18 @@ void cast_rays(t_cub3d *cub3d)
 	double	ray_angle;
 	
 	clear_image(cub3d->ray_caster.img);
-	// clear_image(cub3d->view_img);
+	clear_image(cub3d->view_img);
+	fill_background(cub3d);
 	start_angle = cub3d->player.angle - (cub3d->player.fov / 2.0);
 	i = 0;
 	while (i < cub3d->ray_caster.num_rays)
 	{
 		ray_angle = start_angle + i * cub3d->ray_caster.angle_step;
 		ray = cast_single_ray(cub3d, ray_angle);
-		// render_wall_slice(cub3d, i, ray);
 		start.x = MINIMAP_WIDTH / 2;
 		start.y = MINIMAP_HEIGHT / 2;
 		draw_line(cub3d->ray_caster.img, start, ray.hit_pos, 1, 0xFF0000FF);
-		// render_wall_slice(cub3d, i, ray, ray_angle);
+		render_wall_slice(cub3d, i, ray, ray_angle);
 		i++;
 	}
 }
