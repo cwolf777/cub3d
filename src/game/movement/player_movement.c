@@ -3,16 +3,25 @@
 
 static bool	check_collision(t_map map, int px, int py, int tile_size)
 {
-	int	y;
-	int	x;
+	int i;
+	int check_x;
+	int check_y;
+	int grid_x;
+	int grid_y;
 
-	x = px / tile_size;
-	y = py / tile_size;
-	
-	if (y < 0 || y > map.grid_height || x < 0 || x > map.grid_width)
-		return (true);
-	if (map.grid[y][x] == '1')
-		return (true);
+	i = 0;
+	while(i < 360)
+	{
+		check_x = px + cos(degree_to_rad(i)) * PLAYER_SIZE;
+		check_y = py + sin(degree_to_rad(i)) * PLAYER_SIZE;
+		grid_x = check_x / tile_size;
+		grid_y = check_y / tile_size;
+		if (grid_y < 0 || grid_y >= map.grid_height || grid_x < 0 || grid_x >= map.grid_width)
+			return (true);
+		if (map.grid[grid_y][grid_x] == '1')
+			return (true);
+		i += 15;
+	}
 	return (false);
 }
 
@@ -21,8 +30,6 @@ static void	move_forward(t_cub3d *cub3d)
 	int	tempx;
 	int	tempy;
 
-	// tempx = cub3d->player.pixel_pos.x + cos(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
-	// tempy = cub3d->player.pixel_pos.y + sin(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
 	tempx = cub3d->player.pixel_pos.x + cos(cub3d->player.angle) * cub3d->player.speed;
 	tempy = cub3d->player.pixel_pos.y + sin(cub3d->player.angle) * cub3d->player.speed;
 	if (check_collision(cub3d->map, tempx, tempy, TILE_SIZE))
@@ -36,8 +43,6 @@ static void	move_backward(t_cub3d *cub3d)
 	int	tempx;
 	int	tempy;
 
-	// tempx = cub3d->player.pixel_pos.x - cos(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
-	// tempy = cub3d->player.pixel_pos.y - sin(cub3d->player.angle) * (cub3d->player.speed + cub3d->player.size);
 	tempx = cub3d->player.pixel_pos.x - cos(cub3d->player.angle) * cub3d->player.speed;
 	tempy = cub3d->player.pixel_pos.y - sin(cub3d->player.angle) * cub3d->player.speed;
 	if (check_collision(cub3d->map, tempx, tempy, TILE_SIZE))

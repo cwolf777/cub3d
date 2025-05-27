@@ -19,8 +19,8 @@ void cast_rays(t_cub3d *cub3d)
 		ray_angle = start_angle + i * cub3d->ray_caster.angle_step;
 		ray = cast_single_ray(cub3d, ray_angle);
 		// render_wall_slice(cub3d, i, ray);
-		start.x = cub3d->player.pixel_pos.x;
-		start.y = cub3d->player.pixel_pos.y;
+		start.x = MINIMAP_WIDTH / 2;
+		start.y = MINIMAP_HEIGHT / 2;
 		draw_line(cub3d->ray_caster.img, start, ray.hit_pos, 1, 0xFF0000FF);
 		// render_wall_slice(cub3d, i, ray, ray_angle);
 		i++;

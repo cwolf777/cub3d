@@ -2,6 +2,11 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+//COLORS
+#define WHITE 0xFFFFFFFF
+#define GREEN 0xFFFF3333
+#define PLAYER_COLOR 0xFFAAAAAA
+
 #define MINIMAP_WIDTH 260
 #define MINIMAP_HEIGHT 152
 #define MINIMAP_VIEW_SIZE 3
@@ -11,7 +16,6 @@
 #define PLAYER_ROT_SPEED 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
-#define PLAYER_COLOR 0xFFAAAAAA
 #define DIR_LINE_COLOR 0x0000FF
 // #define PI 3.1415926535
 
@@ -170,7 +174,8 @@ void	draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32
 void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
 void	draw_player(t_cub3d *cub3d);
 void	fill_tile(t_map map, int x, int y, uint32_t color);
-void	draw_map(t_cub3d cub3d);
+void	draw_map(t_cub3d *cub3d);
+void	draw_minimap(t_cub3d cub3d);
 void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color);
 void	clear_image(mlx_image_t *img);
 void	draw_map_centered(t_map map);

@@ -137,50 +137,32 @@ void	fill_tile(t_map map, int start_x, int start_y, uint32_t color)
 	}
 }
 
-void	draw_map(t_cub3d cub3d)
+void	draw_minimap(t_cub3d cub3d)
 {
-	uint32_t	fill_color;
 	int			x;
 	int			y;
-	char		tile;
-	t_player	player;
-	t_map		map;
-	// t_point		start;
-	// t_point		end;
+	int			off_set_x;
+	int			off_set_y;
 
-
-	map = cub3d.map;
-	player = cub3d.player;
-	clear_image(map.img);
-	y = map.player_index.y - MINIMAP_VIEW_SIZE;
-	if (y < 0)
-		y = 0;
-	while(y < map.grid_height)
+	clear_image(cub3d.map.img);
+	off_set_x = cub3d.player.pixel_pos.x - MINIMAP_WIDTH / 2;
+	off_set_y = cub3d.player.pixel_pos.y - MINIMAP_HEIGHT / 2;
+	y = 0;
+	while(y < cub3d.map.grid_height)
 	{
-		x = map.player_index.x - MINIMAP_VIEW_SIZE;
-		if (x < 0)
-			x = 0;
-		while (x < map.grid_width)
+		x = 0;
+		while (x < cub3d.map.grid_width)
 		{
-			int tile_screen_x = x * TILE_SIZE - (map.player_index.x - MINIMAP_VIEW_SIZE) * TILE_SIZE;
-			int tile_screen_y = y * TILE_SIZE - (map.player_index.y - MINIMAP_VIEW_SIZE) * TILE_SIZE;
-			if (tile_screen_x < 0)
-				tile_screen_x = 0;
-			if (tile_screen_y < 0)
-				tile_screen_y = 0;
-			tile = map.grid[y][x];
-			if (tile == '1')
-				fill_color = 0xFFFF3333;
+			if (cub3d.map.grid[y][x] == '1')
+				fill_tile(cub3d.map, x * TILE_SIZE - off_set_x, y * TILE_SIZE - off_set_y, GREEN);
 			else
-				fill_color = 0xFFFFFFFF;
-			fill_tile(map, tile_screen_x, tile_screen_y, fill_color);
+			fill_tile(cub3d.map, x * TILE_SIZE - off_set_x, y * TILE_SIZE - off_set_y, WHITE);
 			x++;
 		}
 		y++;
 	}
-	draw_img_outline(map.img, 2, PLAYER_COLOR);
+	draw_img_outline(cub3d.map.img, 2, PLAYER_COLOR);
 }
-
 
 void draw_img_outline(mlx_image_t *img, int line_width, uint32_t color)
 {
