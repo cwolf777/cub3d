@@ -167,14 +167,12 @@ t_ray cast_vertical_ray(t_cub3d *cub3d, double ray_angle);
 
 //render
 void	render_map(t_cub3d *cub3d);
-void	update_player_img_pos(t_cub3d *cub3d);
 
 //draw
 void	draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32_t color);
 void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
 void	draw_player(t_cub3d *cub3d);
 void	fill_tile(t_map map, int x, int y, uint32_t color);
-void	draw_map(t_cub3d *cub3d);
 void	draw_minimap(t_cub3d cub3d);
 void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color);
 void	clear_image(mlx_image_t *img);
@@ -187,7 +185,10 @@ void	player_movement(t_cub3d *cub3d);
 void	game_loop(void *param);
 void	handle_keypress(mlx_key_data_t keydata, void *param);
 void	handle_close(void *param);
+
 //3d
-void render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle);
+void		render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle);
+uint32_t	rgb_to_color(t_rgb color);
+void		fill_background(t_cub3d *cub3d);
 
 #endif

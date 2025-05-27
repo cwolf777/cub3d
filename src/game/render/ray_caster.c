@@ -12,7 +12,6 @@ void cast_rays(t_cub3d *cub3d)
 	clear_image(cub3d->ray_caster.img);
 	// clear_image(cub3d->view_img);
 	start_angle = cub3d->player.angle - (cub3d->player.fov / 2.0);
-	printf("start_angle: %f\n", start_angle);
 	i = 0;
 	while (i < cub3d->ray_caster.num_rays)
 	{

@@ -82,3 +82,13 @@ char	**copy_grid(t_map map)
 	return (new_grid);
 }
 
+uint32_t rgb_to_color(t_rgb color)
+{
+	uint32_t r = (uint32_t)(color.red & 0xFF) << 24;
+	uint32_t g = (uint32_t)(color.green & 0xFF) << 16;
+	uint32_t b = (uint32_t)(color.blue & 0xFF) << 8;
+	uint32_t a = 0xFF;
+
+	return r | g | b | a;
+}
+
