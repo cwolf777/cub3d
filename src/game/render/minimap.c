@@ -22,6 +22,7 @@ void cast_rays(t_cub3d *cub3d)
 
 	clear_image(cub3d->ray_img);
 	clear_image(cub3d->view_img);
+	fill_background(cub3d);
 	
 	for (int i = 0; i < num_rays; i++)
 	{

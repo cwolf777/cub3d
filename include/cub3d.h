@@ -168,5 +168,7 @@ void	handle_keypress(mlx_key_data_t keydata, void *param);
 void	handle_close(void *param);
 //3d
 void render_wall_slice(t_cub3d *cub3d, int col, t_ray_hit hit, double ray_angle);
+uint32_t rgb_to_color(t_rgb color);
+void fill_background(t_cub3d *cub3d);
 
 #endif

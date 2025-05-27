@@ -78,10 +78,36 @@ void render_wall_slice(t_cub3d *cub3d, int col, t_ray_hit hit, double ray_angle)
 	}
 }
 
-// void fill_background(t_cub3d *cub3d)
-// {
-// 	int	y;
+void fill_background(t_cub3d *cub3d)
+{
+	int	y;
+	int	x;
+	uint32_t floor_color;
+	uint32_t ceiling_color;
 
-// 	y = 0;
-
-// }
+	floor_color = rgb_to_color(cub3d->graphics.floor);
+	ceiling_color = rgb_to_color(cub3d->graphics.ceiling);
+	y = 0;
+	x = 0;
+	while (y < WINDOW_HEIGHT)
+	{
+		x = 0;
+		while (x < WINDOW_WIDTH)
+		{
+			if (y < WINDOW_HEIGHT / 2)
+			{
+				if (x >= 0 && x < (int)cub3d->view_img->width &&
+				y >= 0 && y < (int)cub3d->view_img->height)
+					mlx_put_pixel(cub3d->view_img, x, y, floor_color);
+			}
+			else
+			{
+				if (x >= 0 && x < (int)cub3d->view_img->width &&
+				y >= 0 && y < (int)cub3d->view_img->height)
+					mlx_put_pixel(cub3d->view_img, x, y, ceiling_color);
+			}
+			x++;
+		}
+		y++;
+	}
+}
