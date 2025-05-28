@@ -1,81 +1,46 @@
 #include "cub3d.h"
 
-void render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle)
+mlx_image_t *get_wall_texture(t_cub3d *cub3d, t_ray ray, double ray_angle)
 {
-	double corrected_distance = ray.distance * cos(ray_angle - cub3d->player.angle);
-
-	// Konstanten für Projektion 
-	double fov = 60.0 * (M_PI / 180.0);
-	double dist_proj_plane = (WINDOW_WIDTH / 2.0) / tan(fov / 2.0);
-
-	double wall_height = (TILE_SIZE / corrected_distance) * dist_proj_plane;
-
-	int wall_top = (WINDOW_HEIGHT / 2) - (wall_height / 2);
-	int wall_bottom = (WINDOW_HEIGHT / 2) + (wall_height / 2);
-
-	// Begrenzen auf sichtbaren Bereich
-	// if (wall_top < 0)
-	// 	wall_top = 0;
-	// if (wall_bottom > WINDOW_HEIGHT)
-	// 	wall_bottom = WINDOW_HEIGHT;
-
-	// === 1. TEXTUR ERMITTELN ===
-	mlx_image_t *texture = NULL;
 	if (ray.is_vertical)
 	{
 		if (cos(ray_angle) < 0)
-			texture = cub3d->graphics.west.img;
+			return (cub3d->graphics.west.img);
 		else
-			texture = cub3d->graphics.east.img;
+			return (cub3d->graphics.east.img);
 	}
 	else
 	{
 		if (sin(ray_angle) < 0)
-			texture = cub3d->graphics.north.img;
+			return (cub3d->graphics.north.img);
 		else
-
-			texture = cub3d->graphics.south.img;
+			return (cub3d->graphics.south.img);
 	}
-	if (!texture) return;
+}
+
+
+void render_wall_slice(t_cub3d *cub3d, int draw_x, t_ray ray, double ray_angle)
+{
+	double		corrected_distance;
+	mlx_image_t	*wall_texture;
+	int			offset_x;
+
+	corrected_distance = ray.distance * cos(ray_angle - cub3d->player.angle);
+	// Konstanten für Projektion
+	double wall_height = (TILE_SIZE / corrected_distance) * cub3d->ray_caster.dist_proj_plane;
+	int wall_top = (WINDOW_HEIGHT / 2) - (wall_height / 2);
+	int wall_bottom = (WINDOW_HEIGHT / 2) + (wall_height / 2);
+
+	wall_texture = get_wall_texture(cub3d, ray, ray_angle);
 
 	// === 2. TEXTUR-X berechnen ===
-	int tex_x;
 	if (ray.is_vertical)
-	{
-		int y_within_tile = (int)ray.hit_pos.y % TILE_SIZE;
-		tex_x = y_within_tile;
-	}
+		offset_x = ray.hit_pos.y % TILE_SIZE;
 	else
-	{
-		int x_within_tile = (int)ray.hit_pos.x % TILE_SIZE;
-		tex_x = x_within_tile;
-	}
+		offset_x = ray.hit_pos.x % TILE_SIZE;
+	offset_x = offset_x *(wall_texture->width / TILE_SIZE);
+	draw_wall(cub3d, wall_texture, draw_x, wall_top, offset_x, wall_bottom, wall_top);
 
-	// Skalieren auf Texturbreite
-	tex_x = tex_x * (texture->width / TILE_SIZE);
-
-	int y = wall_top;
-	while (y < wall_bottom)
-	{
-		int draw_x = col + MINIMAP_WIDTH;
-	
-		// Bildschirmgrenzen prüfen
-		if (draw_x >= 0 && draw_x < (int)cub3d->view_img->width &&
-			y >= 0 && y < (int)cub3d->view_img->height)
-		{
-			// Y-Position innerhalb der Wand berechnen
-			double wall_y_ratio = (double)(y - wall_top) / (wall_bottom - wall_top);
-			int tex_y = wall_y_ratio * texture->height;
-	
-			// Pixel aus Textur lesen
-			uint32_t *tex_pixels = (uint32_t *)texture->pixels;
-			uint32_t color = tex_pixels[tex_y * texture->width + tex_x];
-	
-			// Pixel auf Bild setzen
-			mlx_put_pixel(cub3d->view_img, draw_x, y, color);
-		}
-		y++;
-	}
 }
 
 void fill_background(t_cub3d *cub3d)

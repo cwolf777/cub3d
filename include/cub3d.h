@@ -104,6 +104,9 @@ typedef struct s_ray_caster
 	int			num_rays;
 	double		angle_step;
 	double		start_angle;
+	double		dist_proj_plane;
+	int			wall_top;
+	int			wall_bottom;
 	mlx_image_t	*img;
 }	t_ray_caster;
 
@@ -148,6 +151,7 @@ bool	is_valid_digit_string(char *str);
 char	*clean_str(char *str);
 char	**ft_split2(char const *s, char *delimiters);
 double	degree_to_rad(int degree);
+bool is_inside_image(mlx_image_t *img, int x, int y);
 
 //print
 void	print_grid(char **grid);
@@ -172,6 +176,7 @@ void	fill_tile(t_map map, int x, int y, uint32_t color);
 void	draw_minimap(t_cub3d cub3d);
 void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color);
 void	clear_image(mlx_image_t *img);
+void	draw_wall(t_cub3d *cub3d, mlx_image_t *wall_img, int x, int y, int offset_x, int wall_bottom, int wall_top);
 
 //player_controls
 void	player_movement(t_cub3d *cub3d);

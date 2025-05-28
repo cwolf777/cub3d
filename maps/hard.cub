@@ -1,13 +1,13 @@
    WE                          textures/wolfenstein/greystone.png
-NO      textures/wolfenstein/purplestone.png
+NO      textures/wolfenstein/bluestone.png
 
 
 
-SO textures/wolfenstein/redbrick.png
+SO textures/wolfenstein/wood.png
 
 F      17,    38,     64
 
-EA textures/wolfenstein/wood.png
+EA textures/wolfenstein/redbrick.png
 
 
 

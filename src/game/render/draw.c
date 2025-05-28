@@ -54,7 +54,7 @@ void	draw_line(mlx_image_t *img, t_point start,
 			j = -width / 2;
 			while (j <= width / 2)
 			{
-				if (x + i >= 0 && x + i < (int)img->width && y + j >= 0 && y + j < (int)img->height)
+				if (is_inside_image(img, x + i, y + j))
 					mlx_put_pixel(img, x + i, y + j, color);
 				j++;
 			}
@@ -129,7 +129,7 @@ void	fill_tile(t_map map, int start_x, int start_y, uint32_t color)
 		{
 			pixel_x = x + start_x;
 			pixel_y = y + start_y;
-			if (pixel_x >= 0 && pixel_x < (int)map.img->width && pixel_y >= 0 && pixel_y < (int)map.img->height)
+			if (is_inside_image(map.img, pixel_x, pixel_y))
 				mlx_put_pixel(map.img, pixel_x, pixel_y, color);
 			x++;
 		}
@@ -190,3 +190,22 @@ void draw_img_outline(mlx_image_t *img, int line_width, uint32_t color)
 	draw_line(img, start, end, line_width, color);
 }
 
+void	draw_wall(t_cub3d *cub3d, mlx_image_t *wall_img, int x, int y, int offset_x, int wall_bottom, int wall_top)
+{
+	double		wall_y_ratio;
+	uint32_t	color;
+	int			tex_y;
+	uint32_t	*pixels;
+	
+	pixels = (uint32_t *)wall_img->pixels;
+	while (y < wall_bottom)
+	{	
+			// Y-Position innerhalb der Wand berechnen
+			wall_y_ratio = (double) (y - wall_top) / (wall_bottom - wall_top);
+			tex_y = wall_y_ratio * wall_img->height;
+			color = pixels[tex_y * wall_img->width + offset_x];
+			if (is_inside_image(cub3d->view_img, x, y))
+				mlx_put_pixel(cub3d->view_img, x, y, color);
+		y++;
+	}
+}
