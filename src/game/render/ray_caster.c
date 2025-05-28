@@ -21,7 +21,7 @@ void cast_rays(t_cub3d *cub3d)
 		ray_angle = start_angle + i * cub3d->ray_caster.angle_step;
 		ray = cast_single_ray(cub3d, ray_angle);
 		start = (t_point){MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2};
-		hit_pos = world_to_minimap(cub3d, ray.hit_pos.x, ray.hit_pos.y);
+		hit_pos = world_to_minimap(*cub3d, ray.hit_pos.x, ray.hit_pos.y);
 		if (ray.is_vertical)
 			draw_line(cub3d->ray_caster.img, start, hit_pos, 1, 0xFF0000FF);
 		else

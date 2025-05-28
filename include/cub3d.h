@@ -186,6 +186,6 @@ void		render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle);
 uint32_t	rgb_to_color(t_rgb color);
 void		fill_background(t_cub3d *cub3d);
 
-t_point world_to_minimap(t_cub3d *cub3d, double world_x, double world_y);
+t_point world_to_minimap(t_cub3d cub3d, int world_x, int world_y);
 
 #endif
