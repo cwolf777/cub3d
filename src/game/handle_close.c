@@ -14,7 +14,10 @@ void	handle_close(void *param)
 	mlx_delete_image(cub3d->mlx, cub3d->graphics.south.img);
 	mlx_delete_image(cub3d->mlx, cub3d->graphics.west.img);
 	mlx_delete_image(cub3d->mlx, cub3d->graphics.east.img);
-	//delete image
-	//free
+	free(cub3d->map.grid);
+	free(cub3d->graphics.north.path);
+	free(cub3d->graphics.south.path);
+	free(cub3d->graphics.west.path);
+	free(cub3d->graphics.east.path);
 	//mlx termiante maybe
 }

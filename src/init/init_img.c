@@ -21,5 +21,5 @@ void	init_img(t_img *img, mlx_t *mlx, char *path)
 	if (!validate_file_extension(path, ".png"))
 		handle_error("Wrong file extension must be .png");
 	img->img = create_img(mlx, path);
-	img->path = path;
+	img->path = ft_strdup(path);
 }
