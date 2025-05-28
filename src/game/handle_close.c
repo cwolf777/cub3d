@@ -9,4 +9,12 @@ void	handle_close(void *param)
 	mlx_delete_image(cub3d->mlx, cub3d->player.img);
 	mlx_delete_image(cub3d->mlx, cub3d->ray_caster.img);
 	mlx_delete_image(cub3d->mlx, cub3d->map.img);
+	mlx_delete_image(cub3d->mlx, cub3d->view_img);
+	mlx_delete_image(cub3d->mlx, cub3d->graphics.north.img);
+	mlx_delete_image(cub3d->mlx, cub3d->graphics.south.img);
+	mlx_delete_image(cub3d->mlx, cub3d->graphics.west.img);
+	mlx_delete_image(cub3d->mlx, cub3d->graphics.east.img);
+	//delete image
+	//free
+	//mlx termiante maybe
 }
