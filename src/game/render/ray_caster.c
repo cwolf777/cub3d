@@ -12,8 +12,8 @@ void cast_rays(t_cub3d *cub3d)
 	double	ray_angle;
 	
 	clear_image(cub3d->ray_caster.img);
-	// clear_image(cub3d->view_img);
-	// fill_background(cub3d);
+	clear_image(cub3d->view_img);
+	fill_background(cub3d);
 	start_angle = cub3d->player.angle - (cub3d->player.fov / 2.0);
 	i = 0;
 	while (i < cub3d->ray_caster.num_rays)
@@ -26,7 +26,7 @@ void cast_rays(t_cub3d *cub3d)
 			draw_line(cub3d->ray_caster.img, start, hit_pos, 1, 0xFF0000FF);
 		else
 			draw_line(cub3d->ray_caster.img, start, hit_pos, 1, 0xFFFF00FF);
-		// render_wall_slice(cub3d, i, ray, ray_angle);
+		render_wall_slice(cub3d, i, ray, ray_angle);
 		i++;
 	}
 }
@@ -107,7 +107,8 @@ t_ray cast_vertical_ray(t_cub3d *cub3d, double ray_angle)
 	double next_x = x_intercept;
 	double next_y = y_intercept;
 
-	while (next_x >= 0 && next_x < MINIMAP_WIDTH && next_y >= 0 && next_y < MINIMAP_HEIGHT)
+	while (next_x >= 0 && next_x < cub3d->map.grid_width * TILE_SIZE &&
+		next_y >= 0 && next_y < cub3d->map.grid_height * TILE_SIZE)
 	{
 		int map_x = (int)(next_x / TILE_SIZE);
 		int map_y = (int)(next_y / TILE_SIZE);
@@ -125,6 +126,6 @@ t_ray cast_vertical_ray(t_cub3d *cub3d, double ray_angle)
 		next_y += y_step;
 	}
 
-	ray.distance = 1e30;
+	ray.distance = 1e30; //KOMMT IMMER HIER RAUS
 	return ray;
 }
