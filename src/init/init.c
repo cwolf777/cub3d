@@ -6,6 +6,9 @@ void	init_ray_caster(t_cub3d *cub3d)
 {
 	cub3d->ray_caster.num_rays = WINDOW_WIDTH - MINIMAP_WIDTH;
 	cub3d->ray_caster.angle_step = cub3d->player.fov / cub3d->ray_caster.num_rays;
+	cub3d->ray_caster.img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	if (!cub3d->ray_caster.img)
+		handle_error("Failed to create 3D view image");
 }
 
 static void	init_player(t_cub3d *cub3d)

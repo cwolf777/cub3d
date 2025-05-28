@@ -92,3 +92,15 @@ uint32_t rgb_to_color(t_rgb color)
 	return r | g | b | a;
 }
 
+t_point world_to_minimap(t_cub3d *cub3d, double world_x, double world_y)
+{
+	t_point	point;
+	double	offset_x;
+	double	offset_y;
+
+	offset_x = cub3d->player.pixel_pos.x - (MINIMAP_WIDTH / 2);
+	offset_y = cub3d->player.pixel_pos.y - (MINIMAP_HEIGHT / 2);
+	point.x = (int)(world_x - offset_x);
+	point.y = (int)(world_y - offset_y);
+	return (point);
+}

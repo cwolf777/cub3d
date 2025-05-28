@@ -156,7 +156,7 @@ void	draw_minimap(t_cub3d cub3d)
 			if (cub3d.map.grid[y][x] == '1')
 				fill_tile(cub3d.map, x * TILE_SIZE - off_set_x, y * TILE_SIZE - off_set_y, GREEN);
 			else
-			fill_tile(cub3d.map, x * TILE_SIZE - off_set_x, y * TILE_SIZE - off_set_y, WHITE);
+				fill_tile(cub3d.map, x * TILE_SIZE - off_set_x, y * TILE_SIZE - off_set_y, WHITE);
 			x++;
 		}
 		y++;

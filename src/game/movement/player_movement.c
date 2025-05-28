@@ -53,16 +53,16 @@ static void	move_backward(t_cub3d *cub3d)
 
 static void	rotate_left(t_cub3d *cub3d)
 {
-	if (cub3d->player.angle <= 0)
-		cub3d->player.angle = 2 * M_PI;
-	else
+	// if (cub3d->player.angle <= 0)
+	// 	cub3d->player.angle = 2 * M_PI;
+	// else
 		cub3d->player.angle -= cub3d->player.rot_speed;
 }
 static void	rotate_right(t_cub3d *cub3d)
 {
-	if (cub3d->player.angle >= 2 * M_PI)
-		cub3d->player.angle = 0;
-	else
+	// if (cub3d->player.angle >= 2 * M_PI)
+	// 	cub3d->player.angle = 0;
+	// else
 		cub3d->player.angle += cub3d->player.rot_speed;
 }
 

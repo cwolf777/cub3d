@@ -172,7 +172,6 @@ void	fill_tile(t_map map, int x, int y, uint32_t color);
 void	draw_minimap(t_cub3d cub3d);
 void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color);
 void	clear_image(mlx_image_t *img);
-void	draw_map_centered(t_map map);
 
 //player_controls
 void	player_movement(t_cub3d *cub3d);
@@ -186,5 +185,7 @@ void	handle_close(void *param);
 void		render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle);
 uint32_t	rgb_to_color(t_rgb color);
 void		fill_background(t_cub3d *cub3d);
+
+t_point world_to_minimap(t_cub3d *cub3d, double world_x, double world_y);
 
 #endif
