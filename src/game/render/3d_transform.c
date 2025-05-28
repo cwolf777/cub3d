@@ -32,15 +32,12 @@ void render_wall_slice(t_cub3d *cub3d, int draw_x, t_ray ray, double ray_angle)
 	int wall_bottom = (WINDOW_HEIGHT / 2) + (wall_height / 2);
 
 	wall_texture = get_wall_texture(cub3d, ray, ray_angle);
-
-	// === 2. TEXTUR-X berechnen ===
 	if (ray.is_vertical)
 		offset_x = ray.hit_pos.y % TILE_SIZE;
 	else
 		offset_x = ray.hit_pos.x % TILE_SIZE;
 	offset_x = offset_x *(wall_texture->width / TILE_SIZE);
 	draw_wall(cub3d, wall_texture, draw_x, wall_top, offset_x, wall_bottom, wall_top);
-
 }
 
 void fill_background(t_cub3d *cub3d)
@@ -59,16 +56,10 @@ void fill_background(t_cub3d *cub3d)
 		x = 0;
 		while (x < WINDOW_WIDTH)
 		{
-			if (y < WINDOW_HEIGHT / 2)
-			{
-				if (x >= 0 && x < (int)cub3d->view_img->width && y >= 0 && y < (int)cub3d->view_img->height)
+			if (y < WINDOW_HEIGHT / 2 && is_inside_image(cub3d->view_img, x, y))
 					mlx_put_pixel(cub3d->view_img, x, y, floor_color);
-			}
-			else
-			{
-				if (x >= 0 && x < (int)cub3d->view_img->width && y >= 0 && y < (int)cub3d->view_img->height)
-					mlx_put_pixel(cub3d->view_img, x, y, ceiling_color);
-			}
+			else if (is_inside_image(cub3d->view_img, x, y))
+				mlx_put_pixel(cub3d->view_img, x, y, ceiling_color);
 			x++;
 		}
 		y++;
