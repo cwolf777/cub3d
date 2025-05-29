@@ -152,6 +152,7 @@ char	*clean_str(char *str);
 char	**ft_split2(char const *s, char *delimiters);
 double	degree_to_rad(int degree);
 bool is_inside_image(mlx_image_t *img, int x, int y);
+uint32_t	convert_abgr_to_rgba(uint32_t abgr);
 
 //print
 void	print_grid(char **grid);

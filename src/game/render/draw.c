@@ -164,7 +164,7 @@ void	draw_minimap(t_cub3d cub3d)
 	draw_img_outline(cub3d.map.img, 2, PLAYER_COLOR);
 }
 
-void draw_img_outline(mlx_image_t *img, int line_width, uint32_t color)
+void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color)
 {
 	t_point	start;
 	t_point	end;
@@ -193,19 +193,46 @@ void draw_img_outline(mlx_image_t *img, int line_width, uint32_t color)
 void	draw_wall(t_cub3d *cub3d, mlx_image_t *wall_img, int x, int y, int offset_x, int wall_bottom, int wall_top)
 {
 	double		wall_y_ratio;
-	uint32_t	color;
+	uint32_t	wall_color;
 	int			tex_y;
 	uint32_t	*pixels;
 	
 	pixels = (uint32_t *)wall_img->pixels;
 	while (y < wall_bottom)
-	{	
-			// Y-Position innerhalb der Wand berechnen
-			wall_y_ratio = (double) (y - wall_top) / (wall_bottom - wall_top);
-			tex_y = wall_y_ratio * wall_img->height;
-			color = pixels[tex_y * wall_img->width + offset_x];
-			if (is_inside_image(cub3d->view_img, x, y))
-				mlx_put_pixel(cub3d->view_img, x, y, color);
+	{
+		// Y-Position innerhalb der Wand berechnen
+		wall_y_ratio = (double) (y - wall_top) / (wall_bottom - wall_top);
+		tex_y = wall_y_ratio * wall_img->height;
+		wall_color = pixels[tex_y * wall_img->width + offset_x];
+	
+		if (is_inside_image(cub3d->view_img, x, y))
+			mlx_put_pixel(cub3d->view_img, x, y, convert_abgr_to_rgba(wall_color));
+		y++;
+	}
+}
+
+void fill_background(t_cub3d *cub3d)
+{
+	int			y;
+	int			x;
+	uint32_t	floor_color;
+	uint32_t	ceiling_color;
+
+	floor_color = rgb_to_color(cub3d->graphics.floor);
+	ceiling_color = rgb_to_color(cub3d->graphics.ceiling);
+	y = 0;
+	x = 0;
+	while (y < WINDOW_HEIGHT)
+	{
+		x = 0;
+		while (x < WINDOW_WIDTH)
+		{
+			if (y < WINDOW_HEIGHT / 2 && is_inside_image(cub3d->view_img, x, y))
+					mlx_put_pixel(cub3d->view_img, x, y, floor_color);
+			else if (is_inside_image(cub3d->view_img, x, y))
+				mlx_put_pixel(cub3d->view_img, x, y, ceiling_color);
+			x++;
+		}
 		y++;
 	}
 }

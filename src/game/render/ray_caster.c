@@ -83,7 +83,6 @@ t_ray cast_horizontal_ray(t_cub3d *cub3d, double ray_angle)
 		next_x += x_step;
 		next_y += y_step;
 	}
-
 	// Kein Treffer gefunden
 	ray.distance = 1e30;
 	return ray;

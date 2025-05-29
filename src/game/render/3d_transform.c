@@ -18,7 +18,6 @@ mlx_image_t *get_wall_texture(t_cub3d *cub3d, t_ray ray, double ray_angle)
 	}
 }
 
-
 void render_wall_slice(t_cub3d *cub3d, int draw_x, t_ray ray, double ray_angle)
 {
 	double		corrected_distance;
@@ -40,28 +39,4 @@ void render_wall_slice(t_cub3d *cub3d, int draw_x, t_ray ray, double ray_angle)
 	draw_wall(cub3d, wall_texture, draw_x, wall_top, offset_x, wall_bottom, wall_top);
 }
 
-void fill_background(t_cub3d *cub3d)
-{
-	int	y;
-	int	x;
-	uint32_t floor_color;
-	uint32_t ceiling_color;
 
-	floor_color = rgb_to_color(cub3d->graphics.floor);
-	ceiling_color = rgb_to_color(cub3d->graphics.ceiling);
-	y = 0;
-	x = 0;
-	while (y < WINDOW_HEIGHT)
-	{
-		x = 0;
-		while (x < WINDOW_WIDTH)
-		{
-			if (y < WINDOW_HEIGHT / 2 && is_inside_image(cub3d->view_img, x, y))
-					mlx_put_pixel(cub3d->view_img, x, y, floor_color);
-			else if (is_inside_image(cub3d->view_img, x, y))
-				mlx_put_pixel(cub3d->view_img, x, y, ceiling_color);
-			x++;
-		}
-		y++;
-	}
-}

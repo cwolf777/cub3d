@@ -115,3 +115,18 @@ bool is_inside_image(mlx_image_t *img, int x, int y)
 		return (true);
 	return (false);
 }
+
+uint32_t	convert_abgr_to_rgba(uint32_t abgr)
+{
+	uint8_t	a;
+	uint8_t	b;
+	uint8_t	g;
+	uint8_t	r;
+
+	r = abgr & 0xFF;
+	g = (abgr >> 8) & 0xFF;
+	b = (abgr >> 16) & 0xFF;
+	a = (abgr >> 24) & 0xFF;
+
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}
