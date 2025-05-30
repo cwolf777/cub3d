@@ -24,9 +24,9 @@ static void	init_player(t_cub3d *cub3d)
 	if (map->player_orientation == 'E')
 		player->angle = degree_to_rad(0);
 	if (map->player_orientation == 'N')
-		player->angle = degree_to_rad(90);
-	if (map->player_orientation == 'S')
 		player->angle = degree_to_rad(270);
+	if (map->player_orientation == 'S')
+		player->angle = degree_to_rad(90);
 	// player->pixel_pos.x = map->player_index.x * map->tile_size + map->tile_size / 2;
 	// player->pixel_pos.y = map->player_index.y * map->tile_size + map->tile_size / 2;
 	player->pixel_pos.x = map->player_index.x * TILE_SIZE + TILE_SIZE / 2;

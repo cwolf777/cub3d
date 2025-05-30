@@ -3,17 +3,19 @@
 # define CUB3D_H
 
 //COLORS
-# define WHITE 0xFFFFFFFF
-# define GREEN 0xFFFF3333
-# define PLAYER_COLOR 0xFFAAAAAA
+# define WHITE_COLOR 0xFFFFFFFF
+# define GREY_COLOR 0x555555FF
+# define BLACK_COLOR 0x000000FF
+# define PLAYER_COLOR 0x1E90FFFF
+# define YELLOW_COLOR 0xFFFF00FF
 
 # define MINIMAP_WIDTH 260
 # define MINIMAP_HEIGHT 152
 # define MINIMAP_VIEW_SIZE 3
 # define TILE_SIZE 32
 # define PLAYER_SIZE 10
-# define PLAYER_SPEED 2
-# define PLAYER_ROT_SPEED 
+# define PLAYER_SPEED 5
+# define PLAYER_ROT_SPEED 0.0872665
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
 # define DIR_LINE_COLOR 0x0000FF
@@ -178,6 +180,7 @@ void	draw_minimap(t_cub3d cub3d);
 void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color);
 void	clear_image(mlx_image_t *img);
 void	draw_wall(t_cub3d *cub3d, mlx_image_t *wall_img, int x, int y, int offset_x, int wall_bottom, int wall_top);
+void	draw_background(mlx_image_t *img, uint32_t color);
 
 //player_controls
 void	player_movement(t_cub3d *cub3d);

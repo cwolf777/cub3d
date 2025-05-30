@@ -109,9 +109,11 @@ void	draw_player(t_cub3d *cub3d)
 	start.x = PLAYER_SIZE / 2;
 	start.y = PLAYER_SIZE / 2;
 	draw_filled_circle(cub3d->player.img, start, PLAYER_SIZE / 2, PLAYER_COLOR);
-	end.x = start.x + cos(cub3d->player.angle) * PLAYER_SIZE / 2;
-	end.y = start.y + sin(cub3d->player.angle) * PLAYER_SIZE / 2;
-	draw_line(cub3d->player.img, start, end, 1, DIR_LINE_COLOR);
+	end.x = MINIMAP_WIDTH / 2 + cos(cub3d->player.angle) * PLAYER_SIZE;
+	end.y = MINIMAP_HEIGHT / 2 + sin(cub3d->player.angle) * PLAYER_SIZE;
+	start.x = MINIMAP_WIDTH / 2;
+	start.y = MINIMAP_HEIGHT / 2;
+	draw_line(cub3d->map.img, start, end, 2, DIR_LINE_COLOR);
 }
 
 void	fill_tile(t_map map, int start_x, int start_y, uint32_t color)
@@ -145,6 +147,7 @@ void	draw_minimap(t_cub3d cub3d)
 	int			off_set_y;
 
 	clear_image(cub3d.map.img);
+	draw_background(cub3d.map.img, BLACK_COLOR);
 	off_set_x = cub3d.player.pixel_pos.x - MINIMAP_WIDTH / 2;
 	off_set_y = cub3d.player.pixel_pos.y - MINIMAP_HEIGHT / 2;
 	y = 0;
@@ -154,14 +157,14 @@ void	draw_minimap(t_cub3d cub3d)
 		while (x < cub3d.map.grid_width)
 		{
 			if (cub3d.map.grid[y][x] == '1')
-				fill_tile(cub3d.map, x * TILE_SIZE - off_set_x, y * TILE_SIZE - off_set_y, GREEN);
+				fill_tile(cub3d.map, x * TILE_SIZE - off_set_x, y * TILE_SIZE - off_set_y, GREY_COLOR);
 			else
-				fill_tile(cub3d.map, x * TILE_SIZE - off_set_x, y * TILE_SIZE - off_set_y, WHITE);
+				fill_tile(cub3d.map, x * TILE_SIZE - off_set_x, y * TILE_SIZE - off_set_y, WHITE_COLOR);
 			x++;
 		}
 		y++;
 	}
-	draw_img_outline(cub3d.map.img, 2, PLAYER_COLOR);
+	// draw_img_outline(cub3d.map.img, 2, PLAYER_COLOR);
 }
 
 void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color)
@@ -207,6 +210,25 @@ void	draw_wall(t_cub3d *cub3d, mlx_image_t *wall_img, int x, int y, int offset_x
 	
 		if (is_inside_image(cub3d->view_img, x, y))
 			mlx_put_pixel(cub3d->view_img, x, y, convert_abgr_to_rgba(wall_color));
+		y++;
+	}
+}
+
+void	draw_background(mlx_image_t *img, uint32_t color)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < (int)img->height)
+	{
+		x = 0;
+		while (x < (int)img->width)
+		{
+			if (is_inside_image(img, x, y))
+				mlx_put_pixel(img, x, y, color);
+			x++;
+		}
 		y++;
 	}
 }
