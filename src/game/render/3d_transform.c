@@ -22,20 +22,20 @@ void render_wall_slice(t_cub3d *cub3d, int draw_x, t_ray ray, double ray_angle)
 {
 	double		corrected_distance;
 	mlx_image_t	*wall_texture;
-	int			offset_x;
+	double			offset_x;
 
 	corrected_distance = ray.distance * cos(ray_angle - cub3d->player.angle);
 	// Konstanten für Projektion
 	double wall_height = (TILE_SIZE / corrected_distance) * cub3d->ray_caster.dist_proj_plane;
-	int wall_top = (WINDOW_HEIGHT / 2) - (wall_height / 2);
-	int wall_bottom = (WINDOW_HEIGHT / 2) + (wall_height / 2);
+	double wall_top = (WINDOW_HEIGHT / 2) - (wall_height / 2);
+	double wall_bottom = (WINDOW_HEIGHT / 2) + (wall_height / 2);
 
 	wall_texture = get_wall_texture(cub3d, ray, ray_angle);
 	if (ray.is_vertical)
-		offset_x = ray.hit_pos.y % TILE_SIZE;
+		offset_x = (int)ray.hit_pos.y % TILE_SIZE;
 	else
-		offset_x = ray.hit_pos.x % TILE_SIZE;
-	offset_x = offset_x *(wall_texture->width / TILE_SIZE);
+		offset_x = (int)ray.hit_pos.x % TILE_SIZE;
+	offset_x = offset_x * (wall_texture->width / TILE_SIZE);
 	draw_wall(cub3d, wall_texture, draw_x, wall_top, offset_x, wall_bottom, wall_top);
 }
 

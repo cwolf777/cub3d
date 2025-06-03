@@ -11,7 +11,7 @@ void cast_rays(t_cub3d *cub3d)
 	double	start_angle;
 	double	ray_angle;
 
-	printf("angle:%f\n",cub3d->player.angle);
+	// printf("angle:%f\n",cub3d->player.angle);
 	clear_image(cub3d->ray_caster.img);
 	// clear_image(cub3d->view_img);
 	fill_background(cub3d);

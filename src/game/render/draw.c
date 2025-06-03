@@ -12,63 +12,68 @@ void clear_image(mlx_image_t *img)
 		x = 0;
 		while (x < (int)img->width)
 		{
-			mlx_put_pixel(img, x, y, 0x00000000); // Transparent
+			mlx_put_pixel(img, x, y, 0x00000000);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	draw_line(mlx_image_t *img, t_point start,
-	t_point end, int width, uint32_t color)
+void draw_thick_pixel(mlx_image_t *img, int x, int y, int width, uint32_t color)
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
-	int	x;
-	int	y;
-	int	i;
+	int i;
 	int	j;
+	i = -width / 2;
+	while (i <= width / 2)
+	{
+		j = -width / 2;
+		while (j <= width / 2)
+		{
+			if (is_inside_image(img, x + i, y + j))
+				mlx_put_pixel(img, x + i, y + j, color);
+			j++;
+		}
+		i++;
+	}
+}
 
-	dx = abs(end.x - start.x);
-	dy = -abs(end.y - start.y);
-	if (start.x < end.x)
+void draw_line(mlx_image_t *img, t_point start, t_point end, int width, uint32_t color)
+{
+	int x;
+	int y;
+	int dx;
+	int dy;
+	int sx;
+	int sy;
+	int err;
+	int e2;
+
+	x = (int)start.x;
+	y = (int)start.y;
+	dx = abs((int)end.x - x);
+	dy = abs((int)end.y - y);
+	if (x < (int)end.x)
 		sx = 1;
 	else
 		sx = -1;
-	if (start.y < end.y)
+
+	if (y < (int)end.y)
 		sy = 1;
 	else
 		sy = -1;
-	err = dx + dy;
-	x = start.x;
-	y = start.y;
-	while (1)
+	err = dx - dy;
+	while (true)
 	{
-		i = -width / 2;
-		while (i <= width / 2)
-		{
-			j = -width / 2;
-			while (j <= width / 2)
-			{
-				if (is_inside_image(img, x + i, y + j))
-					mlx_put_pixel(img, x + i, y + j, color);
-				j++;
-			}
-			i++;
-		}
-		if (x == end.x && y == end.y)
-			break ;
+		draw_thick_pixel(img, x, y, width, color);
+		if (x == (int)end.x && y == (int)end.y)
+			break;
 		e2 = 2 * err;
-		if (e2 >= dy)
+		if (e2 > -dy)
 		{
-			err += dy;
+			err -= dy;
 			x += sx;
 		}
-		if (e2 <= dx)
+		if (e2 < dx)
 		{
 			err += dx;
 			y += sy;
@@ -76,12 +81,14 @@ void	draw_line(mlx_image_t *img, t_point start,
 	}
 }
 
+
+
 void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color)
 {
 	int x;
 	int y;
-	int dx;
-	int dy;
+	double dx;
+	double dy;
 	int r_squared;
 	
 	r_squared = radius * radius;
@@ -94,7 +101,7 @@ void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t c
 			dx = center.x + x;
 			dy = center.y + y;
 			if (x * x + y * y <= r_squared)
-				mlx_put_pixel(img, dx, dy, color);
+				mlx_put_pixel(img, (int)dx, (int)dy, color);
 			x++;
 		}
 		y++;
@@ -109,11 +116,9 @@ void	draw_player(t_cub3d *cub3d)
 	start.x = PLAYER_SIZE / 2;
 	start.y = PLAYER_SIZE / 2;
 	draw_filled_circle(cub3d->player.img, start, PLAYER_SIZE / 2, PLAYER_COLOR);
-	end.x = MINIMAP_WIDTH / 2 + cos(cub3d->player.angle) * PLAYER_SIZE;
-	end.y = MINIMAP_HEIGHT / 2 + sin(cub3d->player.angle) * PLAYER_SIZE;
-	start.x = MINIMAP_WIDTH / 2;
-	start.y = MINIMAP_HEIGHT / 2;
-	draw_line(cub3d->map.img, start, end, 2, DIR_LINE_COLOR);
+	end.x = start.x + cos(cub3d->player.angle) * PLAYER_SIZE / 2;
+	end.y = start.y + sin(cub3d->player.angle) * PLAYER_SIZE / 2;
+	draw_line(cub3d->player.img, start, end, 1, DIR_LINE_COLOR);
 }
 
 void	fill_tile(t_map map, int start_x, int start_y, uint32_t color)
@@ -143,13 +148,13 @@ void	draw_minimap(t_cub3d cub3d)
 {
 	int			x;
 	int			y;
-	int			off_set_x;
-	int			off_set_y;
+	int		off_set_x;
+	int		off_set_y;
 
 	clear_image(cub3d.map.img);
 	draw_background(cub3d.map.img, BLACK_COLOR);
-	off_set_x = cub3d.player.pixel_pos.x - MINIMAP_WIDTH / 2;
-	off_set_y = cub3d.player.pixel_pos.y - MINIMAP_HEIGHT / 2;
+	off_set_x = (int)cub3d.player.pixel_pos.x - (MINIMAP_WIDTH / 2);
+	off_set_y = (int)cub3d.player.pixel_pos.y - (MINIMAP_HEIGHT / 2);
 	y = 0;
 	while(y < cub3d.map.grid_height)
 	{

@@ -67,8 +67,8 @@ typedef struct s_graphics
 
 typedef struct s_point
 {
-	int			x;
-	int			y;
+	double			x;
+	double			y;
 }				t_point;
 
 typedef struct s_map
