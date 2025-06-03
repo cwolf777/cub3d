@@ -126,6 +126,6 @@ t_ray cast_vertical_ray(t_cub3d *cub3d, double ray_angle)
 		next_y += y_step;
 	}
 
-	ray.distance = 1e30; //KOMMT IMMER HIER RAUS
+	ray.distance = 1e30;
 	return ray;
 }

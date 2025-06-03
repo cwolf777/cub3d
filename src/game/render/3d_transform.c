@@ -12,7 +12,6 @@ void render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle)
 
 	int wall_top = (WINDOW_HEIGHT / 2) - (wall_height / 2);
 	int wall_bottom = (WINDOW_HEIGHT / 2) + (wall_height / 2);
-
 	// Begrenzen auf sichtbaren Bereich
 	// if (wall_top < 0)
 	// 	wall_top = 0;
@@ -36,6 +35,7 @@ void render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle)
 
 			texture = cub3d->graphics.south.img;
 	}
+
 	if (!texture) return;
 
 	// === 2. TEXTUR-X berechnen ===
