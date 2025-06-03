@@ -16,6 +16,7 @@ static int	extract_color_code(char *str)
 static void	parse_rgb(t_rgb *rgb, char *line)
 {
 	char	**rgb_arr;
+	int		i;
 
 	rgb_arr = ft_split(line, ',');
 	if (!rgb_arr)
@@ -24,6 +25,12 @@ static void	parse_rgb(t_rgb *rgb, char *line)
 	rgb->green = extract_color_code(rgb_arr[1]);
 	rgb->blue = extract_color_code(rgb_arr[2]);
 	validate_rgb(*rgb);
+	i = 0;
+	while (rgb_arr[i])
+	{
+		free(rgb_arr[i]);
+		i++;
+	}
 	free(rgb_arr);
 }
 

@@ -61,6 +61,7 @@ void	init_cub3d(t_cub3d *cub3d, char *path)
 	if (!cub3d->mlx)
 		handle_error("MLX not initialized");
 	parse_cub3d(cub3d, path);
+	
 	validate_cub3d(*cub3d);
 	// init_map(cub3d);
 	init_player(cub3d);

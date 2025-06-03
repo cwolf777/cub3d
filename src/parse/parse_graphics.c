@@ -32,8 +32,10 @@ void	parse_graphics(t_cub3d *cub3d, int fd)
 		load_rgb(cub3d, graphics, input_str);
 		curr_line = get_next_line(fd);
 		free(input_str);
-	} //FREE CURR LINE ODER SO 
+	}
 	i = 0;
+	if (curr_line)
+		free(curr_line);
 	while (i < GRAPHICS_LENGTH)
 	{
 		if (graphics[i] != 1)
