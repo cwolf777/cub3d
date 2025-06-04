@@ -131,10 +131,10 @@ void	load_texture(t_cub3d *cub3d, int *seen_flags, char *str);
 //validation
 void	validate_cub3d(t_cub3d cub3d);
 bool	validate_file_extension(char *path, char *extension);
-void	validate_grid(t_cub3d cub3d);
+void	validate_grid(t_cub3d *cub3d);
 void	validate_rgb(t_cub3d *cub3d, t_rgb rgb);
-void	validate_player(t_map map);
-void	flood_fill(char **grid, int x, int y);
+void	validate_player(t_cub3d *cub3d, t_map map);
+void	flood_fill(t_cub3d *cub3d, char **grid, int x, int y);
 
 //error
 void	handle_error(char *error_msg);
@@ -179,7 +179,8 @@ void	player_movement(t_cub3d *cub3d);
 //game
 void	game_loop(void *param);
 void	handle_keypress(mlx_key_data_t keydata, void *param);
-void	handle_close(void *param, char *error_msg);
+void	handle_close(t_cub3d *cub3d, char *error_msg);
+void	handle_close_cb(void *param);
 
 //3d
 void		render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle);

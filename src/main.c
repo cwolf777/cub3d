@@ -8,13 +8,13 @@ int main(int argc, char *argv[])
 		handle_error("Invalid number of arguments");
 	if (!validate_file_extension(argv[1], ".cub"))
 		handle_error("File extension must be .cub");
-	init_cub3d(&cub3d, argv[1]); //done
+	init_cub3d(&cub3d, argv[1]);
 	print_cub3d_info(&cub3d);
-	render_map(&cub3d); //done
-	render_player(&cub3d); //done
+	// render_map(&cub3d);
+	// render_player(&cub3d);
 	// mlx_image_to_window(cub3d.mlx, cub3d.ray_caster.img, 0, 0);
 	// mlx_key_hook(cub3d.mlx, handle_keypress, &cub3d);
-	// mlx_close_hook(cub3d.mlx, handle_close, &cub3d);
+	// mlx_close_hook(cub3d.mlx, handle_close_cb, &cub3d);
 	// mlx_loop_hook(cub3d.mlx, game_loop, &cub3d);
 	mlx_loop(cub3d.mlx);
 	mlx_terminate(cub3d.mlx);

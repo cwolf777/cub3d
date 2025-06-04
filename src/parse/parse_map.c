@@ -1,7 +1,7 @@
 
 #include "cub3d.h"
 
-static char	*read_all_lines(int fd)
+static char	*read_all_lines(t_cub3d *cub3d, int fd)
 {
 	char	*curr_line;
 	char	*combined_lines;
@@ -11,13 +11,13 @@ static char	*read_all_lines(int fd)
 	if (!combined_lines)
 	{
 		close(fd);
-		handle_error("Malloc failed in func: read_all_lines");
+		handle_close(cub3d, "Malloc failed in func: read_all_lines");
 	}
 	curr_line = get_next_line(fd);
 	if (!curr_line)
 	{
 		close(fd);
-		handle_error("Config must be over map");
+		handle_close(cub3d, "Config must be over map");
 	}
 	while (curr_line != NULL)
 	{
@@ -28,7 +28,7 @@ static char	*read_all_lines(int fd)
 		if (!combined_lines)
 		{
 			close(fd);
-			handle_error("Malloc failed in func: read_all_lines");
+			handle_close(cub3d, "Malloc failed in func: read_all_lines");
 		}
 		curr_line = get_next_line(fd);
 	}
@@ -80,7 +80,7 @@ static void	parse_grid(t_cub3d *cub3d, t_map *map, int fd)
 {
 	char	*combined_lines;
 	
-	combined_lines = read_all_lines(fd);
+	combined_lines = read_all_lines(cub3d, fd);
 	if (!combined_lines || combined_lines[0] == '\0')
 		handle_close(cub3d, "Failed read_all_lines in func create_grid");
 	map->grid = ft_split(combined_lines, '\n');

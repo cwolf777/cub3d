@@ -27,6 +27,6 @@ void	validate_player(t_cub3d *cub3d, t_map map)
 
 void	validate_cub3d(t_cub3d cub3d)
 {
-	validate_grid(cub3d);
+	validate_grid(&cub3d);
 	validate_player(&cub3d, cub3d.map);
 }

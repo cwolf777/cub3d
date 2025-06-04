@@ -28,8 +28,8 @@ void	parse_graphics(t_cub3d *cub3d, int fd)
 	{
 		input_str = clean_str(curr_line);
 		free(curr_line);
-		load_texture(cub3d, graphics, input_str);
-		load_rgb(cub3d, graphics, input_str);
+		// load_texture(cub3d, graphics, input_str);
+		// load_rgb(cub3d, graphics, input_str);
 		curr_line = get_next_line(fd);
 		free(input_str);
 	}
