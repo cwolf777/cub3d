@@ -76,18 +76,18 @@ void	fill_with_spaces(char **grid)
 	}
 }
 
-static void	parse_grid(t_map *map, int fd)
+static void	parse_grid(t_cub3d *cub3d, t_map *map, int fd)
 {
 	char	*combined_lines;
 	
 	combined_lines = read_all_lines(fd);
 	if (!combined_lines || combined_lines[0] == '\0')
-		handle_error("Failed read_all_lines in func create_grid");
+		handle_close(cub3d, "Failed read_all_lines in func create_grid");
 	map->grid = ft_split(combined_lines, '\n');
 	fill_with_spaces(map->grid);
 	free(combined_lines);
 	if (!map->grid)
-		handle_error("Failed ft_split in func create_grid");
+		handle_close(cub3d, "Failed ft_split in func create_grid");
 }
 
 static void	parse_grid_size(t_map *map)
@@ -128,9 +128,9 @@ static void	parse_player_index(t_map *map)
 	}
 }
 
-void	parse_map(t_map *map, int fd)
+void	parse_map(t_cub3d *cub3d, t_map *map, int fd)
 {
-	parse_grid(map, fd);
+	parse_grid(cub3d,map, fd);
 	parse_grid_size(map);
 	parse_player_index(map);
 }

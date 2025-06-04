@@ -4,5 +4,5 @@
 void handle_keypress(mlx_key_data_t keydata, void *param)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
-		handle_close(param);
+		handle_close(param, "Pressed ESC to close the game");
 }

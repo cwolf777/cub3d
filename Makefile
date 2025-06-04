@@ -18,9 +18,6 @@ SRCS =	main.c init.c init_img.c \
 
 
 
-
-
-
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 

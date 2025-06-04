@@ -28,7 +28,7 @@ void	parse_graphics(t_cub3d *cub3d, int fd)
 	{
 		input_str = clean_str(curr_line);
 		free(curr_line);
-		load_texture(cub3d, graphics, input_str); //inputstr kopieren
+		load_texture(cub3d, graphics, input_str);
 		load_rgb(cub3d, graphics, input_str);
 		curr_line = get_next_line(fd);
 		free(input_str);
@@ -39,7 +39,7 @@ void	parse_graphics(t_cub3d *cub3d, int fd)
 	while (i < GRAPHICS_LENGTH)
 	{
 		if (graphics[i] != 1)
-			handle_error("Wrong config for graphics");
+			handle_close(cub3d, "Wrong config for graphics");
 		i++;
 	}
 }
