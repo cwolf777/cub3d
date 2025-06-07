@@ -39,6 +39,6 @@ void	validate_grid(t_cub3d cub3d)
 
 	validate_chars(cub3d.map.grid);
 	copy = copy_grid(cub3d.map);
-	flood_fill(copy, cub3d.player.grid_pos.x, cub3d.player.grid_pos.y);
+	flood_fill(copy, cub3d.map.player_index.x, cub3d.map.player_index.y);
 	free_grid(copy);
 }
