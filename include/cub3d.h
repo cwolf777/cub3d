@@ -132,7 +132,7 @@ void	load_texture(t_cub3d *cub3d, int *seen_flags, char *str);
 void	validate_cub3d(t_cub3d cub3d);
 bool	validate_file_extension(char *path, char *extension);
 void	validate_grid(t_cub3d *cub3d);
-void	validate_rgb(t_cub3d *cub3d, t_rgb rgb);
+bool	validate_rgb(t_rgb rgb);
 void	validate_player(t_cub3d *cub3d, t_map map);
 void	flood_fill(t_cub3d *cub3d, char **grid, int x, int y);
 

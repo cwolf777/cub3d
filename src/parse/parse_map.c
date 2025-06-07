@@ -17,6 +17,7 @@ static char	*read_all_lines(t_cub3d *cub3d, int fd)
 	if (!curr_line)
 	{
 		close(fd);
+		free(combined_lines);
 		handle_close(cub3d, "Config must be over map");
 	}
 	while (curr_line != NULL)
@@ -51,7 +52,7 @@ size_t	get_max_line_length(char **grid)
 	return max;
 }
 
-void	fill_with_spaces(char **grid)
+bool	fill_with_spaces(char **grid)
 {
 	size_t	max_len;
 	int	i;
@@ -67,13 +68,21 @@ void	fill_with_spaces(char **grid)
 		{
 			diff = max_len - ft_strlen(grid[i]);
 			filler = malloc(sizeof(char) * diff + 1);
+			if (!filler)
+				return (false);
 			ft_memset(filler, ' ', sizeof(char) * diff);
 			filler[diff] = '\0';
 			grid[i] = ft_strjoin(grid[i], filler);
+			if (!grid[i])
+			{
+				free(filler);
+				return (false);
+			}
 			free(filler);
 		}
 		i++;
 	}
+	return(true);
 }
 
 static void	parse_grid(t_cub3d *cub3d, t_map *map, int fd)
@@ -84,10 +93,17 @@ static void	parse_grid(t_cub3d *cub3d, t_map *map, int fd)
 	if (!combined_lines || combined_lines[0] == '\0')
 		handle_close(cub3d, "Failed read_all_lines in func create_grid");
 	map->grid = ft_split(combined_lines, '\n');
-	fill_with_spaces(map->grid);
+	if (!map->grid || !map->grid[0])
+	{
+		free(combined_lines);
+		handle_close(cub3d, "Wrong location of map");
+	}
+	if (!fill_with_spaces(map->grid))
+	{
+		free(combined_lines);
+		handle_close(cub3d, "Allocation failed");
+	}
 	free(combined_lines);
-	if (!map->grid)
-		handle_close(cub3d, "Failed ft_split in func create_grid");
 }
 
 static void	parse_grid_size(t_map *map)
@@ -97,6 +113,7 @@ static void	parse_grid_size(t_map *map)
 
 	height = 0;
 	width = 0;
+
 	while (map->grid[height] != NULL)
 		height++;
 	while (map->grid[0][width] != '\0')

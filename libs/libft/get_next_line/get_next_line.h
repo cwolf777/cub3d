@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 10:26:52 by phhofman          #+#    #+#             */
-/*   Updated: 2024/11/04 10:39:21 by phhofman         ###   ########.fr       */
+/*   Created: 2024/10/27 17:34:59 by cwolf             #+#    #+#             */
+/*   Updated: 2024/11/04 10:38:55 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
 # include <unistd.h>
-# include <stdlib.h>
 # include <fcntl.h>
-# include <limits.h>
-# include "../libft.h"
+# include <stdlib.h>
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 10
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_update_buffer(char *buffer, char *line);
-char	*ft_extract_line(char *buf);
-ssize_t	read_buffer(int fd, char *buffer, ssize_t *bytes_read);
-void	free_buf(char **buf);
-char	*ft_strjoin_free(char*s1, char *s2);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlen(const char *s);
+int		ft_strchr_check(const char *s, int c);
+size_t	ft_strlcat(char *dest, const char *src, size_t dstsize);
+char	*ft_allocate_rest_str(char *rest_str);
 
 #endif

@@ -16,7 +16,8 @@ int main(int argc, char *argv[])
 	// mlx_key_hook(cub3d.mlx, handle_keypress, &cub3d);
 	// mlx_close_hook(cub3d.mlx, handle_close_cb, &cub3d);
 	// mlx_loop_hook(cub3d.mlx, game_loop, &cub3d);
-	mlx_loop(cub3d.mlx);
-	mlx_terminate(cub3d.mlx);
+	// mlx_loop(cub3d.mlx);
+	// mlx_terminate(cub3d.mlx);
+	handle_close(&cub3d, "End of Line");
 	return (0);
 }

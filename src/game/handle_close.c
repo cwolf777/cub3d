@@ -7,6 +7,7 @@ void	handle_close(t_cub3d *cub3d, char *error_msg)
 
 	i = 0;
 	printf("Error: %s", error_msg);
+	get_next_line(-1);
 	if (cub3d->player.img)
 		mlx_delete_image(cub3d->mlx, cub3d->player.img);
 	if (cub3d->ray_caster.img)
@@ -27,7 +28,10 @@ void	handle_close(t_cub3d *cub3d, char *error_msg)
 	{
 		while(cub3d->map.grid[i])
 		{
-			free(cub3d->map.grid[i]);
+			if (cub3d->map.grid[i])
+			{
+				free(cub3d->map.grid[i]);
+			}
 			i++;
 		}
 		free(cub3d->map.grid);
