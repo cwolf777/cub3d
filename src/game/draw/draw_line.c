@@ -1,24 +1,6 @@
 
 #include "cub3d.h"
 
-void draw_thick_pixel(mlx_image_t *img, int x, int y, int width, uint32_t color)
-{
-	int i;
-	int	j;
-	i = -width / 2;
-	while (i <= width / 2)
-	{
-		j = -width / 2;
-		while (j <= width / 2)
-		{
-			if (is_inside_image(img, x + i, y + j))
-				mlx_put_pixel(img, x + i, y + j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
 void draw_line(mlx_image_t *img, t_point start, t_point end, uint32_t color)
 {
 	int x;

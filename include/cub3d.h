@@ -179,7 +179,6 @@ void	draw_player(t_cub3d cub3d);
 void	fill_tile(t_map map, int x, int y, uint32_t color);
 void	draw_minimap(t_cub3d cub3d);
 void	draw_ray(t_cub3d cub3d, t_ray ray);
-void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color);
 void	clear_image(mlx_image_t *img);
 void	draw_background(mlx_image_t *img, uint32_t color);
 void	draw_ceiling(t_cub3d cub3d);
