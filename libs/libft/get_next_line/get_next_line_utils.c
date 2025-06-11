@@ -1,39 +1,99 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 10:26:46 by phhofman          #+#    #+#             */
-/*   Updated: 2024/11/04 10:47:03 by phhofman         ###   ########.fr       */
+/*   Created: 2024/10/27 18:28:45 by cwolf             #+#    #+#             */
+/*   Updated: 2025/06/07 12:51:41 by cwolf            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	free_buf( char **buffer)
+// size_t	ft_strlcat(char *dest, const char *src, size_t dstsize)
+// {
+// 	size_t	dest_len;
+// 	size_t	src_len;
+// 	size_t	i;
+
+// 	dest_len = 0;
+// 	src_len = 0;
+// 	while (dest[dest_len] != '\0' && dest_len < dstsize)
+// 		dest_len++;
+// 	while (src[src_len] != '\0')
+// 		src_len++;
+// 	if (dstsize == 0)
+// 		return (dest_len + src_len);
+// 	i = 0;
+// 	while (src[i] != '\0' && (dest_len + i < dstsize - 1))
+// 	{
+// 		dest[dest_len + i] = src[i];
+// 		i++;
+// 	}
+// 	if (dest_len + i < dstsize)
+// 		dest[dest_len + i] = '\0';
+// 	return (dest_len + src_len);
+// }
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	free(*buffer);
-	*buffer = NULL;
+	size_t	src_len;
+	size_t	i;
+
+	src_len = 0;
+	i = 0;
+	while (src[src_len])
+	{
+		src_len++;
+	}
+	if (dstsize > 0)
+	{
+		while (i < src_len && i < dstsize - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (src_len);
 }
 
-char	*ft_strjoin_free(char *s1, char *s2)
-{
-	size_t	joinlen;
-	char	*join;
+// size_t	ft_strlen(const char *s)
+// {
+// 	int	i;
 
-	if (!s1 || !s2)
-		return (NULL);
-	joinlen = ft_strlen(s1) + ft_strlen(s2);
-	join = (char *)malloc(sizeof(char) * (joinlen + 1));
-	if (!join)
+// 	i = 0;
+// 	while (s[i] != '\0')
+// 	{
+// 		i++;
+// 	}
+// 	return (i);
+// }
+
+int	ft_strchr_check(const char *s, int c)
+{
+	char	a;
+
+	a = (char) c;
+	while (*s)
 	{
-		free_buf(&s1);
-		return (NULL);
+		if (*s == a)
+			return (1);
+		s++;
 	}
-	ft_strlcpy(join, s1, joinlen + 1);
-	ft_strlcat(join, s2, joinlen + 1);
-	free_buf(&s1);
-	return (join);
+	return (0);
+}
+
+char	*ft_allocate_rest_str(char *rest_str)
+{
+	if (rest_str == NULL)
+	{
+		rest_str = malloc(1);
+		if (rest_str == NULL)
+			return (NULL);
+		rest_str[0] = '\0';
+	}
+	return (rest_str);
 }

@@ -62,7 +62,7 @@ char	*clean_str(char *str)
 	return (new_str);
 }
 
-char	**copy_grid(t_map map)
+char	**copy_grid(t_cub3d *cub3d, t_map map)
 {
 	char	**new_grid;
 	int		i;
@@ -70,12 +70,12 @@ char	**copy_grid(t_map map)
 	i = 0;
 	new_grid = malloc(sizeof(char *) * (map.grid_height + 1));
 	if (!new_grid)
-		handle_error("Malloc failed in func: copy_map");
+		handle_close(cub3d, "Malloc failed in func: copy_map");
 	while (map.grid[i] != NULL)
 	{
 		new_grid[i] = ft_strdup(map.grid[i]);
 		if (!new_grid[i])
-			handle_error("Malloc failed in func: copy_map");
+			handle_close(cub3d, "Malloc failed in func: copy_map");
 		i++;
 	}
 	new_grid[i] = NULL;
@@ -103,4 +103,24 @@ t_point world_to_minimap(t_cub3d *cub3d, double world_x, double world_y)
 	point.x = (int)(world_x - offset_x);
 	point.y = (int)(world_y - offset_y);
 	return (point);
+}
+
+bool no_double_newline(const char *str)
+{
+	int start;
+	int end;
+
+	end = ft_strlen(str);
+	start = 0;
+	while (str[start] == '\n')
+		start++;
+	while (end > start && str[end - 1] == '\n')
+		end--;
+	while (start < end - 1)
+	{
+		if (str[start] == '\n' && str[start + 1] == '\n')
+			return false;
+		start++;
+	}
+	return true;
 }

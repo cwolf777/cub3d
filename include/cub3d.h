@@ -110,6 +110,7 @@ typedef struct s_ray_caster
 typedef struct s_cub3d
 {
 	mlx_t			*mlx;
+	int				fd;
 	t_map			map;
 	t_player		player;
 	t_graphics		graphics;
@@ -119,35 +120,36 @@ typedef struct s_cub3d
 
 //init
 void	init_cub3d(t_cub3d *cub3d, char *path);
-void	init_img(t_img *img, mlx_t *mlx, char *path);
+void	init_img(t_cub3d *cub3d, t_img *img, mlx_t *mlx, char *path);
 
 //parse
 void	parse_cub3d(t_cub3d *cub3d, char *path);
 void	parse_graphics(t_cub3d *cub3d, int fd);
-void	parse_map(t_map *map, int fd);
+void	parse_map(t_cub3d *cub3d, t_map *map, int fd);
 void	load_rgb(t_cub3d *cub3d, int *seen_flags, char *str);
 void	load_texture(t_cub3d *cub3d, int *seen_flags, char *str);
 
 //validation
 void	validate_cub3d(t_cub3d cub3d);
 bool	validate_file_extension(char *path, char *extension);
-void	validate_grid(t_cub3d cub3d);
-void	validate_rgb(t_rgb rgb);
-void	validate_player(t_map map);
-void	flood_fill(char **grid, int x, int y);
+void	validate_grid(t_cub3d *cub3d);
+bool	validate_rgb(t_rgb rgb);
+void	validate_player(t_cub3d *cub3d, t_map map);
+void	flood_fill(t_cub3d *cub3d, char **grid, int x, int y);
 
 //error
 void	handle_error(char *error_msg);
 
 //utils
 bool	is_white_space(char c);
-char	**copy_grid(t_map map);
+char	**copy_grid(t_cub3d *cub3d, t_map map);
 void	free_grid(char **map);
 void	skip_whitespace(char **str);
 bool	is_valid_digit_string(char *str);
 char	*clean_str(char *str);
 char	**ft_split2(char const *s, char *delimiters);
 double	degree_to_rad(int degree);
+bool	no_double_newline(const char *str);
 
 //print
 void	print_grid(char **grid);
@@ -179,7 +181,8 @@ void	player_movement(t_cub3d *cub3d);
 //game
 void	game_loop(void *param);
 void	handle_keypress(mlx_key_data_t keydata, void *param);
-void	handle_close(void *param);
+void	handle_close(t_cub3d *cub3d, char *error_msg);
+void	handle_close_cb(void *param);
 
 //3d
 void		render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle);

@@ -1,10 +1,16 @@
-NO textures/test/north.xpm
-SO textures/test/south.xpm
-WE textures/test/west.xpm
-EA textures/test/east.xpm
 
-F 20,20,-20
+NO      textures/wolfenstein/purplestone.png   
+   WE                          textures/wolfenstein/greystone.png
+EA textures/wolfenstein/wood.png
+SO textures/wolfenstein/redbrick.png
+
+
+
+
+F 20, 20, 20
 C 200,200,200
+
+
 
 11111
 10001
