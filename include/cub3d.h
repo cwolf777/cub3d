@@ -173,7 +173,7 @@ void	render_map(t_cub3d *cub3d);
 void	render_3d(t_cub3d cub3d);
 
 //draw
-void	draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32_t color);
+void	draw_line(mlx_image_t *image, t_point start, t_point end, uint32_t color);
 void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
 void	draw_player(t_cub3d cub3d);
 void	fill_tile(t_map map, int x, int y, uint32_t color);

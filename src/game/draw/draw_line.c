@@ -19,7 +19,7 @@ void draw_thick_pixel(mlx_image_t *img, int x, int y, int width, uint32_t color)
 	}
 }
 
-void draw_line(mlx_image_t *img, t_point start, t_point end, int width, uint32_t color)
+void draw_line(mlx_image_t *img, t_point start, t_point end, uint32_t color)
 {
 	int x;
 	int y;
@@ -46,7 +46,8 @@ void draw_line(mlx_image_t *img, t_point start, t_point end, int width, uint32_t
 	err = dx - dy;
 	while (true)
 	{
-		draw_thick_pixel(img, x, y, width, color);
+		if (is_inside_image(img, x , y))
+			mlx_put_pixel(img, x, y, color);
 		if (x == (int)end.x && y == (int)end.y)
 			break;
 		e2 = 2 * err;

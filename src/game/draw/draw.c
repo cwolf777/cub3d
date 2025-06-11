@@ -19,31 +19,31 @@ void clear_image(mlx_image_t *img)
 	}
 }
 
-void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color)
-{
-	t_point	start;
-	t_point	end;
+// void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color)
+// {
+// 	t_point	start;
+// 	t_point	end;
 
-	// Top edge
-	start = (t_point){line_width, line_width};
-	end = (t_point){img->width - line_width, line_width};
-	draw_line(img, start, end, line_width, color);
+// 	// Top edge
+// 	start = (t_point){line_width, line_width};
+// 	end = (t_point){img->width - line_width, line_width};
+// 	draw_line(img, start, end, line_width, color);
 
-	// Left edge
-	start = (t_point){line_width, line_width};
-	end = (t_point){line_width, img->height - line_width};
-	draw_line(img, start, end, line_width, color);
+// 	// Left edge
+// 	start = (t_point){line_width, line_width};
+// 	end = (t_point){line_width, img->height - line_width};
+// 	draw_line(img, start, end, line_width, color);
 
-	// Right edge
-	start = (t_point){img->width - line_width, line_width};
-	end = (t_point){img->width - line_width, img->height - line_width};
-	draw_line(img, start, end, line_width, color);
+// 	// Right edge
+// 	start = (t_point){img->width - line_width, line_width};
+// 	end = (t_point){img->width - line_width, img->height - line_width};
+// 	draw_line(img, start, end, line_width, color);
 
-	// Bottom edge
-	start = (t_point){line_width, img->height - line_width};
-	end = (t_point){img->width - line_width, img->height - line_width};
-	draw_line(img, start, end, line_width, color);
-}
+// 	// Bottom edge
+// 	start = (t_point){line_width, img->height - line_width};
+// 	end = (t_point){img->width - line_width, img->height - line_width};
+// 	draw_line(img, start, end, line_width, color);
+// }
 
 
 void	draw_background(mlx_image_t *img, uint32_t color)
