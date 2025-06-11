@@ -8,6 +8,8 @@ void	handle_close(t_cub3d *cub3d, char *error_msg)
 	i = 0;
 	printf("Error: %s", error_msg);
 	get_next_line(-1);
+	if (cub3d->fd != -1)
+		close(cub3d->fd);
 	if (cub3d->player.img)
 		mlx_delete_image(cub3d->mlx, cub3d->player.img);
 	if (cub3d->ray_caster.img)

@@ -104,3 +104,23 @@ t_point world_to_minimap(t_cub3d *cub3d, double world_x, double world_y)
 	point.y = (int)(world_y - offset_y);
 	return (point);
 }
+
+bool no_double_newline(const char *str)
+{
+	int start;
+	int end;
+
+	end = ft_strlen(str);
+	start = 0;
+	while (str[start] == '\n')
+		start++;
+	while (end > start && str[end - 1] == '\n')
+		end--;
+	while (start < end - 1)
+	{
+		if (str[start] == '\n' && str[start + 1] == '\n')
+			return false;
+		start++;
+	}
+	return true;
+}

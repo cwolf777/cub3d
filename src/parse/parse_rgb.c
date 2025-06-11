@@ -1,6 +1,16 @@
 
 #include "cub3d.h"
 
+static int	grid_len(char **grid)
+{
+	int	i;
+
+	i = 0;
+	while (grid[i])
+		i++;
+	return (i);
+}
+
 static int	extract_color_code(char *str)
 {
 	int	color_code;
@@ -16,36 +26,28 @@ static int	extract_color_code(char *str)
 	return (color_code);
 }
 
-static bool	parse_rgb(t_cub3d *cub3d, t_rgb *rgb, char *line)
+static bool	parse_rgb(t_rgb *rgb, char *line)
 {
 	char	**rgb_arr;
-	int		i;
-	(void)*cub3d; //WEG
 	rgb_arr = ft_split(line, ',');
 	if (!rgb_arr)
 	{
 		return (false);
 	}
+	if (grid_len(rgb_arr) != 3)
+	{
+		free_grid(rgb_arr);
+		return (false);
+	}
 	rgb->red = extract_color_code(rgb_arr[0]);
 	rgb->green = extract_color_code(rgb_arr[1]);
 	rgb->blue = extract_color_code(rgb_arr[2]);
-	i = 0;
 	if(!validate_rgb(*rgb) || rgb->red == -1 || rgb->green == -1 || rgb->blue == -1)
 	{
-		while (rgb_arr[i])
-		{
-			free(rgb_arr[i]);
-			i++;
-		}
-		free(rgb_arr);
+		free_grid(rgb_arr);
 		return (false);
 	}
-	while (rgb_arr[i])
-	{
-		free(rgb_arr[i]);
-		i++;
-	}
-	free(rgb_arr);
+	free_grid(rgb_arr);
 	return (true);
 }
 
@@ -53,7 +55,7 @@ void	load_rgb(t_cub3d *cub3d, int *seen_flags, char *str)
 {
 	if (str[0] == 'F')
 	{
-		if (!parse_rgb(cub3d, &cub3d->graphics.floor, str + 1))
+		if (!parse_rgb(&cub3d->graphics.floor, str + 1))
 		{
 			free(str);
 			handle_close(cub3d, "Wrong color input");
@@ -62,7 +64,7 @@ void	load_rgb(t_cub3d *cub3d, int *seen_flags, char *str)
 	}
 	else if (str[0] == 'C')
 	{
-		if (!parse_rgb(cub3d, &cub3d->graphics.ceiling, str + 1))
+		if (!parse_rgb(&cub3d->graphics.ceiling, str + 1))
 		{
 			free(str);
 			handle_close(cub3d, "Wrong color input");			

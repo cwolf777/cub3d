@@ -110,6 +110,7 @@ typedef struct s_ray_caster
 typedef struct s_cub3d
 {
 	mlx_t			*mlx;
+	int				fd;
 	t_map			map;
 	t_player		player;
 	t_graphics		graphics;
@@ -148,6 +149,7 @@ bool	is_valid_digit_string(char *str);
 char	*clean_str(char *str);
 char	**ft_split2(char const *s, char *delimiters);
 double	degree_to_rad(int degree);
+bool	no_double_newline(const char *str);
 
 //print
 void	print_grid(char **grid);

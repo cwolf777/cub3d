@@ -43,4 +43,3 @@ void	parse_graphics(t_cub3d *cub3d, int fd)
 		i++;
 	}
 }
-
