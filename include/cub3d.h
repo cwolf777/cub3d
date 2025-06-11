@@ -3,17 +3,19 @@
 # define CUB3D_H
 
 //COLORS
-# define WHITE 0xFFFFFFFF
-# define GREEN 0xFFFF3333
-# define PLAYER_COLOR 0xFFAAAAAA
+# define WHITE_COLOR 0xFFFFFFFF
+# define GREY_COLOR 0x555555FF
+# define BLACK_COLOR 0x000000FF
+# define PLAYER_COLOR 0x1E90FFFF
+# define YELLOW_COLOR 0xFFFF00FF
 
 # define MINIMAP_WIDTH 260
 # define MINIMAP_HEIGHT 152
 # define MINIMAP_VIEW_SIZE 3
 # define TILE_SIZE 32
 # define PLAYER_SIZE 10
-# define PLAYER_SPEED 2
-# define PLAYER_ROT_SPEED 
+# define PLAYER_SPEED 150.0
+# define PLAYER_ROT_SPEED (M_PI / 2)
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
 # define DIR_LINE_COLOR 0x0000FF
@@ -65,8 +67,8 @@ typedef struct s_graphics
 
 typedef struct s_point
 {
-	int			x;
-	int			y;
+	double			x;
+	double			y;
 }				t_point;
 
 typedef struct s_map
@@ -104,6 +106,9 @@ typedef struct s_ray_caster
 	int			num_rays;
 	double		angle_step;
 	double		start_angle;
+	double		dist_proj_plane;
+	int			wall_top;
+	int			wall_bottom;
 	mlx_image_t	*img;
 }	t_ray_caster;
 
@@ -150,6 +155,8 @@ char	*clean_str(char *str);
 char	**ft_split2(char const *s, char *delimiters);
 double	degree_to_rad(int degree);
 bool	no_double_newline(const char *str);
+bool is_inside_image(mlx_image_t *img, int x, int y);
+uint32_t	convert_abgr_to_rgba(uint32_t abgr);
 
 //print
 void	print_grid(char **grid);
@@ -158,22 +165,27 @@ void	print_cub3d_info(t_cub3d *cub);
 //minimap
 void	render_player(t_cub3d *cub3d);
 // void	render_bg(t_cub3d *cub3d, uint32_t color);
-void cast_rays(t_cub3d *cub3d);
-t_ray cast_single_ray(t_cub3d *cub3d, double ray_angle);
-t_ray cast_horizontal_ray(t_cub3d *cub3d, double ray_angle);
-t_ray cast_vertical_ray(t_cub3d *cub3d, double ray_angle);
+void ray_caster(t_cub3d cub3d);
+t_ray cast_single_ray(t_cub3d cub3d, double ray_angle);
+t_ray cast_horizontal_ray(t_cub3d cub3d, double ray_angle);
+t_ray cast_vertical_ray(t_cub3d cub3d, double ray_angle);
 
 //render
 void	render_map(t_cub3d *cub3d);
+void	render_3d(t_cub3d cub3d);
 
 //draw
-void	draw_line(mlx_image_t *image, t_point start, t_point end, int width, uint32_t color);
+void	draw_line(mlx_image_t *image, t_point start, t_point end, uint32_t color);
 void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
-void	draw_player(t_cub3d *cub3d);
+void	draw_player(t_cub3d cub3d);
 void	fill_tile(t_map map, int x, int y, uint32_t color);
 void	draw_minimap(t_cub3d cub3d);
-void	draw_img_outline(mlx_image_t *img, int line_width, uint32_t color);
+void	draw_ray(t_cub3d cub3d, t_ray ray);
 void	clear_image(mlx_image_t *img);
+void	draw_background(mlx_image_t *img, uint32_t color);
+void	draw_ceiling(t_cub3d cub3d);
+void	draw_floor(t_cub3d cub3d);
+void	draw_wall_slice(t_cub3d cub3d, mlx_image_t *wall_img, int x, int y, int offset_x, int wall_bottom, int wall_top);
 
 //player_controls
 void	player_movement(t_cub3d *cub3d);
@@ -185,10 +197,9 @@ void	handle_close(t_cub3d *cub3d, char *error_msg);
 void	handle_close_cb(void *param);
 
 //3d
-void		render_wall_slice(t_cub3d *cub3d, int col, t_ray ray, double ray_angle);
+void		render_wall_slice(t_cub3d cub3d, int col, t_ray ray, double ray_angle);
 uint32_t	rgb_to_color(t_rgb color);
-void		fill_background(t_cub3d *cub3d);
 
-t_point world_to_minimap(t_cub3d *cub3d, double world_x, double world_y);
+t_point world_coord_to_minimap_coord(t_cub3d cub3d, double world_x, double world_y);
 
 #endif

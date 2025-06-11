@@ -1,9 +1,9 @@
    WE                          textures/wolfenstein/greystone.png
-NO      textures/wolfenstein/purplestone.png
+NO      textures/wolfenstein/bluestone.png
 
 
 
-SO textures/wolfenstein/redbrick.png
+SO textures/wolfenstein/wood.png
 
 F      17,    38,     64
 
@@ -26,3 +26,20 @@ C 218, 234, 235
 10001
 11111
 
+<<<<<<< HEAD
+=======
+
+
+
+
+1111111111111111111
+10N0000000000000001
+1000000000000000001
+1000000000000000001
+1000000000000000001
+1000000000000000001
+1000000000000000001
+1000000000000000001
+1000000000000000001
+1111111111111111111
+>>>>>>> origin/messi

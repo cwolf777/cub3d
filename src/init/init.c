@@ -4,9 +4,10 @@
 
 void	init_ray_caster(t_cub3d *cub3d)
 {
-	cub3d->ray_caster.num_rays = WINDOW_WIDTH - MINIMAP_WIDTH;
+	cub3d->ray_caster.num_rays = WINDOW_WIDTH;
 	cub3d->ray_caster.angle_step = cub3d->player.fov / cub3d->ray_caster.num_rays;
 	cub3d->ray_caster.img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	cub3d->ray_caster.dist_proj_plane = (WINDOW_WIDTH / 2.0) / tan(cub3d->player.fov / 2.0);
 	if (!cub3d->ray_caster.img)
 		handle_close(cub3d, "Failed to create 3D view image");
 }
@@ -23,13 +24,11 @@ static void	init_player(t_cub3d *cub3d)
 	if (map->player_orientation == 'E')
 		player->angle = degree_to_rad(0);
 	if (map->player_orientation == 'N')
-		player->angle = degree_to_rad(90);
-	if (map->player_orientation == 'S')
 		player->angle = degree_to_rad(270);
-	// player->pixel_pos.x = map->player_index.x * map->tile_size + map->tile_size / 2;
-	// player->pixel_pos.y = map->player_index.y * map->tile_size + map->tile_size / 2;
-	player->pixel_pos.x = map->player_index.x * TILE_SIZE + TILE_SIZE / 2;
-	player->pixel_pos.y = map->player_index.y * TILE_SIZE + TILE_SIZE / 2;
+	if (map->player_orientation == 'S')
+		player->angle = degree_to_rad(90);
+	player->pixel_pos.x = (map->player_index.x * TILE_SIZE) + (TILE_SIZE / 2);
+	player->pixel_pos.y = (map->player_index.y * TILE_SIZE) + (TILE_SIZE / 2);
 	player->grid_pos.x = map->player_index.x;
 	player->grid_pos.y = map->player_index.y;
 	player->size = TILE_SIZE / 5;
