@@ -143,7 +143,7 @@ void	validate_player(t_cub3d *cub3d, t_map map);
 void	flood_fill(t_cub3d *cub3d, char **grid, int x, int y);
 
 //error
-void	handle_error(char *error_msg);
+// void	handle_error(char *error_msg);
 
 //utils
 bool	is_white_space(char c);
@@ -193,8 +193,8 @@ void	player_movement(t_cub3d *cub3d);
 //game
 void	game_loop(void *param);
 void	handle_keypress(mlx_key_data_t keydata, void *param);
-void	handle_close(t_cub3d *cub3d, char *error_msg);
-void	handle_close_cb(void *param);
+void	handle_close(void *param);
+void	handle_error(t_cub3d *cub3d, char *error_msg);
 
 //3d
 void		render_wall_slice(t_cub3d cub3d, int col, t_ray ray, double ray_angle);

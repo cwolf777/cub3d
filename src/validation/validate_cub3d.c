@@ -20,9 +20,8 @@ void	validate_player(t_cub3d *cub3d, t_map map)
 		}
 		y++;
 	}
-	if (player_count == 1)
-		return ;
-	handle_close(cub3d, "No or more than one player found");
+	if (player_count != 1)
+		handle_error(cub3d, "No or more than one player found");
 }
 
 void	validate_cub3d(t_cub3d cub3d)

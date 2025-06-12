@@ -33,13 +33,6 @@ bool	is_valid_digit_string(char *str)
 	return (true);
 }
 
-void	handle_error(char *error_msg)
-{
-	ft_printf("Error\n");
-	ft_printf("%s\n", error_msg);
-	exit(EXIT_FAILURE);
-}
-
 void	free_grid(char **grid)
 {
 	int	i;
@@ -70,12 +63,12 @@ char	**copy_grid(t_cub3d *cub3d, t_map map)
 	i = 0;
 	new_grid = malloc(sizeof(char *) * (map.grid_height + 1));
 	if (!new_grid)
-		handle_close(cub3d, "Malloc failed in func: copy_map");
+		handle_error(cub3d, "Malloc failed in func: copy_map");
 	while (map.grid[i] != NULL)
 	{
 		new_grid[i] = ft_strdup(map.grid[i]);
 		if (!new_grid[i])
-			handle_close(cub3d, "Malloc failed in func: copy_map");
+			handle_error(cub3d, "Malloc failed in func: copy_map");
 		i++;
 	}
 	new_grid[i] = NULL;

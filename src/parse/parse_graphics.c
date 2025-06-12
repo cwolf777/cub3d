@@ -39,7 +39,7 @@ void	parse_graphics(t_cub3d *cub3d, int fd)
 	while (i < GRAPHICS_LENGTH)
 	{
 		if (graphics[i] != 1)
-			handle_close(cub3d, "Wrong config for graphics");
+			handle_error(cub3d, "Wrong config for graphics");
 		i++;
 	}
 }

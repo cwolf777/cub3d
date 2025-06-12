@@ -58,7 +58,7 @@ void	load_rgb(t_cub3d *cub3d, int *seen_flags, char *str)
 		if (!parse_rgb(&cub3d->graphics.floor, str + 1))
 		{
 			free(str);
-			handle_close(cub3d, "Wrong color input");
+			handle_error(cub3d, "Wrong color input");
 		}
 		seen_flags[F]++;
 	}
@@ -67,7 +67,7 @@ void	load_rgb(t_cub3d *cub3d, int *seen_flags, char *str)
 		if (!parse_rgb(&cub3d->graphics.ceiling, str + 1))
 		{
 			free(str);
-			handle_close(cub3d, "Wrong color input");			
+			handle_error(cub3d, "Wrong color input");			
 		}
 		seen_flags[C]++;
 	}
