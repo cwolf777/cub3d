@@ -39,6 +39,7 @@
 //init
 void	init_cub3d(t_cub3d *cub3d, char *path);
 void	init_img(t_cub3d *cub3d, t_img *img, mlx_t *mlx, char *path);
+void	init_ray_caster(t_cub3d *cub3d);
 
 //parse
 void	parse_cub3d(t_cub3d *cub3d, char *path);
@@ -87,6 +88,7 @@ void	player_movement(t_cub3d *cub3d);
 void	game_loop(void *param);
 void	handle_keypress(mlx_key_data_t keydata, void *param);
 void	handle_close(void *param);
+void	handle_resize(int width, int height, void *param);
 
 //3d
 void		render_wall_slice(t_cub3d cub3d, int col, t_ray ray, double ray_angle);

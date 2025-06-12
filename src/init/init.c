@@ -3,10 +3,10 @@
 
 void	init_ray_caster(t_cub3d *cub3d)
 {
-	cub3d->ray_caster.num_rays = WINDOW_WIDTH;
+	cub3d->ray_caster.num_rays = cub3d->window_width;
 	cub3d->ray_caster.angle_step = cub3d->player.fov / cub3d->ray_caster.num_rays;
 	cub3d->ray_caster.img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
-	cub3d->ray_caster.dist_proj_plane = (WINDOW_WIDTH / 2.0) / tan(cub3d->player.fov / 2.0);
+	cub3d->ray_caster.dist_proj_plane = (cub3d->window_width / 2.0) / tan(cub3d->player.fov / 2.0);
 	if (!cub3d->ray_caster.img)
 		handle_error(cub3d, "Failed to create 3D view image");
 }
@@ -55,9 +55,11 @@ static void	init_player(t_cub3d *cub3d)
 void	init_cub3d(t_cub3d *cub3d, char *path)
 {
 	cub3d->fd = -1;
-	cub3d->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
+	cub3d->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", true);
 	if (!cub3d->mlx)
 		handle_error(cub3d, "MLX not initialized");
+	cub3d->window_width = WINDOW_WIDTH;
+	cub3d->window_height = WINDOW_HEIGHT;
 	parse_cub3d(cub3d, path);
 	validate_cub3d(*cub3d);
 	// init_map(cub3d);

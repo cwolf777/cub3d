@@ -9,10 +9,10 @@ void draw_ceiling(t_cub3d cub3d)
 
 	ceiling_color = convert_t_rgb_to_rgb_code(cub3d.graphics.ceiling);
 	y = 0;
-	while (y < WINDOW_HEIGHT / 2)
+	while (y < cub3d.window_height / 2)
 	{
 		x = 0;
-		while (x < WINDOW_WIDTH)
+		while (x < cub3d.window_width)
 		{
 			if (is_inside_image(cub3d.view_img, x, y))
 				mlx_put_pixel(cub3d.view_img, x, y, ceiling_color);
@@ -28,11 +28,11 @@ void draw_floor(t_cub3d cub3d)
 	uint32_t	floor;
 
 	floor = convert_t_rgb_to_rgb_code(cub3d.graphics.floor);
-	y = WINDOW_HEIGHT / 2;
-	while (y < WINDOW_HEIGHT)
+	y = cub3d.window_height / 2;
+	while (y < cub3d.window_height)
 	{
 		x = 0;
-		while (x < WINDOW_WIDTH)
+		while (x < cub3d.window_width)
 		{
 			if (is_inside_image(cub3d.view_img, x, y))
 				mlx_put_pixel(cub3d.view_img, x, y, floor);

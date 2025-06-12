@@ -27,8 +27,8 @@ void render_wall_slice(t_cub3d cub3d, int draw_x, t_ray ray, double ray_angle)
 	corrected_distance = ray.distance * cos(ray_angle - cub3d.player.angle);
 	// Konstanten für Projektion
 	double wall_height = (TILE_SIZE / corrected_distance) * cub3d.ray_caster.dist_proj_plane;
-	double wall_top = (WINDOW_HEIGHT / 2) - (wall_height / 2);
-	double wall_bottom = (WINDOW_HEIGHT / 2) + (wall_height / 2);
+	double wall_top = (cub3d.window_height / 2) - (wall_height / 2);
+	double wall_bottom = (cub3d.window_height / 2) + (wall_height / 2);
 
 	wall_texture = get_wall_texture(cub3d, ray, ray_angle);
 	if (ray.is_vertical)

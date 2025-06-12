@@ -95,6 +95,8 @@ typedef struct s_cub3d
 	t_graphics		graphics;
 	t_ray_caster	ray_caster;
 	mlx_image_t		*view_img;
+	int				window_width;
+	int				window_height;
 }				t_cub3d;
 
 #endif
