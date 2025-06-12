@@ -1,5 +1,4 @@
 
-
 #include "cub3d.h"
 
 void	init_ray_caster(t_cub3d *cub3d)
@@ -20,21 +19,21 @@ static void	init_player(t_cub3d *cub3d)
 	map = &cub3d->map;
 	player = &cub3d->player;
 	if (map->player_orientation == 'W')
-		player->angle = degree_to_rad(180);
+		player->angle = convert_degree_to_rad(180);
 	if (map->player_orientation == 'E')
-		player->angle = degree_to_rad(0);
+		player->angle = convert_degree_to_rad(0);
 	if (map->player_orientation == 'N')
-		player->angle = degree_to_rad(270);
+		player->angle = convert_degree_to_rad(270);
 	if (map->player_orientation == 'S')
-		player->angle = degree_to_rad(90);
+		player->angle = convert_degree_to_rad(90);
 	player->pixel_pos.x = (map->player_index.x * TILE_SIZE) + (TILE_SIZE / 2);
 	player->pixel_pos.y = (map->player_index.y * TILE_SIZE) + (TILE_SIZE / 2);
 	player->grid_pos.x = map->player_index.x;
 	player->grid_pos.y = map->player_index.y;
 	player->size = TILE_SIZE / 5;
 	player->speed = 2;
-	player->rot_speed = degree_to_rad(5);
-	player->fov = degree_to_rad(60);
+	player->rot_speed = convert_degree_to_rad(5);
+	player->fov = convert_degree_to_rad(60);
 }
 
 // static void	init_map(t_cub3d *cub3d)

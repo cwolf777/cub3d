@@ -12,8 +12,8 @@ static bool	check_collision(t_map map, double px, double py)
 	i = 0;
 	while(i < 360)
 	{
-		check_x = px + cos(degree_to_rad(i)) * PLAYER_SIZE * 1.3;
-		check_y = py + sin(degree_to_rad(i)) * PLAYER_SIZE * 1.3;
+		check_x = px + cos(convert_degree_to_rad(i)) * PLAYER_SIZE * 1.3;
+		check_y = py + sin(convert_degree_to_rad(i)) * PLAYER_SIZE * 1.3;
 		grid_x = (int)(check_x / TILE_SIZE);
 		grid_y = (int)(check_y / TILE_SIZE);
 		if (grid_y < 0 || grid_y >= map.grid_height || grid_x < 0 || grid_x >= map.grid_width)

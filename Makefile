@@ -9,14 +9,14 @@ LIBMLX = $(LIBMLX_DIR)/build/libmlx42.a
 SRC_DIR = ./src
 VPATH = $(SRC_DIR) $(SRC_DIR)/utils $(SRC_DIR)/validation $(SRC_DIR)/init $(SRC_DIR)/parse \
 		$(SRC_DIR)/game $(SRC_DIR)/game/render $(SRC_DIR)/game/movement $(SRC_DIR)/game/draw
+
 SRCS =	main.c init.c init_img.c \
 		parse_cub3d.c parse_graphics.c parse_img.c parse_map.c parse_rgb.c \
 		validate_cub3d.c validate_file_extension.c validate_rgb.c validate_grid.c \
 		player_movement.c handle_keypress.c game_loop.c handle_close.c \
-		print.c utils.c ft_split2.c ray_caster.c render.c render_wall.c \
-		draw_3d.c draw_line.c draw_minimap.c draw_player.c draw.c
-
-
+		ray_caster.c render.c render_wall.c \
+		draw_3d.c draw_line.c draw_minimap.c draw_player.c draw.c \
+		free.c error.c convert.c str_utils.c print.c utils.c ft_split2.c
 
 OBJS_DIR = objects
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))

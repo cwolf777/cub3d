@@ -7,7 +7,7 @@ void draw_ceiling(t_cub3d cub3d)
 	int			x;
 	uint32_t	ceiling_color;
 
-	ceiling_color = rgb_to_color(cub3d.graphics.ceiling);
+	ceiling_color = convert_t_rgb_to_rgb_code(cub3d.graphics.ceiling);
 	y = 0;
 	while (y < WINDOW_HEIGHT / 2)
 	{
@@ -27,7 +27,7 @@ void draw_floor(t_cub3d cub3d)
 	int			x;
 	uint32_t	floor;
 
-	floor = rgb_to_color(cub3d.graphics.floor);
+	floor = convert_t_rgb_to_rgb_code(cub3d.graphics.floor);
 	y = WINDOW_HEIGHT / 2;
 	while (y < WINDOW_HEIGHT)
 	{

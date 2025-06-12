@@ -57,6 +57,6 @@ void	draw_ray(t_cub3d cub3d, t_ray ray)
 	t_point	ray_start_pos;
 
 	ray_start_pos = (t_point){MINIMAP_WIDTH / 2, MINIMAP_HEIGHT / 2};
-	ray_end_pos = world_coord_to_minimap_coord(cub3d, ray.hit_pos.x, ray.hit_pos.y);
+	ray_end_pos = convert_world_coord_to_minimap_coord(cub3d, ray.hit_pos.x, ray.hit_pos.y);
 	draw_line(cub3d.ray_caster.img, ray_start_pos, ray_end_pos, YELLOW_COLOR);
 }
