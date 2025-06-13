@@ -9,7 +9,7 @@ LIBMLX = $(LIBMLX_DIR)/build/libmlx42.a
 SRC_DIR = ./src
 VPATH = $(SRC_DIR) $(SRC_DIR)/utils $(SRC_DIR)/validation $(SRC_DIR)/init $(SRC_DIR)/parse \
 		$(SRC_DIR)/game $(SRC_DIR)/game/render $(SRC_DIR)/game/movement $(SRC_DIR)/game/draw \
-		$(SRC_DIR)/events
+		$(SRC_DIR)/game/events
 
 SRCS =	main.c init.c init_img.c \
 		parse_cub3d.c parse_graphics.c parse_img.c parse_map.c parse_rgb.c \
