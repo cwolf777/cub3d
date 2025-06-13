@@ -7,7 +7,7 @@ void	game_loop(void *param)
 
 	cub3d = (t_cub3d *)param;
 	player_movement(cub3d);
-	draw_minimap(*cub3d);
-	draw_player(*cub3d);
+	if (cub3d->map.show_map)
+		draw_minimap(*cub3d);
 	render_3d(*cub3d);
 }

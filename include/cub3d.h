@@ -65,7 +65,7 @@ t_ray cast_horizontal_ray(t_cub3d cub3d, double ray_angle);
 t_ray cast_vertical_ray(t_cub3d cub3d, double ray_angle);
 
 //render
-void	render_map(t_cub3d *cub3d);
+void	render_minimap(t_cub3d *cub3d);
 void	render_3d(t_cub3d cub3d);
 
 //draw

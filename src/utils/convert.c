@@ -21,8 +21,8 @@ t_point convert_world_coord_to_minimap_coord(t_cub3d cub3d, double world_x, doub
 	double	offset_x;
 	double	offset_y;
 
-	offset_x = cub3d.player.pixel_pos.x - (MINIMAP_WIDTH / 2);
-	offset_y = cub3d.player.pixel_pos.y - (MINIMAP_HEIGHT / 2);
+	offset_x = cub3d.player.pixel_pos.x - (cub3d.map.width / 2);
+	offset_y = cub3d.player.pixel_pos.y - (cub3d.map.height / 2);
 	point.x = world_x - offset_x;
 	point.y = world_y - offset_y;
 	return (point);

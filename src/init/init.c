@@ -1,6 +1,18 @@
 
 #include "cub3d.h"
 
+void	init_window_size(t_cub3d *cub3d)
+{
+	cub3d->window_width = WINDOW_WIDTH;
+	cub3d->window_height = WINDOW_HEIGHT;
+}
+
+void	init_minimap_size(t_cub3d *cub3d)
+{
+	cub3d->map.width = MINIMAP_WIDTH;
+	cub3d->map.height = MINIMAP_HEIGHT;
+}
+
 void	init_ray_caster(t_cub3d *cub3d)
 {
 	cub3d->ray_caster.num_rays = cub3d->window_width;
@@ -36,21 +48,22 @@ static void	init_player(t_cub3d *cub3d)
 	player->fov = convert_degree_to_rad(60);
 }
 
-// static void	init_map(t_cub3d *cub3d)
-// {
-// 	int		tile_width;
-// 	int		tile_height;
+static void	init_map(t_cub3d *cub3d)
+{
+	int		tile_width;
+	int		tile_height;
 
-// 	// tile_height = MINIMAP_HEIGHT / cub3d->map.grid_height;
-// 	// tile_width = MINIMAP_WIDTH / cub3d->map.grid_width;
-// 	// cub3d->map.tile_size = tile_width;
-// 	// if (tile_height < tile_width)
-// 	// 	cub3d->map.tile_size = tile_height;
-// 	// if (cub3d->map.tile_size < 2)
-// 	// 	cub3d->map.tile_size = 2;
-// 	cub3d->map.pixel_width = cub3d->map.tile_size * cub3d->map.grid_width;
-// 	cub3d->map.pixel_height = cub3d->map.tile_size * cub3d->map.grid_height;
-// }
+	
+	tile_height = cub3d->map.height / cub3d->map.grid_height;
+	tile_width = cub3d->map.width / cub3d->map.grid_width;
+	cub3d->map.tile_size = tile_width;
+	if (tile_height < tile_width)
+		cub3d->map.tile_size = tile_height;
+	if (cub3d->map.tile_size < 2)
+		cub3d->map.tile_size = 2;
+	cub3d->map.width = cub3d->map.tile_size * cub3d->map.grid_width;
+	cub3d->map.height = cub3d->map.tile_size * cub3d->map.grid_height;
+}
 
 void	init_cub3d(t_cub3d *cub3d, char *path)
 {
@@ -58,11 +71,11 @@ void	init_cub3d(t_cub3d *cub3d, char *path)
 	cub3d->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", true);
 	if (!cub3d->mlx)
 		handle_error(cub3d, "MLX not initialized");
-	cub3d->window_width = WINDOW_WIDTH;
-	cub3d->window_height = WINDOW_HEIGHT;
+	init_window_size(cub3d);
+	init_minimap_size(cub3d);
 	parse_cub3d(cub3d, path);
 	validate_cub3d(*cub3d);
-	// init_map(cub3d);
+	init_map(cub3d);
 	init_player(cub3d);
 	init_ray_caster(cub3d);
 	cub3d->view_img = mlx_new_image(cub3d->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);

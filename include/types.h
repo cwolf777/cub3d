@@ -47,12 +47,16 @@ typedef struct s_point
 
 typedef struct s_map
 {
+	bool		show_map;
 	int			grid_width;
 	int			grid_height;
 	char		**grid;
 	t_point		player_index;
 	char		player_orientation;
 	mlx_image_t	*img;
+	int			width;
+	int			height;
+	int			tile_size;
 }				t_map;
 
 typedef struct s_player
@@ -83,6 +87,7 @@ typedef struct s_ray_caster
 	double		dist_proj_plane;
 	int			wall_top;
 	int			wall_bottom;
+	bool		show_rays;
 	mlx_image_t	*img;
 }	t_ray_caster;
 
