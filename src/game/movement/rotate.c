@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_resize.c                                    :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 16:26:19 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/16 16:26:28 by phhofman         ###   ########.fr       */
+/*   Created: 2025/06/16 16:30:55 by phhofman          #+#    #+#             */
+/*   Updated: 2025/06/16 16:32:07 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	handle_resize(int width, int height, void *param)
+void	rotate_left(t_cub3d *cub3d, double delta_time)
 {
-	t_cub3d	*cub3d;
+	cub3d->player.angle -= PLAYER_ROT_SPEED * delta_time;
+	if (cub3d->player.angle < 0)
+		cub3d->player.angle += 2 * M_PI;
+}
 
-	cub3d = (void *)param;
-	mlx_delete_image(cub3d->mlx, cub3d->view_img);
-	mlx_delete_image(cub3d->mlx, cub3d->map.img);
-	mlx_delete_image(cub3d->mlx, cub3d->ray_caster.img);
-	cub3d->window_height = height;
-	cub3d->window_width = width;
-	init_map(cub3d);
-	init_ray_caster(cub3d);
-	create_view(cub3d);
-	create_minimap(cub3d);
-	set_layer_order(cub3d);
+void	rotate_right(t_cub3d *cub3d, double delta_time)
+{
+	cub3d->player.angle += PLAYER_ROT_SPEED * delta_time;
+	if (cub3d->player.angle > 2 * M_PI)
+		cub3d->player.angle -= 2 * M_PI;
 }

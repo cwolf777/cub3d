@@ -5,6 +5,7 @@
 #include "types.h"
 
 char		**copy_grid(t_cub3d *cub3d, t_map map);
+double	get_elapsed_time(void);
 
 //str_utils
 bool		is_white_space(char c);

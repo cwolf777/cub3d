@@ -70,7 +70,6 @@ t_ray cast_horizontal_ray(t_cub3d cub3d, double ray_angle);
 t_ray cast_vertical_ray(t_cub3d cub3d, double ray_angle);
 
 //render
-void	render_minimap(t_cub3d *cub3d);
 void	render_3d(t_cub3d cub3d);
 
 //draw
@@ -88,6 +87,12 @@ void	draw_wall_slice(t_cub3d cub3d, mlx_image_t *wall_img, int x, int y, int off
 
 //player_controls
 void	player_movement(t_cub3d *cub3d);
+void	rotate_left(t_cub3d *cub3d, double delta_time);
+void	rotate_right(t_cub3d *cub3d, double delta_time);
+void	move_forward(t_cub3d *cub3d, double *move_x, double *move_y, double delta_time);
+void	move_backward(t_cub3d *cub3d, double *move_x, double *move_y, double delta_time);
+void	move_left(t_cub3d *cub3d, double *move_x, double *move_y, double delta_time);
+void	move_right(t_cub3d *cub3d, double *move_x, double *move_y, double delta_time);
 
 //game
 void	game_loop(void *param);
