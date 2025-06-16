@@ -15,7 +15,7 @@ void ray_caster(t_cub3d cub3d)
 	{
 		ray_angle = start_angle + i * cub3d.ray_caster.angle_step;
 		ray = cast_single_ray(cub3d, ray_angle);
-		if (cub3d.ray_caster.show_rays)
+		if (cub3d.ray_caster.rays_visible)
 			draw_ray(cub3d, ray);
 		render_wall_slice(cub3d, i, ray, ray_angle);
 		i++;
