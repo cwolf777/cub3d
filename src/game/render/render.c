@@ -8,13 +8,14 @@ void	render_map(t_cub3d *cub3d)
 		handle_error(cub3d, "Failed to load map_img");
 	draw_minimap(*cub3d);
 	mlx_image_to_window(cub3d->mlx, cub3d->map.img, 0, 0);
-	cub3d->ray_caster.img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	cub3d->ray_caster.img = mlx_new_image(cub3d->mlx,
+			MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!cub3d->ray_caster.img)
 		handle_error(cub3d, "Failed to create ray_caster image");
 	mlx_image_to_window(cub3d->mlx, cub3d->ray_caster.img, 0, 0);
 }
 
-void render_player(t_cub3d *cub3d)
+void	render_player(t_cub3d *cub3d)
 {
 	int	img_x;
 	int	img_y;

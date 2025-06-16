@@ -1,7 +1,7 @@
 
 #include "cub3d.h"
 
-void draw_ceiling(t_cub3d cub3d)
+void	draw_ceiling(t_cub3d cub3d)
 {
 	int			y;
 	int			x;
@@ -21,7 +21,8 @@ void draw_ceiling(t_cub3d cub3d)
 		y++;
 	}
 }
-void draw_floor(t_cub3d cub3d)
+
+void	draw_floor(t_cub3d cub3d)
 {
 	int			y;
 	int			x;
@@ -42,23 +43,23 @@ void draw_floor(t_cub3d cub3d)
 	}
 }
 
-void	draw_wall_slice(t_cub3d cub3d, mlx_image_t *wall_img, int x, int y, int offset_x, int wall_bottom, int wall_top)
+void	draw_wall_slice(t_cub3d cub3d, t_wall_slice s, int draw_x)
 {
 	double		wall_y_ratio;
 	uint32_t	wall_color;
 	int			tex_y;
 	uint32_t	*pixels;
-	
-	pixels = (uint32_t *)wall_img->pixels;
-	while (y < wall_bottom)
+
+	pixels = (uint32_t *)s.wall_img->pixels;
+	while (s.y < s.wall_bottom)
 	{
-		// Y-Position innerhalb der Wand berechnen
-		wall_y_ratio = (double) (y - wall_top) / (wall_bottom - wall_top);
-		tex_y = wall_y_ratio * wall_img->height;
-		wall_color = pixels[tex_y * wall_img->width + offset_x];
-		if (is_inside_image(cub3d.view_img, x, y))
-			mlx_put_pixel(cub3d.view_img, x, y, convert_abgr_to_rgba(wall_color));
-		y++;
+		wall_y_ratio = (double)(s.y - s.wall_top)
+			/ (s.wall_bottom - s.wall_top);
+		tex_y = wall_y_ratio * s.wall_img->height;
+		wall_color = pixels[tex_y * s.wall_img->width + s.offset_x];
+		if (is_inside_image(cub3d.view_img, draw_x, s.y))
+			mlx_put_pixel(cub3d.view_img, draw_x, s.y,
+				convert_abgr_to_rgba(wall_color));
+		s.y++;
 	}
 }
-

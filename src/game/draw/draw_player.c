@@ -1,14 +1,15 @@
 
 #include "cub3d.h"
 
-void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color)
+void	draw_filled_circle(mlx_image_t *img,
+		t_point center, int radius, uint32_t color)
 {
-	int x;
-	int y;
-	double dx;
-	double dy;
-	int r_squared;
-	
+	int		x;
+	int		y;
+	double	dx;
+	double	dy;
+	int		r_squared;
+
 	r_squared = radius * radius;
 	y = -radius;
 	while (y <= radius)

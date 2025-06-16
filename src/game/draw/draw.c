@@ -1,7 +1,7 @@
 
 #include "cub3d.h"
 
-void clear_image(mlx_image_t *img)
+void	clear_image(mlx_image_t *img)
 {
 	int	y;
 	int	x;
@@ -37,4 +37,3 @@ void	draw_background(mlx_image_t *img, uint32_t color)
 		y++;
 	}
 }
-

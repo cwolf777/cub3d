@@ -65,8 +65,15 @@ t_ray cast_horizontal_ray(t_cub3d cub3d, double ray_angle);
 t_ray cast_vertical_ray(t_cub3d cub3d, double ray_angle);
 
 //render
-void	render_map(t_cub3d *cub3d);
-void	render_3d(t_cub3d cub3d);
+void		render_map(t_cub3d *cub3d);
+void		render_3d(t_cub3d cub3d);
+t_ray		cast_single_ray(t_cub3d cub3d, double ray_angle);
+void		ray_caster(t_cub3d cub3d);
+t_ray		cast_horizontal_ray(t_cub3d cub3d, double angle);
+t_ray		cast_vertical_ray(t_cub3d cub3d, double angle);
+t_ray_data	init_horizontal_ray(t_cub3d cub3d, double angle);
+t_ray_data	init_vertical_ray(t_cub3d cub3d, double angle);
+t_ray		cast_ray_generic(t_cub3d cub3d, double angle, int is_vertical);
 
 //draw
 void	draw_line(mlx_image_t *image, t_point start, t_point end, uint32_t color);
@@ -79,7 +86,7 @@ void	clear_image(mlx_image_t *img);
 void	draw_background(mlx_image_t *img, uint32_t color);
 void	draw_ceiling(t_cub3d cub3d);
 void	draw_floor(t_cub3d cub3d);
-void	draw_wall_slice(t_cub3d cub3d, mlx_image_t *wall_img, int x, int y, int offset_x, int wall_bottom, int wall_top);
+void	draw_wall_slice(t_cub3d cub3d, t_wall_slice slice, int draw_x);
 
 //player_controls
 void	player_movement(t_cub3d *cub3d);
