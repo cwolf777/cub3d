@@ -99,4 +99,18 @@ typedef struct s_cub3d
 	int				window_height;
 }				t_cub3d;
 
+typedef struct s_line_helper
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+}				t_line_helper;
+
+typedef struct s_point_int
+{
+	int			x;
+	int			y;
+}				t_point_int;
+
 #endif
