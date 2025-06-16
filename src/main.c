@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 		handle_error(&cub3d, "File extension must be .cub");
 	init_cub3d(&cub3d, argv[1]);
 	print_cub3d_info(&cub3d);
+	cub3d.map.show_map = true;
 	render_minimap(&cub3d);
 	mlx_image_to_window(cub3d.mlx, cub3d.ray_caster.img, 0, 0);
 	mlx_close_hook(cub3d.mlx, handle_close, &cub3d);

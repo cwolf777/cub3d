@@ -33,8 +33,8 @@ void	draw_minimap(t_cub3d cub3d)
 
 	clear_image(cub3d.map.img);
 	draw_background(cub3d.map.img, BLACK_COLOR);
-	off_set_x = (int)cub3d.player.pixel_pos.x - (MINIMAP_WIDTH / 2);
-	off_set_y = (int)cub3d.player.pixel_pos.y - (MINIMAP_HEIGHT / 2);
+	off_set_x = (int)cub3d.player.pixel_pos.x - (cub3d.map.width / 2);
+	off_set_y = (int)cub3d.player.pixel_pos.y - (cub3d.map.height / 2);
 	y = 0;
 	while(y < cub3d.map.grid_height)
 	{

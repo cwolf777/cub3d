@@ -17,7 +17,7 @@ void	init_ray_caster(t_cub3d *cub3d)
 {
 	cub3d->ray_caster.num_rays = cub3d->window_width;
 	cub3d->ray_caster.angle_step = cub3d->player.fov / cub3d->ray_caster.num_rays;
-	cub3d->ray_caster.img = mlx_new_image(cub3d->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	cub3d->ray_caster.img = mlx_new_image(cub3d->mlx, cub3d->map.width, cub3d->map.height);
 	cub3d->ray_caster.dist_proj_plane = (cub3d->window_width / 2.0) / tan(cub3d->player.fov / 2.0);
 	if (!cub3d->ray_caster.img)
 		handle_error(cub3d, "Failed to create 3D view image");
