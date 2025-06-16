@@ -29,3 +29,5 @@ void	init_img(t_cub3d *cub3d, t_img *img, mlx_t *mlx, char *path)
 	img->img = create_img(cub3d, mlx, path);
 	img->path = temp;
 }
+
+

@@ -31,10 +31,8 @@ void	draw_player(t_cub3d cub3d)
 	t_point	start;
 	t_point	end;
 
-	start.x = cub3d.map.width / 2;
-	start.y = cub3d.map.height / 2;
+	start = (t_point){cub3d.minimap_img_width / 2, cub3d.minimap_img_height / 2};
 	draw_filled_circle(cub3d.map.img, start, PLAYER_SIZE / 2, PLAYER_COLOR);
-	end.x = start.x + cos(cub3d.player.angle) * PLAYER_SIZE / 2;
-	end.y = start.y + sin(cub3d.player.angle) * PLAYER_SIZE / 2;
+	end = (t_point){start.x + cos(cub3d.player.angle) * PLAYER_SIZE / 2, start.y + sin(cub3d.player.angle) * PLAYER_SIZE / 2};
 	draw_line(cub3d.map.img, start, end, DIR_LINE_COLOR);
 }

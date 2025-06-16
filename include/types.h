@@ -47,7 +47,7 @@ typedef struct s_point
 
 typedef struct s_map
 {
-	bool		minimap_visible;
+	bool		is_visible;
 	int			grid_width;
 	int			grid_height;
 	char		**grid;
@@ -87,7 +87,7 @@ typedef struct s_ray_caster
 	double		dist_proj_plane;
 	int			wall_top;
 	int			wall_bottom;
-	bool		rays_visible;
+	bool		is_visible;
 	mlx_image_t	*img;
 }	t_ray_caster;
 
@@ -102,6 +102,8 @@ typedef struct s_cub3d
 	mlx_image_t		*view_img;
 	int				window_width;
 	int				window_height;
+	int				minimap_img_width;
+	int				minimap_img_height;
 }				t_cub3d;
 
 #endif

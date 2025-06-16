@@ -5,7 +5,6 @@
 #include "types.h"
 
 char		**copy_grid(t_cub3d *cub3d, t_map map);
-bool 		is_inside_image(mlx_image_t *img, int x, int y);
 
 //str_utils
 bool		is_white_space(char c);
@@ -33,5 +32,12 @@ void		handle_error(t_cub3d *cub3d, char *error_msg);
 //print
 void		print_grid(char **grid);
 void		print_cub3d_info(t_cub3d *cub);
+
+//mlx
+void		set_layer_order(t_cub3d *cub3d);
+bool 		is_inside_image(mlx_image_t *img, int x, int y);
+void		create_view(t_cub3d *cub3d);
+void		create_minimap(t_cub3d *cub3d);
+void		setup_mlx(t_cub3d *cub3d);
 
 #endif

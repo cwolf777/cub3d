@@ -22,6 +22,10 @@
 # define DIR_LINE_COLOR 0x0000FF
 
 //SETTINGS
+# define MIN_WINDOW_WIDTH 640
+# define MIN_WINDOW_HEIGHT 480
+# define MAX_WINDOW_WIDTH -1
+# define MAX_WINDOW_HEIGHT -1
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
 # define GRAPHICS_LENGTH 6
@@ -40,6 +44,7 @@
 void	init_cub3d(t_cub3d *cub3d, char *path);
 void	init_img(t_cub3d *cub3d, t_img *img, mlx_t *mlx, char *path);
 void	init_ray_caster(t_cub3d *cub3d);
+void	init_map(t_cub3d *cub3d);
 
 //parse
 void	parse_cub3d(t_cub3d *cub3d, char *path);

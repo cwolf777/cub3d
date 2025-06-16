@@ -7,22 +7,6 @@ void	init_window_size(t_cub3d *cub3d)
 	cub3d->window_height = WINDOW_HEIGHT;
 }
 
-void	init_minimap_size(t_cub3d *cub3d)
-{
-	cub3d->map.width = MINIMAP_WIDTH;
-	cub3d->map.height = MINIMAP_HEIGHT;
-}
-
-void	init_ray_caster(t_cub3d *cub3d)
-{
-	cub3d->ray_caster.num_rays = cub3d->window_width;
-	cub3d->ray_caster.angle_step = cub3d->player.fov / cub3d->ray_caster.num_rays;
-	cub3d->ray_caster.img = mlx_new_image(cub3d->mlx, cub3d->map.width, cub3d->map.height);
-	cub3d->ray_caster.dist_proj_plane = (cub3d->window_width / 2.0) / tan(cub3d->player.fov / 2.0);
-	if (!cub3d->ray_caster.img)
-		handle_error(cub3d, "Failed to create 3D view image");
-}
-
 static void	init_player(t_cub3d *cub3d)
 {
 	t_map		*map;
@@ -48,39 +32,46 @@ static void	init_player(t_cub3d *cub3d)
 	player->fov = convert_degree_to_rad(60);
 }
 
-static void	init_map(t_cub3d *cub3d)
+void	init_map(t_cub3d *cub3d)
 {
 	int		tile_width;
 	int		tile_height;
 
-	
-	tile_height = cub3d->map.height / cub3d->map.grid_height;
-	tile_width = cub3d->map.width / cub3d->map.grid_width;
-	cub3d->map.tile_size = tile_width;
-	if (tile_height < tile_width)
-		cub3d->map.tile_size = tile_height;
-	if (cub3d->map.tile_size < 2)
-		cub3d->map.tile_size = 2;
+	cub3d->minimap_img_width = cub3d->window_width / 5;
+	cub3d->minimap_img_height = cub3d->window_height / 5;
+
+	if (cub3d->minimap_img_width < MINIMAP_WIDTH)
+		cub3d->minimap_img_width = MINIMAP_WIDTH;
+	if (cub3d->minimap_img_height < MINIMAP_HEIGHT)
+		cub3d->minimap_img_height = MINIMAP_HEIGHT;
+	tile_width = cub3d->minimap_img_width / cub3d->map.grid_width;
+	tile_height = cub3d->minimap_img_height / cub3d->map.grid_height;
+	cub3d->map.tile_size = (int)fmin(tile_width, tile_height);
+	if (cub3d->map.tile_size < TILE_SIZE)
+		cub3d->map.tile_size = TILE_SIZE;
 	cub3d->map.width = cub3d->map.tile_size * cub3d->map.grid_width;
 	cub3d->map.height = cub3d->map.tile_size * cub3d->map.grid_height;
+}
+
+void	init_ray_caster(t_cub3d *cub3d)
+{
+	cub3d->ray_caster.num_rays = cub3d->window_width;
+	cub3d->ray_caster.angle_step = cub3d->player.fov / cub3d->ray_caster.num_rays;
+	cub3d->ray_caster.dist_proj_plane = (cub3d->window_width / 2.0) / tan(cub3d->player.fov / 2.0);
 }
 
 void	init_cub3d(t_cub3d *cub3d, char *path)
 {
 	cub3d->fd = -1;
-	cub3d->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", true);
-	if (!cub3d->mlx)
-		handle_error(cub3d, "MLX not initialized");
+	setup_mlx(cub3d);
 	init_window_size(cub3d);
-	init_minimap_size(cub3d);
 	parse_cub3d(cub3d, path);
 	validate_cub3d(*cub3d);
 	init_map(cub3d);
 	init_player(cub3d);
 	init_ray_caster(cub3d);
-	cub3d->view_img = mlx_new_image(cub3d->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!cub3d->view_img)
-		handle_error(cub3d, "Failed to create 3D view image");
-	mlx_image_to_window(cub3d->mlx, cub3d->view_img, 0, 0);
+	create_view(cub3d);
+	create_minimap(cub3d);
+	set_layer_order(cub3d);
 }
 

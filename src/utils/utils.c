@@ -21,9 +21,4 @@ char	**copy_grid(t_cub3d *cub3d, t_map map)
 	return (new_grid);
 }
 
-bool is_inside_image(mlx_image_t *img, int x, int y)
-{
-	if (x >= 0 && x < (int)img->width && y >= 0 && y < (int)img->height)
-		return (true);
-	return (false);
-}
+
