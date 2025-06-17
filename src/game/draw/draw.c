@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/17 10:54:29 by phhofman          #+#    #+#             */
+/*   Updated: 2025/06/17 10:54:36 by phhofman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
-void clear_image(mlx_image_t *img)
+void	clear_image(mlx_image_t *img)
 {
 	int	y;
 	int	x;
@@ -37,4 +48,3 @@ void	draw_background(mlx_image_t *img, uint32_t color)
 		y++;
 	}
 }
-

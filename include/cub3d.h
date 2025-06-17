@@ -63,7 +63,6 @@ void	flood_fill(t_cub3d *cub3d, char **grid, int x, int y);
 
 
 //minimap
-void	render_player(t_cub3d *cub3d);
 void ray_caster(t_cub3d cub3d);
 t_ray cast_single_ray(t_cub3d cub3d, double ray_angle);
 t_ray cast_horizontal_ray(t_cub3d cub3d, double ray_angle);
@@ -86,6 +85,7 @@ void	draw_floor(t_cub3d cub3d);
 void	draw_wall_slice(t_cub3d cub3d, mlx_image_t *wall_img, int x, int y, int offset_x, int wall_bottom, int wall_top);
 
 //player_controls
+bool	check_collision(t_map map, double px, double py);
 void	player_movement(t_cub3d *cub3d);
 void	rotate_left(t_cub3d *cub3d, double delta_time);
 void	rotate_right(t_cub3d *cub3d, double delta_time);

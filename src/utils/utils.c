@@ -21,13 +21,11 @@ char	**copy_grid(t_cub3d *cub3d, t_map map)
 	return (new_grid);
 }
 
-double	get_elapsed_time(void)
+double get_elapsed_time(void)
 {
-	static double	last_frame_time;
-	double			current_time;
-	double			delta_time;
-
-	last_frame_time = 0.0;
+	static double last_frame_time = 0.0;
+	double current_time;
+	double delta_time;
 	current_time = mlx_get_time();
 	if (last_frame_time == 0.0)
 		last_frame_time = current_time;
@@ -49,6 +47,6 @@ void	update_player_pos(t_cub3d *cub3d, double new_x, double new_y)
 		cub3d->player.pixel_pos.x = new_x;
 	else if (!check_collision(cub3d->map, cub3d->player.pixel_pos.x, new_y))
 		cub3d->player.pixel_pos.y = new_y;
-	cub3d->map.player_index.x = (int)(cub3d->player.pixel_pos.x / TILE_SIZE);
-	cub3d->map.player_index.y = (int)(cub3d->player.pixel_pos.y / TILE_SIZE);
+	cub3d->map.player_index.x = (int)(cub3d->player.pixel_pos.x / cub3d->map.tile_size);
+	cub3d->map.player_index.y = (int)(cub3d->player.pixel_pos.y / cub3d->map.tile_size);
 }

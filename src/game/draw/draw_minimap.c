@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_minimap.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/17 10:54:15 by phhofman          #+#    #+#             */
+/*   Updated: 2025/06/17 11:01:18 by phhofman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -7,7 +18,7 @@ void	fill_tile(t_map map, int start_x, int start_y, uint32_t color)
 	int	pixel_y;
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (y < map.tile_size - 1)
 	{
@@ -26,28 +37,28 @@ void	fill_tile(t_map map, int start_x, int start_y, uint32_t color)
 
 void	draw_minimap(t_cub3d cub3d)
 {
-	int			x;
-	int			y;
-	int		off_set_x;
-	int		off_set_y;
+	t_point_int	p;
+	t_point_int	offset;
 
 	clear_image(cub3d.map.img);
 	draw_background(cub3d.map.img, BLACK_COLOR);
-	off_set_x = (int)cub3d.player.pixel_pos.x - (cub3d.minimap_img_width / 2);
-	off_set_y = (int)cub3d.player.pixel_pos.y - (cub3d.minimap_img_height / 2);
-	y = 0;
-	while(y < cub3d.map.grid_height)
+	offset.x = (int)cub3d.player.pixel_pos.x - (cub3d.minimap_img_width / 2);
+	offset.y = (int)cub3d.player.pixel_pos.y - (cub3d.minimap_img_height / 2);
+	p.y = 0;
+	while (p.y < cub3d.map.grid_height)
 	{
-		x = 0;
-		while (x < cub3d.map.grid_width)
+		p.x = 0;
+		while (p.x < cub3d.map.grid_width)
 		{
-			if (cub3d.map.grid[y][x] == '1')
-				fill_tile(cub3d.map, x * cub3d.map.tile_size - off_set_x, y * cub3d.map.tile_size - off_set_y, GREY_COLOR);
+			if (cub3d.map.grid[p.y][p.x] == '1')
+				fill_tile(cub3d.map, p.x * cub3d.map.tile_size - offset.x, p.y
+					* cub3d.map.tile_size - offset.y, GREY_COLOR);
 			else
-				fill_tile(cub3d.map, x * cub3d.map.tile_size - off_set_x, y * cub3d.map.tile_size - off_set_y, WHITE_COLOR);
-			x++;
+				fill_tile(cub3d.map, p.x * cub3d.map.tile_size - offset.x, p.y
+					* cub3d.map.tile_size - offset.y, WHITE_COLOR);
+			p.x++;
 		}
-		y++;
+		p.y++;
 	}
 	draw_player(cub3d);
 }
@@ -57,7 +68,9 @@ void	draw_ray(t_cub3d cub3d, t_ray ray)
 	t_point	ray_end_pos;
 	t_point	ray_start_pos;
 
-	ray_start_pos = (t_point){cub3d.minimap_img_width / 2, cub3d.minimap_img_height / 2};
-	ray_end_pos = convert_world_coord_to_minimap_coord(cub3d, ray.hit_pos.x, ray.hit_pos.y);
+	ray_start_pos = (t_point){cub3d.minimap_img_width / 2,
+		cub3d.minimap_img_height / 2};
+	ray_end_pos = convert_world_coord_to_minimap_coord(cub3d, ray.hit_pos.x,
+			ray.hit_pos.y);
 	draw_line(cub3d.ray_caster.img, ray_start_pos, ray_end_pos, YELLOW_COLOR);
 }

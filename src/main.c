@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 	if (!validate_file_extension(argv[1], ".cub"))
 		handle_error(&cub3d, "File extension must be .cub");
 	init_cub3d(&cub3d, argv[1]);
-	print_cub3d_info(&cub3d);
+	// print_cub3d_info(&cub3d);
 	mlx_close_hook(cub3d.mlx, handle_close, &cub3d);
 	mlx_key_hook(cub3d.mlx, handle_keypress, &cub3d);
 	mlx_resize_hook(cub3d.mlx, handle_resize, &cub3d);
