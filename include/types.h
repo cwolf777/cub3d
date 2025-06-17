@@ -120,4 +120,21 @@ typedef struct s_point_int
 	int			y;
 }				t_point_int;
 
+typedef struct s_wall_slice
+{
+	mlx_image_t	*wall_img;
+	int			y;
+	int			offset_x;
+	int			wall_bottom;
+	int			wall_top;
+}				t_wall_slice;
+
+typedef struct s_ray_data
+{
+	double	x_intercept;
+	double	y_intercept;
+	double	x_step;
+	double	y_step;
+}			t_ray_data;
+
 #endif
