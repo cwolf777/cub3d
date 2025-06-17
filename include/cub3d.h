@@ -48,6 +48,7 @@ void	init_map(t_cub3d *cub3d);
 
 //parse
 void	parse_cub3d(t_cub3d *cub3d, char *path);
+void	parse_player_index(t_map *map);
 void	parse_graphics(t_cub3d *cub3d, int fd);
 void	parse_map(t_cub3d *cub3d, t_map *map, int fd);
 void	load_rgb(t_cub3d *cub3d, int *seen_flags, char *str);

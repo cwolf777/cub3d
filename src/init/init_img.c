@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_img.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/17 14:21:08 by phhofman          #+#    #+#             */
+/*   Updated: 2025/06/17 14:22:56 by phhofman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -5,7 +16,6 @@ static mlx_image_t	*create_img(t_cub3d *cub3d, mlx_t *mlx, char *path)
 {
 	mlx_texture_t	*texture;
 	mlx_image_t		*image;
-
 
 	texture = mlx_load_png(path);
 	if (!texture)
@@ -19,7 +29,7 @@ static mlx_image_t	*create_img(t_cub3d *cub3d, mlx_t *mlx, char *path)
 
 void	init_img(t_cub3d *cub3d, t_img *img, mlx_t *mlx, char *path)
 {
-	char *temp;
+	char	*temp;
 
 	temp = ft_strdup(path);
 	if (!temp)
@@ -29,5 +39,3 @@ void	init_img(t_cub3d *cub3d, t_img *img, mlx_t *mlx, char *path)
 	img->img = create_img(cub3d, mlx, path);
 	img->path = temp;
 }
-
-

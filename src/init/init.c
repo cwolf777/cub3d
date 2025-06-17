@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/17 14:21:40 by phhofman          #+#    #+#             */
+/*   Updated: 2025/06/17 14:22:38 by phhofman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -26,20 +37,16 @@ static void	init_player(t_cub3d *cub3d)
 	player->pixel_pos.y = (map->player_index.y * TILE_SIZE) + (TILE_SIZE / 2);
 	player->grid_pos.x = map->player_index.x;
 	player->grid_pos.y = map->player_index.y;
-	player->size = TILE_SIZE / 5;
-	player->speed = 2;
-	player->rot_speed = convert_degree_to_rad(5);
 	player->fov = convert_degree_to_rad(60);
 }
 
 void	init_map(t_cub3d *cub3d)
 {
-	int		tile_width;
-	int		tile_height;
+	int	tile_width;
+	int	tile_height;
 
 	cub3d->minimap_img_width = cub3d->window_width / 5;
 	cub3d->minimap_img_height = cub3d->window_height / 5;
-
 	if (cub3d->minimap_img_width < MINIMAP_WIDTH)
 		cub3d->minimap_img_width = MINIMAP_WIDTH;
 	if (cub3d->minimap_img_height < MINIMAP_HEIGHT)
@@ -56,8 +63,10 @@ void	init_map(t_cub3d *cub3d)
 void	init_ray_caster(t_cub3d *cub3d)
 {
 	cub3d->ray_caster.num_rays = cub3d->window_width;
-	cub3d->ray_caster.angle_step = cub3d->player.fov / cub3d->ray_caster.num_rays;
-	cub3d->ray_caster.dist_proj_plane = (cub3d->window_width / 2.0) / tan(cub3d->player.fov / 2.0);
+	cub3d->ray_caster.angle_step = cub3d->player.fov
+		/ cub3d->ray_caster.num_rays;
+	cub3d->ray_caster.dist_proj_plane = (cub3d->window_width / 2.0)
+		/ tan(cub3d->player.fov / 2.0);
 }
 
 void	init_cub3d(t_cub3d *cub3d, char *path)
@@ -74,4 +83,3 @@ void	init_cub3d(t_cub3d *cub3d, char *path)
 	create_minimap(cub3d);
 	set_layer_order(cub3d);
 }
-

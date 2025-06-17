@@ -7,6 +7,7 @@
 char		**copy_grid(t_cub3d *cub3d, t_map map);
 double		get_elapsed_time(void);
 void		update_player_pos(t_cub3d *cub3d, double new_x, double new_y);
+bool		fill_with_spaces(char **grid);
 
 //str_utils
 bool		is_white_space(char c);
