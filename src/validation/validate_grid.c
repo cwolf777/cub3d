@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_grid.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/17 15:19:37 by phhofman          #+#    #+#             */
+/*   Updated: 2025/06/17 15:20:43 by phhofman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
 void	flood_fill(t_cub3d *cub3d, char **grid, int x, int y)
 {
-	if (x < 0 || x >= cub3d->map.grid_width || y < 0 || y >= cub3d->map.grid_height)
+	if (x < 0 || x >= cub3d->map.grid_width || y < 0
+		|| y >= cub3d->map.grid_height)
 	{
 		free_grid(grid);
 		handle_error(cub3d, "Invalid Map");
@@ -47,6 +59,7 @@ void	validate_grid(t_cub3d *cub3d)
 
 	validate_chars(cub3d, cub3d->map.grid);
 	copy = copy_grid(cub3d, cub3d->map);
-	flood_fill(cub3d, copy, cub3d->map.player_index.x, cub3d->map.player_index.y);
+	flood_fill(cub3d, copy, cub3d->map.player_index.x,
+		cub3d->map.player_index.y);
 	free_grid(copy);
 }

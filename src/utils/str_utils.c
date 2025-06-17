@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/17 15:16:27 by phhofman          #+#    #+#             */
+/*   Updated: 2025/06/17 15:16:32 by phhofman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -37,10 +48,10 @@ char	*clean_str(char *str)
 	return (new_str);
 }
 
-bool no_double_newline(char *str)
+bool	no_double_newline(char *str)
 {
-	int start;
-	int end;
+	int	start;
+	int	end;
 
 	end = ft_strlen(str);
 	start = 0;
