@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:16:41 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/17 15:16:45 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:31:45 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ char	**copy_grid(t_cub3d *cub3d, t_map map)
 
 double	get_elapsed_time(void)
 {
-	static double	last_frame_time;
+	static double	last_frame_time = 0.0;
 	double			current_time;
 	double			delta_time;
 
-	last_frame_time = 0.0;
 	current_time = mlx_get_time();
 	if (last_frame_time == 0.0)
 		last_frame_time = current_time;
