@@ -56,12 +56,11 @@ typedef struct s_map
 	mlx_image_t	*img;
 	int			width;
 	int			height;
-	int			tile_size;
 }				t_map;
 
 typedef struct s_player
 {
-	t_point		pixel_pos;
+	t_point		pos;
 	t_point		grid_pos;
 	double		angle;
 	int			speed;

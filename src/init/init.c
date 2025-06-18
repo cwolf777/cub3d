@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 14:21:40 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/17 14:22:38 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:37:37 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	init_player(t_cub3d *cub3d)
 		player->angle = convert_degree_to_rad(270);
 	if (map->player_orientation == 'S')
 		player->angle = convert_degree_to_rad(90);
-	player->pixel_pos.x = (map->player_index.x * TILE_SIZE) + (TILE_SIZE / 2);
-	player->pixel_pos.y = (map->player_index.y * TILE_SIZE) + (TILE_SIZE / 2);
+	player->pos.x = (map->player_index.x * TILE_SIZE) + (TILE_SIZE / 2);
+	player->pos.y = (map->player_index.y * TILE_SIZE) + (TILE_SIZE / 2);
 	player->grid_pos.x = map->player_index.x;
 	player->grid_pos.y = map->player_index.y;
 	player->fov = convert_degree_to_rad(60);
@@ -42,22 +42,14 @@ static void	init_player(t_cub3d *cub3d)
 
 void	init_map(t_cub3d *cub3d)
 {
-	int	tile_width;
-	int	tile_height;
-
 	cub3d->minimap_img_width = cub3d->window_width / 5;
 	cub3d->minimap_img_height = cub3d->window_height / 5;
 	if (cub3d->minimap_img_width < MINIMAP_WIDTH)
 		cub3d->minimap_img_width = MINIMAP_WIDTH;
 	if (cub3d->minimap_img_height < MINIMAP_HEIGHT)
 		cub3d->minimap_img_height = MINIMAP_HEIGHT;
-	tile_width = cub3d->minimap_img_width / cub3d->map.grid_width;
-	tile_height = cub3d->minimap_img_height / cub3d->map.grid_height;
-	cub3d->map.tile_size = (int)fmin(tile_width, tile_height);
-	if (cub3d->map.tile_size < TILE_SIZE)
-		cub3d->map.tile_size = TILE_SIZE;
-	cub3d->map.width = cub3d->map.tile_size * cub3d->map.grid_width;
-	cub3d->map.height = cub3d->map.tile_size * cub3d->map.grid_height;
+	cub3d->map.width = TILE_SIZE * cub3d->map.grid_width;
+	cub3d->map.height = TILE_SIZE * cub3d->map.grid_height;
 }
 
 void	init_ray_caster(t_cub3d *cub3d)

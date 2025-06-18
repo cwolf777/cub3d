@@ -34,19 +34,41 @@ t_ray cast_single_ray(t_cub3d cub3d, double ray_angle)
 	return (hor_ray);
 }
 
+int	calc_y_step(double ray_angle)
+{
+	if (sin(ray_angle) < 0)
+		return (-TILE_SIZE);
+	return (TILE_SIZE);
+}
+int	calc_x_step(double ray_angle)
+{
+	if (cos(ray_angle) < 0)
+		return (-TILE_SIZE);
+	return (TILE_SIZE);
+}
+
+double calc_y_intercept(t_cub3d cub3d, double ray_angle, int y_step)
+{
+	double	dy;
+	double	y_intercept;
+
+	if (calc_y_step(ray_angle) < 0)
+		dy = ((cub3d.player.grid_pos.y * TILE_SIZE) + TILE_SIZE) - cub3d.player.pos.y;
+	else
+		dy = cub3d.player.pos.y - ((cub3d.player.grid_pos.y * TILE_SIZE) + TILE_SIZE);
+	y_intercept = sin(ray_angle) * dy;
+	
+}
 t_ray cast_horizontal_ray(t_cub3d cub3d, double ray_angle)
 {
 	t_ray ray;
 
 	ray.is_vertical = false;
-	double ray_dir_y = sin(ray_angle);
-	int facing_up = ray_dir_y < 0;
 
 	// Erste horizontale Gitterlinie berechnen
-	double y_intercept = floor(cub3d.player.pixel_pos.y / TILE_SIZE) * TILE_SIZE;
-	y_intercept += facing_up ? -0.0001 : TILE_SIZE;
+	double y_intercept = ;
 
-	double x_intercept = cub3d.player.pixel_pos.x + (y_intercept - cub3d.player.pixel_pos.y) / tan(ray_angle);
+	double x_intercept = cub3d.player.pos.x + (y_intercept - cub3d.player.pos.y) / tan(ray_angle);
 
 	// Schrittgrößen
 	double y_step = facing_up ? -TILE_SIZE : TILE_SIZE;
@@ -67,7 +89,7 @@ t_ray cast_horizontal_ray(t_cub3d cub3d, double ray_angle)
 		{
 			ray.hit_pos.x = next_x;
 			ray.hit_pos.y = next_y;
-			ray.distance = hypot(next_x - cub3d.player.pixel_pos.x, next_y - cub3d.player.pixel_pos.y);
+			ray.distance = hypot(next_x - cub3d.player.pos.x, next_y - cub3d.player.pos.y);
 			return ray;
 		}
 
@@ -86,10 +108,10 @@ t_ray cast_vertical_ray(t_cub3d cub3d, double ray_angle)
 
 	int facing_left = cos(ray_angle) < 0;
 
-	double x_intercept = floor(cub3d.player.pixel_pos.x / TILE_SIZE) * TILE_SIZE;
+	double x_intercept = floor(cub3d.player.pos.x / TILE_SIZE) * TILE_SIZE;
 	x_intercept += facing_left ? -0.0001 : TILE_SIZE;
 
-	double y_intercept = cub3d.player.pixel_pos.y + (x_intercept - cub3d.player.pixel_pos.x) * tan(ray_angle);
+	double y_intercept = cub3d.player.pos.y + (x_intercept - cub3d.player.pos.x) * tan(ray_angle);
 
 	double x_step = facing_left ? -TILE_SIZE : TILE_SIZE;
 	double y_step = x_step * tan(ray_angle);
@@ -108,7 +130,7 @@ t_ray cast_vertical_ray(t_cub3d cub3d, double ray_angle)
 		{
 			ray.hit_pos.x = next_x;
 			ray.hit_pos.y = next_y;
-			ray.distance = hypot(next_x - cub3d.player.pixel_pos.x, next_y - cub3d.player.pixel_pos.y);
+			ray.distance = hypot(next_x - cub3d.player.pos.x, next_y - cub3d.player.pos.y);
 			return ray;
 		}
 

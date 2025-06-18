@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:16:41 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/17 15:31:45 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:08:15 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,13 @@ void	update_player_pos(t_cub3d *cub3d, double new_x, double new_y)
 {
 	if (!check_collision(cub3d->map, new_x, new_y))
 	{
-		cub3d->player.pixel_pos.x = new_x;
-		cub3d->player.pixel_pos.y = new_y;
+		cub3d->player.pos.x = new_x;
+		cub3d->player.pos.y = new_y;
 	}
-	else if (!check_collision(cub3d->map, new_x, cub3d->player.pixel_pos.y))
-		cub3d->player.pixel_pos.x = new_x;
-	else if (!check_collision(cub3d->map, cub3d->player.pixel_pos.x, new_y))
-		cub3d->player.pixel_pos.y = new_y;
-	cub3d->map.player_index.x = (int)(cub3d->player.pixel_pos.x
-			/ cub3d->map.tile_size);
-	cub3d->map.player_index.y = (int)(cub3d->player.pixel_pos.y
-			/ cub3d->map.tile_size);
+	else if (!check_collision(cub3d->map, new_x, cub3d->player.pos.y))
+		cub3d->player.pos.x = new_x;
+	else if (!check_collision(cub3d->map, cub3d->player.pos.x, new_y))
+		cub3d->player.pos.y = new_y;
+	cub3d->player.grid_pos.x = (int)(cub3d->player.pos.x / cub3d->map.tile_size);
+	cub3d->player.grid_pos.y = (int)(cub3d->player.pos.y / cub3d->map.tile_size);
 }

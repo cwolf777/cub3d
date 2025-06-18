@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 10:54:15 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/17 11:01:18 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:39:18 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	fill_tile(t_map map, int start_x, int start_y, uint32_t color)
 	int	y;
 
 	y = 0;
-	while (y < map.tile_size - 1)
+	while (y < TILE_SIZE - 1)
 	{
 		x = 0;
-		while (x < map.tile_size - 1)
+		while (x < TILE_SIZE - 1)
 		{
 			pixel_x = x + start_x;
 			pixel_y = y + start_y;
@@ -42,8 +42,8 @@ void	draw_minimap(t_cub3d cub3d)
 
 	clear_image(cub3d.map.img);
 	draw_background(cub3d.map.img, BLACK_COLOR);
-	offset.x = (int)cub3d.player.pixel_pos.x - (cub3d.minimap_img_width / 2);
-	offset.y = (int)cub3d.player.pixel_pos.y - (cub3d.minimap_img_height / 2);
+	offset.x = (int)cub3d.player.pos.x - (cub3d.minimap_img_width / 2);
+	offset.y = (int)cub3d.player.pos.y - (cub3d.minimap_img_height / 2);
 	p.y = 0;
 	while (p.y < cub3d.map.grid_height)
 	{
@@ -51,11 +51,11 @@ void	draw_minimap(t_cub3d cub3d)
 		while (p.x < cub3d.map.grid_width)
 		{
 			if (cub3d.map.grid[p.y][p.x] == '1')
-				fill_tile(cub3d.map, p.x * cub3d.map.tile_size - offset.x, p.y
-					* cub3d.map.tile_size - offset.y, GREY_COLOR);
+				fill_tile(cub3d.map, p.x * TILE_SIZE - offset.x, p.y
+					* TILE_SIZE - offset.y, GREY_COLOR);
 			else
-				fill_tile(cub3d.map, p.x * cub3d.map.tile_size - offset.x, p.y
-					* cub3d.map.tile_size - offset.y, WHITE_COLOR);
+				fill_tile(cub3d.map, p.x * TILE_SIZE - offset.x, p.y
+					* TILE_SIZE - offset.y, WHITE_COLOR);
 			p.x++;
 		}
 		p.y++;

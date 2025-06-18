@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_caster.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cwolf <cwolf@student.42.fr>                +#+  +:+       +#+        */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:06:03 by cwolf             #+#    #+#             */
-/*   Updated: 2025/06/17 15:08:09 by cwolf            ###   ########.fr       */
+/*   Updated: 2025/06/18 13:01:48 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,25 @@ void	ray_caster(t_cub3d cub3d)
 	}
 }
 
-// void ray_caster(t_cub3d cub3d)
-// {
-// 	int		i;
-// 	t_ray	ray;
-// 	double	start_angle;
-// 	double	ray_angle;
+void ray_caster(t_cub3d cub3d)
+{
+	int		i;
+	t_ray	ray;
+	double	start_angle;
+	double	ray_angle;
 
-// 	start_angle = cub3d.player.angle - (cub3d.player.fov / 2.0);
-// 	i = 0;
-// 	while (i < cub3d.ray_caster.num_rays)
-// 	{
-// 		ray_angle = start_angle + i * cub3d.ray_caster.angle_step;
-// 		ray = cast_single_ray(cub3d, ray_angle);
-// 		if (cub3d.ray_caster.is_visible)
-// 			draw_ray(cub3d, ray);
-// 		render_wall_slice(cub3d, i, ray, ray_angle);
-// 		i++;
-// 	}
-// }
+	start_angle = cub3d.player.angle - (cub3d.player.fov / 2.0);
+	i = 0;
+	while (i < cub3d.ray_caster.num_rays)
+	{
+		ray_angle = start_angle + i * cub3d.ray_caster.angle_step;
+		ray = cast_single_ray(cub3d, ray_angle);
+		if (cub3d.ray_caster.is_visible)
+			draw_ray(cub3d, ray);
+		render_wall_slice(cub3d, i, ray, ray_angle);
+		i++;
+	}
+}
 
 // t_ray cast_single_ray(t_cub3d cub3d, double ray_angle)
 // {
