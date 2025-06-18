@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:26:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/18 11:06:48 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:52:28 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ bool	check_collision(t_map map, double px, double py)
 	{
 		check_x = px + cos(convert_degree_to_rad(i)) * PLAYER_SIZE * 1.3;
 		check_y = py + sin(convert_degree_to_rad(i)) * PLAYER_SIZE * 1.3;
-		grid_x = (int)(check_x / map.tile_size);
-		grid_y = (int)(check_y / map.tile_size);
+		grid_x = (int)(check_x / TILE_SIZE);
+		grid_y = (int)(check_y / TILE_SIZE);
 		if (grid_y < 0 || grid_y >= map.grid_height || grid_x < 0
 			|| grid_x >= map.grid_width)
 		{

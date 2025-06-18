@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:13:48 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/17 15:14:02 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:52:40 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_point	convert_world_coord_to_minimap_coord(t_cub3d cub3d, double world_x,
 	double	offset_x;
 	double	offset_y;
 
-	offset_x = cub3d.player.pixel_pos.x - (cub3d.minimap_img_width / 2);
-	offset_y = cub3d.player.pixel_pos.y - (cub3d.minimap_img_height / 2);
+	offset_x = cub3d.player.pos.x - (cub3d.minimap_img_width / 2);
+	offset_y = cub3d.player.pos.y - (cub3d.minimap_img_height / 2);
 	point.x = world_x - offset_x;
 	point.y = world_y - offset_y;
 	return (point);

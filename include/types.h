@@ -45,6 +45,12 @@ typedef struct s_point
 	double			y;
 }				t_point;
 
+typedef struct s_point_int
+{
+	int			x;
+	int			y;
+}				t_point_int;
+
 typedef struct s_map
 {
 	bool		is_visible;
@@ -61,7 +67,7 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_point		pos;
-	t_point		grid_pos;
+	t_point_int		grid_pos;
 	double		angle;
 	int			speed;
 	double		rot_speed;
@@ -113,11 +119,7 @@ typedef struct s_line_helper
 	int	sy;
 }				t_line_helper;
 
-typedef struct s_point_int
-{
-	int			x;
-	int			y;
-}				t_point_int;
+
 
 typedef struct s_wall_slice
 {
