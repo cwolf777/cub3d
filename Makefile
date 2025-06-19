@@ -56,7 +56,8 @@ $(LIBFT):
 
 $(LIBMLX):
 	git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX_DIR)
-	cmake $(LIBMLX_DIR) -B$(LIBMLX_DIR)/build && cmake --build $(LIBMLX_DIR)/build 
+	cd $(LIBMLX_DIR) && git checkout ce254c3a19af8176787601a2ac3490100a5c4c61
+	cmake $(LIBMLX_DIR) -B$(LIBMLX_DIR)/build && cmake --build $(LIBMLX_DIR)/build
 
 debug: CFLAGS = $(DEBUG_FLAGS)
 debug: re
@@ -66,6 +67,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -rf $(LIBMLX_DIR)
 
 re: fclean all
 
