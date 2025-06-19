@@ -62,13 +62,6 @@ bool	validate_rgb(t_rgb rgb);
 void	validate_player(t_cub3d *cub3d, t_map map);
 void	flood_fill(t_cub3d *cub3d, char **grid, int x, int y);
 
-
-//minimap
-void ray_caster(t_cub3d cub3d);
-t_ray cast_single_ray(t_cub3d cub3d, double ray_angle);
-t_ray cast_horizontal_ray(t_cub3d cub3d, double ray_angle);
-t_ray cast_vertical_ray(t_cub3d cub3d, double ray_angle);
-
 //render
 void	render_3d(t_cub3d cub3d);
 
@@ -100,6 +93,10 @@ void	game_loop(void *param);
 void	handle_keypress(mlx_key_data_t keydata, void *param);
 void	handle_close(void *param);
 void	handle_resize(int width, int height, void *param);
+
+//raycaster
+void	ray_caster(t_cub3d cub3d);
+t_dda	perform_dda(t_cub3d cub3d, t_point ray_dir);
 
 //3d
 void		render_wall_slice(t_cub3d cub3d, int col, t_ray ray, double ray_angle);
