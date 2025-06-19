@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/19 15:03:21 by phhofman          #+#    #+#             */
+/*   Updated: 2025/06/19 15:08:43 by phhofman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -18,7 +29,7 @@
 //PLAYER
 # define PLAYER_SIZE 10
 # define PLAYER_SPEED 150.0
-# define PLAYER_ROT_SPEED (M_PI / 2)
+# define PLAYER_ROT_SPEED 1.57079632679
 # define DIR_LINE_COLOR 0x0000FF
 
 //SETTINGS
@@ -30,15 +41,14 @@
 # define WINDOW_HEIGHT 720
 # define GRAPHICS_LENGTH 6
 
-
-#include "MLX42.h"
-#include "libft.h"
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include "utils.h"
-#include "types.h"
+# include "MLX42.h"
+# include "libft.h"
+# include "types.h"
+# include "utils.h"
+# include <math.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 //init
 void	init_cub3d(t_cub3d *cub3d, char *path);
@@ -66,8 +76,10 @@ void	flood_fill(t_cub3d *cub3d, char **grid, int x, int y);
 void	render_3d(t_cub3d cub3d);
 
 //draw
-void	draw_line(mlx_image_t *image, t_point start, t_point end, uint32_t color);
-void	draw_filled_circle(mlx_image_t *img, t_point center, int radius, uint32_t color);
+void	draw_line(mlx_image_t *image, t_point start, t_point end,
+			uint32_t color);
+void	draw_filled_circle(mlx_image_t *img, t_point center, int radius,
+			uint32_t color);
 void	draw_player(t_cub3d cub3d);
 void	fill_tile(t_map map, int x, int y, uint32_t color);
 void	draw_minimap(t_cub3d cub3d);
@@ -76,17 +88,22 @@ void	clear_image(mlx_image_t *img);
 void	draw_background(mlx_image_t *img, uint32_t color);
 void	draw_ceiling(t_cub3d cub3d);
 void	draw_floor(t_cub3d cub3d);
-void	draw_wall_slice(t_cub3d cub3d, mlx_image_t *wall_img, int x, int y, int offset_x, int wall_bottom, int wall_top);
+void	draw_wall_slice(t_cub3d cub3d, t_wall wall, int screen_column,
+			int texture_offset_x);
 
 //player_controls
 bool	check_collision(t_map map, double px, double py);
 void	player_movement(t_cub3d *cub3d);
 void	rotate_left(t_cub3d *cub3d, double delta_time);
 void	rotate_right(t_cub3d *cub3d, double delta_time);
-void	move_forward(t_cub3d *cub3d, double *move_x, double *move_y, double delta_time);
-void	move_backward(t_cub3d *cub3d, double *move_x, double *move_y, double delta_time);
-void	move_left(t_cub3d *cub3d, double *move_x, double *move_y, double delta_time);
-void	move_right(t_cub3d *cub3d, double *move_x, double *move_y, double delta_time);
+void	move_forward(t_cub3d *cub3d, double *move_x, double *move_y,
+			double delta_time);
+void	move_backward(t_cub3d *cub3d, double *move_x, double *move_y,
+			double delta_time);
+void	move_left(t_cub3d *cub3d, double *move_x, double *move_y,
+			double delta_time);
+void	move_right(t_cub3d *cub3d, double *move_x, double *move_y,
+			double delta_time);
 
 //game
 void	game_loop(void *param);
@@ -99,6 +116,6 @@ void	ray_caster(t_cub3d cub3d);
 t_dda	perform_dda(t_cub3d cub3d, t_point ray_dir);
 
 //3d
-void		render_wall_slice(t_cub3d cub3d, int col, t_ray ray, double ray_angle);
+void	render_wall_slice(t_cub3d cub3d, int col, t_ray ray, double ray_angle);
 
 #endif

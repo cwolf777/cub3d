@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 10:54:51 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/17 10:55:11 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:01:09 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,27 @@ void	draw_floor(t_cub3d cub3d)
 	}
 }
 
-void	draw_wall_slice(t_cub3d cub3d, mlx_image_t *wall_img, int x, int y,
-		int offset_x, int wall_bottom, int wall_top)
+void	draw_wall_slice(t_cub3d cub3d, t_wall wall, int screen_column,
+		int texture_offset_x)
 {
-	double		wall_y_ratio;
+	double		y_ratio;
 	uint32_t	wall_color;
 	int			tex_y;
 	uint32_t	*pixels;
+	int			y;
 
-	pixels = (uint32_t *)wall_img->pixels;
-	while (y < wall_bottom)
+	y = wall.top_pixel;
+	if (y < 0)
+		y = 0;
+	pixels = (uint32_t *)wall.texture->pixels;
+	while (y < wall.bottom_pixel)
 	{
-		// Y-Position innerhalb der Wand berechnen
-		wall_y_ratio = (double)(y - wall_top) / (wall_bottom - wall_top);
-		tex_y = wall_y_ratio * wall_img->height;
-		wall_color = pixels[tex_y * wall_img->width + offset_x];
-		if (is_inside_image(cub3d.view_img, x, y))
-			mlx_put_pixel(cub3d.view_img, x, y,
-					convert_abgr_to_rgba(wall_color));
+		y_ratio = (double)(y - wall.top_pixel) / wall.height;
+		tex_y = y_ratio * wall.texture->height;
+		wall_color = pixels[tex_y * wall.texture->width + texture_offset_x];
+		if (is_inside_image(cub3d.view_img, screen_column, y))
+			mlx_put_pixel(cub3d.view_img, screen_column, y,
+				convert_abgr_to_rgba(wall_color));
 		y++;
 	}
 }

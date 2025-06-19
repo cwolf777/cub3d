@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/19 15:02:41 by phhofman          #+#    #+#             */
+/*   Updated: 2025/06/19 15:02:43 by phhofman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-#include "types.h"
+# include "types.h"
 
 char		**copy_grid(t_cub3d *cub3d, t_map map);
 double		get_elapsed_time(void);
@@ -24,7 +35,8 @@ char		**ft_split2(char const *s, char *delimiters);
 double		convert_degree_to_rad(int degree);
 uint32_t	convert_abgr_to_rgba(uint32_t abgr);
 uint32_t	convert_t_rgb_to_rgb_code(t_rgb color);
-t_point		convert_world_coord_to_minimap_coord(t_cub3d cub3d, double world_x, double world_y);
+t_point		convert_world_coord_to_minimap_coord(t_cub3d cub3d, double world_x,
+				double world_y);
 
 //free
 void		free_cub3d(t_cub3d *cub3d);
@@ -39,7 +51,7 @@ void		print_cub3d_info(t_cub3d *cub);
 
 //mlx
 void		set_layer_order(t_cub3d *cub3d);
-bool 		is_inside_image(mlx_image_t *img, int x, int y);
+bool		is_inside_image(mlx_image_t *img, int x, int y);
 void		create_view(t_cub3d *cub3d);
 void		create_minimap(t_cub3d *cub3d);
 void		setup_mlx(t_cub3d *cub3d);

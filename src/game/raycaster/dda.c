@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 12:38:54 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/19 12:48:02 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:59:43 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ static t_point_int	calculate_step(t_point ray_dir)
 	return (step);
 }
 
-static t_point	calculate_side_dist(t_cub3d cub3d, t_point ray_dir, t_point_int step)
+static t_point	calculate_side_dist(t_cub3d cub3d, t_point ray_dir,
+		t_point_int step)
 {
-	t_point	side_dist;
-	t_point	pos;
-	t_point_int map_pos;
+	t_point		side_dist;
+	t_point		pos;
+	t_point_int	map_pos;
 
 	pos = cub3d.player.pos;
 	map_pos = cub3d.player.grid_pos;
@@ -61,7 +62,8 @@ static t_point	calculate_side_dist(t_cub3d cub3d, t_point ray_dir, t_point_int s
 	return (side_dist);
 }
 
-static void	init_dda(t_dda *dda, t_cub3d cub3d, t_point ray_dir, t_point_int step)
+static void	init_dda(t_dda *dda, t_cub3d cub3d, t_point ray_dir,
+		t_point_int step)
 {
 	dda->grid_pos = cub3d.player.grid_pos;
 	dda->side_dist = calculate_side_dist(cub3d, ray_dir, step);
@@ -71,8 +73,8 @@ static void	init_dda(t_dda *dda, t_cub3d cub3d, t_point ray_dir, t_point_int ste
 
 t_dda	perform_dda(t_cub3d cub3d, t_point ray_dir)
 {
-	t_dda			dda;
-	t_point_int		step;
+	t_dda		dda;
+	t_point_int	step;
 
 	step = calculate_step(ray_dir);
 	init_dda(&dda, cub3d, ray_dir, step);

@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:26:37 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/18 16:52:28 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:01:59 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	check_collision(t_map map, double px, double py)
 	return (false);
 }
 
-void player_movement(t_cub3d *cub3d)
+void	player_movement(t_cub3d *cub3d)
 {
 	double	delta_time;
 	double	move_x;
@@ -61,5 +61,6 @@ void player_movement(t_cub3d *cub3d)
 		rotate_left(cub3d, delta_time);
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_RIGHT))
 		rotate_right(cub3d, delta_time);
-	update_player_pos(cub3d, cub3d->player.pos.x + move_x, cub3d->player.pos.y + move_y);
+	update_player_pos(cub3d, cub3d->player.pos.x + move_x, cub3d->player.pos.y
+		+ move_y);
 }

@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 12:49:21 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/19 12:49:24 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:59:57 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static double	calculate_hit_distance(t_dda dda)
 
 t_ray	cast_ray(t_cub3d cub3d, double ray_angle)
 {
-	t_ray		ray;
-	t_point		ray_dir;
-	t_dda		dda;
+	t_ray	ray;
+	t_point	ray_dir;
+	t_dda	dda;
 
 	ray_dir.x = cos(ray_angle);
 	ray_dir.y = sin(ray_angle);
@@ -36,7 +36,7 @@ t_ray	cast_ray(t_cub3d cub3d, double ray_angle)
 	return (ray);
 }
 
-void ray_caster(t_cub3d cub3d)
+void	ray_caster(t_cub3d cub3d)
 {
 	int		i;
 	t_ray	ray;
@@ -55,4 +55,3 @@ void ray_caster(t_cub3d cub3d)
 		i++;
 	}
 }
-
