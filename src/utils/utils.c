@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:16:41 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/19 14:38:33 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:35:31 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	update_player_pos(t_cub3d *cub3d, double new_x, double new_y)
 	cub3d->player.grid_pos.y = (int)(cub3d->player.pos.y / TILE_SIZE);
 }
 
-bool	is_inside_grid(t_map map, t_point_int pos)
+bool	hit_wall(t_map map, t_point_int pos)
 {
 	if (pos.y >= 0 && pos.y < map.grid_height && pos.x >= 0
 		&& pos.x < map.grid_width && map.grid[pos.y][pos.x] == '1')

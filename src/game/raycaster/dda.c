@@ -6,7 +6,7 @@
 /*   By: phhofman <phhofman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 12:38:54 by phhofman          #+#    #+#             */
-/*   Updated: 2025/06/19 12:59:43 by phhofman         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:46:15 by phhofman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_dda	perform_dda(t_cub3d cub3d, t_point ray_dir)
 			dda.grid_pos.y += step.y;
 			dda.is_vertical = false;
 		}
-		if (is_inside_grid(cub3d.map, dda.grid_pos))
+		if (hit_wall(cub3d.map, dda.grid_pos))
 			break ;
 	}
 	return (dda);
